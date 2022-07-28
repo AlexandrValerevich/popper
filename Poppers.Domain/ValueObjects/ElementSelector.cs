@@ -15,4 +15,8 @@ public record ElementSelector
 
         Value = selector;
     }
+
+    public static implicit operator string(ElementSelector selector) => selector.Value;
+
+    public static implicit operator ElementSelector(string value) => new(value);
 }

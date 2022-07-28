@@ -23,4 +23,8 @@ public record Delay
 
         Value = delay;
     }
+
+    public static implicit operator int(Delay delay) => delay.Value;
+
+    public static implicit operator Delay(int value) => new(value);
 }

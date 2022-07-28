@@ -23,5 +23,9 @@ namespace Poppers.Domain.ValueObjects
 
             Value = duration;
         }
+
+        public static implicit operator int(Duration duration) => duration.Value;
+
+        public static implicit operator Duration(int value) => new(value);
     }
 }

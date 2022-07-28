@@ -3,7 +3,7 @@ using Poppers.Application.Gif.Common;
 
 namespace Poppers.Application.Gif.Commands;
 
-public class GifCreateCommand : IRequest<GifResult>
+public class GifCreateCommand : IRequest<GifFile>
 {
     public int Duration { get; set; }
     public int Delay { get; set; }

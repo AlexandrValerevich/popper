@@ -39,4 +39,12 @@ public class Gif
     {
         _frames.Add(frame);
     }
+
+    public void AddRangeFrames(IEnumerable<Frame> frames)
+    {
+        foreach (Frame frame in frames)
+        {
+            _frames.Add(frame);
+        }
+    }
 }

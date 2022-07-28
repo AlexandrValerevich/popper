@@ -13,15 +13,15 @@ namespace Poppers.Infrastructure.Gif.Services
             {
                 var image = new MagickImage(f.Value)
                 {
-                    AnimationDelay = gif.Delay
+                    AnimationDelay = 10
                 };
                 return image;
             });
 
             var imageCollection = new MagickImageCollection(images);
 
-            string gifName = Path.Combine(Directory.GetCurrentDirectory(), Path.GetRandomFileName() + ".gif");
-            await imageCollection.Mosaic().WriteAsync(gifName);
+            string gifName = Path.Combine(Directory.GetCurrentDirectory(), "Assets",Path.GetRandomFileName() + ".gif");
+            await imageCollection.WriteAsync(gifName);
 
             return new GifFile()
             {

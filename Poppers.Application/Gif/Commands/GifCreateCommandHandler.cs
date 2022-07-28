@@ -13,6 +13,15 @@ public class GifCreateCommandHandler : IRequestHandler<GifCreateCommand, GifFile
     private readonly IScreenshotCreator _screenshotCreator;
     private readonly IGifFileGenerator _gifFileGenerator;
 
+    public GifCreateCommandHandler(IGifFileGenerator gifFileGenerator,
+        IScreenshotCreator screenshotCreator,
+        IGifFactory gifFactory)
+    {
+        _gifFileGenerator = gifFileGenerator;
+        _screenshotCreator = screenshotCreator;
+        _gifFactory = gifFactory;
+    }
+
     public async Task<GifFile> Handle(GifCreateCommand request, CancellationToken cancellationToken)
     {
         GifDomain gif = _gifFactory.Create(
@@ -22,7 +31,7 @@ public class GifCreateCommandHandler : IRequestHandler<GifCreateCommand, GifFile
             request.Uri,
             request.ElementSelector
         );
-
+        
         ScreenshotList screenshots = await _screenshotCreator.TakeScreenshots(gif);
         IEnumerable<Frame> frames = screenshots.Value.Select(s =>
         {

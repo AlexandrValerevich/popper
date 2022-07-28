@@ -7,6 +7,9 @@ internal class BrowserFactory : IBrowserFactory
 {
     public IBrowser Create()
     {
-        return new Browser(new ChromeDriver());
+        var driver = new ChromeDriver();
+        driver.Manage().Window.Maximize();
+        
+        return new Browser(driver);
     }
 }

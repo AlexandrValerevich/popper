@@ -18,6 +18,8 @@ public class ScreenshotCreator : IScreenshotCreator
     {
         return await _browserExecutor.ExecuteAsync(async (browser) =>
         {
+            browser.NavigateTo(gif.Uri);
+
             var htmlElement = browser.GetHtmlElementBySelector(gif.Selector);
             var screenshots = new ScreenshotList();
             var timerCallback = new TimerCallback((obj) =>
@@ -31,7 +33,7 @@ public class ScreenshotCreator : IScreenshotCreator
 
             using (var timer = new Timer(timerCallback, 0, 0, gif.Delay))
             {
-                await Task.Delay(gif.Duration);
+                await Task.Delay(TimeSpan.FromSeconds(gif.Duration));
             }
 
             return screenshots;

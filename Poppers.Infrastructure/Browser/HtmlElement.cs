@@ -15,6 +15,6 @@ public class HtmlElement : IHtmlElement
 
     public byte[] TakeScreenshot()
     {
-        return (_element as ITakeScreenshot).TakeScreenshot();
+        return (_element as ITakesScreenshot)?.GetScreenshot().AsByteArray;
     }
 }

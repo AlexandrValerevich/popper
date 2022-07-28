@@ -2,15 +2,15 @@ using Poppers.Domain.Errors;
 
 namespace Poppers.Domain.ValueObjects;
 
-public record Screenshot
+public record Frame
 {
     public byte[] Value { get; }
 
-    public Screenshot(byte[] screenshot)
+    public Frame(byte[] screenshot)
     {
         if (screenshot is null || screenshot.Length == 0)
         {
-            throw new EmptyScreenshotException();
+            throw new EmptyFrameException();
         }
 
         Value = screenshot;

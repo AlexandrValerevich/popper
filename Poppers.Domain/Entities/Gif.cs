@@ -14,7 +14,7 @@ public class Gif
 
     private readonly ElementSelector _elementSelector;
 
-    private readonly ScreenshotList _screenshots = new();
+    private readonly FrameList _frames = new();
 
     internal Gif(GifId id, Duration duration, Delay delay, GifUri uri, ElementSelector selector)
     {
@@ -23,10 +23,9 @@ public class Gif
         _delay = delay;
         _uri = uri;
         _elementSelector = selector;
-
     }
 
-    public IEnumerable<Screenshot> Screenshots => _screenshots.Value;
+    public IEnumerable<Frame> Frames => _frames.Value;
 
     public int Duration => _duration.Value;
 
@@ -36,8 +35,8 @@ public class Gif
 
     public string Selector => _elementSelector.Value;
 
-    public void AddScreenshot(Screenshot screenshot)
+    public void AddFrame(Frame frame)
     {
-        _screenshots.Add(screenshot);
+        _frames.Add(frame);
     }
 }

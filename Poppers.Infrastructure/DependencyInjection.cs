@@ -11,7 +11,8 @@ public static class DependencyInjection
     {
         services.AddBrowser();
         services.AddScoped<IScreenshotCreator, ScreenshotCreator>();
-        
+        services.AddScoped<IGifFileGenerator, GifFileGenerator>();
+
         return services;
     }
 }

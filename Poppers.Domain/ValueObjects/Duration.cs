@@ -4,8 +4,8 @@ namespace Poppers.Domain.ValueObjects
 {
     public record Duration
     {
-        private static readonly int MinSecondValue = 5;
-        private static readonly int MaxSecondValue = 50;
+        private static readonly int MinSecondValue = 3;
+        private static readonly int MaxSecondValue = 25;
 
         public int Value { get; }
 

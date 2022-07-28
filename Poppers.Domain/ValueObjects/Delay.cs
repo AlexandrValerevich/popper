@@ -4,7 +4,7 @@ namespace Poppers.Domain.ValueObjects;
 
 public record Delay
 {
-    private static readonly int MinMillisecondValue = 100;
+    private static readonly int MinMillisecondValue = 10;
     private static readonly int MaxMillisecondValue = 500;
 
     public int Value { get; }

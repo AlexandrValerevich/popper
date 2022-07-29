@@ -1,6 +1,6 @@
 namespace Poppers.Browser.Interfaces;
 
-public interface IBrowserPool
+internal interface IBrowserPool
 {
     IBrowser Get();
     void Return(IBrowser browser);

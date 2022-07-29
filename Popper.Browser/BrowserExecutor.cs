@@ -2,14 +2,13 @@ using Poppers.Browser.Interfaces;
 
 namespace Poppers.Browser;
 
-public class BrowserExecutor : IBrowserExecutor
+internal class BrowserExecutor : IBrowserExecutor
 {
     private readonly IBrowserPool _browserPool;
 
     public BrowserExecutor(IBrowserPool browserPool)
     {
         _browserPool = browserPool;
-
     }
 
     public T Execute<T>(Func<IBrowser, T> callback)

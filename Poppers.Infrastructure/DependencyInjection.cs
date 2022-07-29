@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Poppers.Application.Gif.Interfaces;
-using Poppers.Infrastructure.Browser;
+using Poppers.Browser;
 using Poppers.Infrastructure.Gif.Services;
 
 namespace Poppers.Infrastructure;

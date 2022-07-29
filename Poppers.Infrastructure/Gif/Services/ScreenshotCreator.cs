@@ -1,6 +1,6 @@
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Interfaces;
-using Poppers.Infrastructure.Browser.Interfaces;
+using Poppers.Browser.Interfaces;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Gif.Services;

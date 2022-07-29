@@ -1,6 +1,6 @@
 namespace Poppers.Browser.Interfaces;
 
-public interface IBrowserFactory
+internal interface IBrowserFactory
 {
     IBrowser Create();
 }

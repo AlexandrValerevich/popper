@@ -6,8 +6,7 @@ internal class BrowserExecutor : IBrowserExecutor
 {
     private readonly IBrowserPool _browserPool;
 
-    public BrowserExecutor(IBrowserPool browserPool, 
-        IExecutorQueriesQueue queue)
+    public BrowserExecutor(IBrowserPool browserPool)
     {
         _browserPool = browserPool;
     }

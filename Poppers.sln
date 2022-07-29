@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poppers.Domain", "Poppers.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poppers.Infrastructure", "Poppers.Infrastructure\Poppers.Infrastructure.csproj", "{6AA7D8B3-84B4-4F0F-97FE-BFD028EB8381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popper.Browser", "Popper.Browser\Popper.Browser.csproj", "{CE02613B-C22A-4F23-A51D-141D2B0B6FDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poppers.Browser", "Poppers.Browser\Poppers.Browser.csproj", "{CE02613B-C22A-4F23-A51D-141D2B0B6FDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

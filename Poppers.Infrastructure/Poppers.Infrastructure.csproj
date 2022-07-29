@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Poppers.Application\Poppers.Application.csproj" />
-    <ProjectReference Include="..\Popper.Browser\Popper.Browser.csproj" />
+    <ProjectReference Include="..\Poppers.Browser\Poppers.Browser.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 namespace Poppers.Browser.Options;
 
-public class BrowserPoolOption
+public class BrowserPoolOptions
 {
     public int MinAmountBrowser { get; set; } = 1;
 

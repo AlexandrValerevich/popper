@@ -9,10 +9,10 @@ internal class BrowserPool : IBrowserPool
 {
     private readonly ConcurrentBag<IBrowser> _bag = new();
     private readonly IBrowserFactory _browserFactory;
-    private readonly BrowserPoolOption _options;
+    private readonly BrowserPoolOptions _options;
 
     public BrowserPool(IBrowserFactory browserFactory,
-        IOptions<BrowserPoolOption> option)
+        IOptions<BrowserPoolOptions> option)
     {
         _browserFactory = browserFactory;
         _options = option.Value;

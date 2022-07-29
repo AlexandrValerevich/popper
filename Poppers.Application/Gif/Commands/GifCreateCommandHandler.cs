@@ -39,7 +39,7 @@ public class GifCreateCommandHandler : IRequestHandler<GifCreateCommand, GifFile
         });
         gif.AddRangeFrames(frames);
 
-        var gifFile = await _gifFileGenerator.Generate(gif);
+        GifFile gifFile = await _gifFileGenerator.Generate(gif);
         return gifFile;
     }
 }

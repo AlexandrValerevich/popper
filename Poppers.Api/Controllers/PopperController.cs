@@ -17,7 +17,6 @@ public class PopperController : ControllerBase
         _mediator = mediator;
     }
 
-
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery]GifCreateRequest request)
     {

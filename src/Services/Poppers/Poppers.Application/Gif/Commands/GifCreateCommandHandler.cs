@@ -22,20 +22,19 @@ public class GifCreateCommandHandler : IRequestHandler<GifCreateCommand, GifFile
         _gifFactory = gifFactory;
     }
 
-    public async Task<GifFile> Handle(GifCreateCommand request, CancellationToken cancellationToken)
+    public async Task<GifFile> Handle(GifCreateCommand command, CancellationToken cancellationToken)
     {
         GifDomain gif = _gifFactory.Create(
             Guid.NewGuid(),
-            request.Duration,
-            request.Delay,
-            request.Uri,
-            request.ElementSelector
+            command.Duration,
+            command.Uri,
+            command.ElementSelector
         );
-        
+
         ScreenshotList screenshots = await _screenshotCreator.TakeScreenshots(gif);
-        IEnumerable<Frame> frames = screenshots.Value.Select(s =>
+        IEnumerable<Frame> frames = screenshots.Screenshots.Select(s =>
         {
-            return new Frame(s.Value);
+            return new Frame(s);
         });
         gif.AddRangeFrames(frames);
 

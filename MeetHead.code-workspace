@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "src/Services/Poppers"
+		},
+		{
+			"path": "src/Services/Shared"
 		}
 	],
 	"settings": {}

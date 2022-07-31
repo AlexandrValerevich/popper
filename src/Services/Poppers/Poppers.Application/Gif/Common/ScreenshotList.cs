@@ -2,5 +2,5 @@ namespace Poppers.Application.Gif.Common;
 
 public class ScreenshotList
 {
-    public List<Screenshot> Value = new();
+    public IEnumerable<byte[]> Screenshots;
 }

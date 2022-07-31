@@ -1,40 +1,27 @@
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Interfaces;
-using Poppers.Browser.Interfaces;
+using Shared.Screenshots.Client;
+using Shared.Screenshots.Contracts.V1.Requests;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Gif.Services;
 
 public class ScreenshotCreator : IScreenshotCreator
 {
-    private readonly IBrowserExecutor _browserExecutor;
+    private readonly IHttpScreenshotClient _client;
 
-    public ScreenshotCreator(IBrowserExecutor browserExecutor)
+    public ScreenshotCreator(IHttpScreenshotClient client)
     {
-        _browserExecutor = browserExecutor;
+        _client = client;
     }
 
-    public async Task<ScreenshotList> TakeScreenshots(GifDomain gif) 
-        => await _browserExecutor.ExecuteAsync(async (browser) =>
+    public async Task<ScreenshotList> TakeScreenshots(GifDomain gif)
     {
-        browser.NavigateTo(gif.Uri);
-
-        IHtmlElement htmlElement = browser.GetHtmlElementBySelector(gif.Selector);
-        var screenshots = new ScreenshotList();
-        var timerCallback = new TimerCallback((obj) =>
+        var response = await _client.GetScreenshots(new GetScreenshotsRequest(gif.Uri, gif.Selector, gif.Duration),
+            CancellationToken.None);
+        return new ScreenshotList()
         {
-            var screenshot = new Screenshot()
-            {
-                Value = htmlElement.TakeScreenshot()
-            };
-            screenshots.Value.Add(screenshot);
-        });
-
-        using (var timer = new Timer(timerCallback, 0, 0, gif.Delay))
-        {
-            await Task.Delay(TimeSpan.FromSeconds(gif.Duration));
-        }
-
-        return screenshots;
-    });
+            Screenshots = response.Screenshots
+        };
+    }
 }

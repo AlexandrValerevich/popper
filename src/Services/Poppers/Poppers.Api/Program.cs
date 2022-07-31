@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddDomain();
     builder.Services.AddApplication();
-    builder.Services.AddInfrastructure();
+    builder.Services.AddInfrastructure(builder.Configuration);
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();

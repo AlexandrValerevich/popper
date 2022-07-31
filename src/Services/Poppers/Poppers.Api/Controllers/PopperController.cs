@@ -22,7 +22,6 @@ public class PopperController : ControllerBase
     {
         GifFile response = await _mediator.Send(new GifCreateCommand()
         {
-            Delay = request.Delay,
             Duration = request.Duration,
             ElementSelector = request.Selector,
             Uri = request.Uri

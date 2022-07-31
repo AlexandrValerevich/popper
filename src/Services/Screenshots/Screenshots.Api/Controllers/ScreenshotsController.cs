@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Screenshots.Contracts.V1.Requests;
-using Screenshots.Contracts.V1.Responses;
+using Shared.Screenshots.Contracts.V1;
+using Shared.Screenshots.Contracts.V1.Requests;
+using Shared.Screenshots.Contracts.V1.Responses;
 using Screenshots.Services.Interfaces;
 
 namespace Screenshots.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class ScreenshotsController : ControllerBase
 {
     private readonly IScreenshotService _screenshotService;
@@ -16,7 +16,7 @@ public class ScreenshotsController : ControllerBase
         _screenshotService = screenshotService;
     }
 
-    [HttpGet]
+    [HttpGet(ApiRoutes.Screenshots.GetScreenshots)]
     public async Task<IActionResult> Get([FromQuery] GetScreenshotsRequest request)
     {
         var screenshots = await _screenshotService.TakeScreenshots(

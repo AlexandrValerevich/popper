@@ -1,4 +1,4 @@
-namespace Screenshots.Contracts.V1.Requests;
+namespace Shared.Screenshots.Contracts.V1.Requests;
 
 public record GetScreenshotsRequest(
     Uri Uri,

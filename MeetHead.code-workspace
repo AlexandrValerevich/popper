@@ -11,7 +11,14 @@
 		},
 		{
 			"path": "src/Services/Shared"
+		},
+		{
+			"path": "src/Services/GifFile"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"Magick"
+		]
+	}
 }

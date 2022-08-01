@@ -17,7 +17,7 @@ public class ScreenshotCreator : IScreenshotCreator
 
     public async Task<ScreenshotList> TakeScreenshots(GifDomain gif)
     {
-        var response = await _client.GetScreenshots(new GetScreenshotsRequest(gif.Uri, gif.Selector, gif.Duration),
+        var response = await _client.GetScreenshotsAsync(new GetScreenshotsRequest(gif.Uri, gif.Selector, gif.Duration),
             CancellationToken.None);
         return new ScreenshotList()
         {

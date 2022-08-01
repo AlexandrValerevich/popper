@@ -14,7 +14,7 @@ public class HttpScreenshotClient : IHttpScreenshotClient
         _client = new RestClient(client);
     }
 
-    public async Task<GetScreenshotsResponse> GetScreenshots(GetScreenshotsRequest queries,
+    public async Task<GetScreenshotsResponse> GetScreenshotsAsync(GetScreenshotsRequest queries,
         CancellationToken token)
     {
         var request = new RestRequest(ApiRoutes.Screenshots.GetScreenshots);

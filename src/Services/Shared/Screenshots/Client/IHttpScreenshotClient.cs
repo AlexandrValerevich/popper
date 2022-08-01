@@ -5,6 +5,6 @@ namespace Shared.Screenshots.Client;
 
 public interface IHttpScreenshotClient
 {
-    Task<GetScreenshotsResponse> GetScreenshots(GetScreenshotsRequest request,
+    Task<GetScreenshotsResponse> GetScreenshotsAsync(GetScreenshotsRequest request,
         CancellationToken token);
 }

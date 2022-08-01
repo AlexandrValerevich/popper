@@ -19,7 +19,7 @@ public class GifFilesController : ControllerBase
     }
 
     [HttpGet(ApiRoutes.GifFile.GetGifFileById)]
-    public async Task<IActionResult> Get([FromQuery] GetGifFileByIdRequest request)
+    public async Task<IActionResult> Get([FromRoute] GetGifFileByIdRequest request)
     {
         var gifFile = await _mediator.Send(
             new GetGifFileByIdQuery(request.Id)
@@ -38,7 +38,6 @@ public class GifFilesController : ControllerBase
             )
         );
 
-        // return Ok();
         return CreatedAtAction(
             nameof(GifFilesController.Get),
             new { gifCreationResult.Id },

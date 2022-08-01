@@ -4,5 +4,5 @@ namespace GifFiles.Application.Interfaces;
 
 public interface IGifReader
 {
-    Task<GifFile> ReadById(Guid id);
+    Task<GifFile> ReadByIdAsync(Guid id);
 }

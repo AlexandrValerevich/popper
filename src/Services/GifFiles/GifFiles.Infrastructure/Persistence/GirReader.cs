@@ -5,7 +5,7 @@ namespace GifFiles.Infrastructure.Persistence;
 
 public class GifReader : IGifReader
 {
-    public Task<GifFile> ReadById(Guid id)
+    public Task<GifFile> ReadByIdAsync(Guid id)
     {
         var gifFileName = Path.Combine(
             Directory.GetCurrentDirectory(),

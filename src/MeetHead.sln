@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFile.Api", "Services\GifFile\GifFile.Api\GifFile.Api.csproj", "{CB7D4519-945C-4F1E-9EB9-752BB2D2C545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFiles.Api", "Services\GifFiles\GifFiles.Api\GifFiles.Api.csproj", "{CB7D4519-945C-4F1E-9EB9-752BB2D2C545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFile.Contracts", "Services\GifFile\GifFile.Contracts\GifFile.Contracts.csproj", "{2F761876-ACBB-4536-80E5-B15B3DE5E492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFiles.Contracts", "Services\GifFiles\GifFiles.Contracts\GifFiles.Contracts.csproj", "{2F761876-ACBB-4536-80E5-B15B3DE5E492}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFile.Services", "Services\GifFile\GifFile.Services\GifFile.Services.csproj", "{7EE19818-FB1D-4857-8A12-7A7845B31FC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GifFiles.Services", "Services\GifFiles\GifFiles.Services\GifFiles.Services.csproj", "{7EE19818-FB1D-4857-8A12-7A7845B31FC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poppers.Api", "Services\Poppers\Poppers.Api\Poppers.Api.csproj", "{97C737FE-F896-4C5D-BD38-F7AC85EF35E6}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poppers.Domain", "Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poppers.Infrastructure", "Services\Poppers\Poppers.Infrastructure\Poppers.Infrastructure.csproj", "{E4EA3649-8884-464D-A120-ECE712DCAE4D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GifFile", "GifFile", "{6102375A-460C-4F3E-BD0C-98B53A713A8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GifFiles", "GifFiles", "{6102375A-460C-4F3E-BD0C-98B53A713A8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Poppers", "Poppers", "{5499FB8C-08E7-45E1-B5B0-FCF1E65069A5}"
 EndProject
@@ -37,7 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshots.Services", "Ser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D2E66960-4502-4CFF-8B69-139D84D3EF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Services\Shared\Shared.csproj", "{2CC958C6-3E54-4E32-9768-2F8C949B05BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Services\Shared\Shared.csproj", "{2CC958C6-3E54-4E32-9768-2F8C949B05BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GifFiles", "GifFiles", "{E14864F8-2D57-4E49-9A8C-46982E2B7279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GifFiles.Application", "Services\GifFiles\GifFiles.Application\GifFiles.Application.csproj", "{15ED9057-6D58-465C-B776-7AEC2180AAED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GifFiles.Infrastructure", "Services\GifFiles\GifFiles.Infrastructure\GifFiles.Infrastructure.csproj", "{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +107,14 @@ Global
 		{2CC958C6-3E54-4E32-9768-2F8C949B05BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC958C6-3E54-4E32-9768-2F8C949B05BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC958C6-3E54-4E32-9768-2F8C949B05BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15ED9057-6D58-465C-B776-7AEC2180AAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15ED9057-6D58-465C-B776-7AEC2180AAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15ED9057-6D58-465C-B776-7AEC2180AAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15ED9057-6D58-465C-B776-7AEC2180AAED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +134,9 @@ Global
 		{D6607326-F3AC-4876-A279-0EF7B059A556} = {EE6CCBAA-6D7F-41C3-9FE4-D891E9C8C264}
 		{C310FCC7-47CC-4CAC-B3D4-D87C3AB93252} = {EE6CCBAA-6D7F-41C3-9FE4-D891E9C8C264}
 		{2CC958C6-3E54-4E32-9768-2F8C949B05BC} = {D2E66960-4502-4CFF-8B69-139D84D3EF71}
+		{E14864F8-2D57-4E49-9A8C-46982E2B7279} = {D2E66960-4502-4CFF-8B69-139D84D3EF71}
+		{15ED9057-6D58-465C-B776-7AEC2180AAED} = {E14864F8-2D57-4E49-9A8C-46982E2B7279}
+		{3DDF1D0E-C780-48A2-9D1C-CA98AEAB267C} = {E14864F8-2D57-4E49-9A8C-46982E2B7279}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4AC71895-A3EF-468A-A26E-7B966C325F8F}

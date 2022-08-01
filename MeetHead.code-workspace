@@ -13,12 +13,13 @@
 			"path": "src/Services/Shared"
 		},
 		{
-			"path": "src/Services/GifFile"
+			"path": "src/Services/GifFiles"
 		}
 	],
 	"settings": {
 		"cSpell.words": [
 			"Magick"
-		]
+		],
+		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles"
 	}
 }

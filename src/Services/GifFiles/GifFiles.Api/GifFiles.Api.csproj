@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,9 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GifFile.Contracts\GifFile.Contracts.csproj" />
-    <ProjectReference Include="..\GifFile.Services\GifFile.Services.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\GifFiles.Infrastructure\GifFiles.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

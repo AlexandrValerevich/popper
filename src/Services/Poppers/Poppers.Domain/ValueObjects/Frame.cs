@@ -15,4 +15,9 @@ public record Frame
 
         Value = screenshot;
     }
+
+    public static implicit operator byte[](Frame frame) => frame.Value;
+
+    public static implicit operator Frame(byte[] frame) => new(frame);
+
 }

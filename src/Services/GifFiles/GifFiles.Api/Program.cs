@@ -1,4 +1,5 @@
-using GifFile.Services;
+using GifFiles.Application;
+using GifFiles.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddServices();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure();
 }
 
 var app = builder.Build();

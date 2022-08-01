@@ -14,14 +14,23 @@ public class HttpGifFileClient : IHttpGifFileClient
         _client = new RestClient(client);
     }
 
-    public async Task<GetGifFileResponse> GetGifFileAsync(GetGifFileRequest queries,
+    public async Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifFileByIdRequest queries,
         CancellationToken token)
     {
-        var request = new RestRequest(ApiRoutes.GifFile.GetGifFile);
-        // request.AddQueryParameter(nameof(queries.Images), queries.Images.ToArray());
-        request.AddQueryParameter(nameof(queries.Delay), queries.Delay);
+        var request = new RestRequest(ApiRoutes.GifFile.GetGifFileById);
+        request.AddUrlSegment("id", queries.Id);
 
         Stream response = await _client.DownloadStreamAsync(request, token);
-        return new GetGifFileResponse(response);
+        return new GetGifFileByIdResponse(response);
+    }
+
+    public async Task<CreateGifResponse> CreateGifFileAsync(CreateGifFileRequest requestBody,
+       CancellationToken token)
+    {
+        var request = new RestRequest(ApiRoutes.GifFile.CreateGifFile);
+        request.AddBody(requestBody);
+        var response = await _client.PostAsync<CreateGifResponse>(request, token);
+        
+        return response;
     }
 }

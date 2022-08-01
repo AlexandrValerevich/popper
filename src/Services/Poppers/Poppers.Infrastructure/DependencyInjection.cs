@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Poppers.Application.Gif.Interfaces;
 using Poppers.Infrastructure.Gif.Services;
+using Shared.GifFile;
 using Shared.Screenshots;
 
 namespace Poppers.Infrastructure;
@@ -18,6 +19,12 @@ public static class DependencyInjection
         {
             options.BaseUrl = config.GetValue<string>("Clients:Screenshots:BaseUrl");
             options.MaxRetryAmount = config.GetValue<int>("Clients:Screenshots:MaxRetryAmount");
+        });
+
+        services.AddGifFileClient(options =>
+        {
+            options.BaseUrl = config.GetValue<string>("Clients:GifFiles:BaseUrl");
+            options.MaxRetryAmount = config.GetValue<int>("Clients:GifFiles:MaxRetryAmount");
         });
 
         return services;

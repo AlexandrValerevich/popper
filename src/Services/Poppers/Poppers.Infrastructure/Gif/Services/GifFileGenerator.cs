@@ -1,31 +1,36 @@
 using ImageMagick;
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Interfaces;
+using Shared.GifFile.Clients;
+using Shared.GifFile.Contracts.V1.Requests;
+using Shared.GifFile.Contracts.V1.Responses;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Gif.Services
 {
     public class GifFileGenerator : IGifFileGenerator
     {
+        private readonly IHttpGifFileClient _client;
+
+        public GifFileGenerator(IHttpGifFileClient client)
+        {
+            _client = client;
+        }
+
         public async Task<GifFile> Generate(GifDomain gif)
         {
-            var images = gif.Frames.Select(f =>
-            {
-                var image = new MagickImage(f.Value)
-                {
-                    AnimationDelay = 10
-                };
-                return image;
-            });
+            CreateGifResponse createdResponce = await _client.CreateGifFileAsync(new CreateGifFileRequest(
+                Images: gif.Frames.Select(f => f.Value),
+                Delay: 10
+            ), CancellationToken.None);
 
-            var imageCollection = new MagickImageCollection(images);
-
-            string gifName = Path.Combine(Directory.GetCurrentDirectory(), "Assets",Path.GetRandomFileName() + ".gif");
-            await imageCollection.WriteAsync(gifName);
+            GetGifFileByIdResponse gifResponce = await _client.GetGifFileAsync(
+                new GetGifFileByIdRequest(createdResponce.Id),
+                CancellationToken.None);
 
             return new GifFile()
             {
-                FileStream = File.Open(gifName, FileMode.Open)
+                FileStream = gifResponce.StreamGif
             };
         }
     }

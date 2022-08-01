@@ -1,5 +1,5 @@
 namespace Shared.GifFile.Contracts.V1.Responses;
 
-public record GetGifFileResponse(
+public record GetGifFileByIdResponse(
     Stream StreamGif
 );

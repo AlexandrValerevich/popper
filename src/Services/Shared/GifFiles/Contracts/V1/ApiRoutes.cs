@@ -1,4 +1,4 @@
-namespace Shared.GifFile.Contracts.V1;
+namespace Shared.GifFiles.Contracts.V1;
 
 public static class ApiRoutes
 {

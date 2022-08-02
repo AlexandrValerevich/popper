@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Poppers.Application.Gif.Interfaces;
 using Poppers.Infrastructure.Gif.Services;
 using Shared;
-using Shared.GifFile;
+using Shared.GifFiles;
 using Shared.Screenshots;
 
 namespace Poppers.Infrastructure;

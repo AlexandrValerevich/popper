@@ -1,4 +1,4 @@
-namespace Shared.GifFile.Options;
+namespace Shared.GifFiles.Options;
 
 public class HttpGifFileClientOptions
 {

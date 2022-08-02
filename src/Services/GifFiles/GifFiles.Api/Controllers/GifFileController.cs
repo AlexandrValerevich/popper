@@ -2,9 +2,9 @@ using GifFiles.Application.Commands;
 using GifFiles.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.GifFile.Contracts.V1;
-using Shared.GifFile.Contracts.V1.Requests;
-using Shared.GifFile.Contracts.V1.Responses;
+using Shared.GifFiles.Contracts.V1.Responses;
+using Shared.GifFiles.Contracts.V1;
+using Shared.GifFiles.Contracts.V1.Requests;
 
 namespace GifFiles.Api.Controllers;
 

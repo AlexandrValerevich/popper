@@ -1,7 +1,7 @@
-using Shared.GifFile.Contracts.V1.Requests;
-using Shared.GifFile.Contracts.V1.Responses;
+using Shared.GifFiles.Contracts.V1.Requests;
+using Shared.GifFiles.Contracts.V1.Responses;
 
-namespace Shared.GifFile.Clients;
+namespace Shared.GifFiles.Clients;
 
 public interface IHttpGifFileClient
 {

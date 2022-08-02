@@ -1,7 +1,7 @@
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Interfaces;
-using Shared.GifFile.Clients;
-using Shared.GifFile.Contracts.V1.Requests;
+using Shared.GifFiles.Contracts.V1.Requests;
+using Shared.GifFiles.Clients;
 
 namespace Poppers.Infrastructure.Gif.Services;
 

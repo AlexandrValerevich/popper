@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using Shared.GifFile.Clients;
-using Shared.GifFile.Options;
+using Shared.GifFiles.Clients;
+using Shared.GifFiles.Options;
 
-namespace Shared.GifFile;
+namespace Shared.GifFiles;
 
 public static class DependencyInjection
 {

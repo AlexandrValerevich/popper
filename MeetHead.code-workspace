@@ -18,7 +18,8 @@
 	],
 	"settings": {
 		"cSpell.words": [
-			"Magick"
+			"Magick",
+			"Serilog"
 		],
 		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles",
 		"liveServer.settings.multiRootWorkspaceName": "MeetHead"

@@ -4,5 +4,5 @@ namespace GifFiles.Application.Interfaces;
 
 public interface IGifWriter
 {
-    Task<GifCreationResult> Write(IEnumerable<byte[]> images, int delay);
+    Task<GifCreationResult> Write(Guid id, IEnumerable<byte[]> images, int delay);
 }

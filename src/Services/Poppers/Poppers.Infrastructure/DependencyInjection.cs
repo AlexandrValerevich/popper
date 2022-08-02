@@ -14,7 +14,9 @@ public static class DependencyInjection
         IConfiguration config)
     {
         services.AddScoped<IScreenshotCreator, ScreenshotCreator>();
-        services.AddScoped<IGifFileGenerator, GifFileGenerator>();
+        services.AddScoped<IGifCreator, GifCreator>();
+        services.AddScoped<IGifReader, GifReader>();
+        services.AddScoped<IGifRemover, GifRemover>();
 
         services.AddScreenshotClient(options =>
         {

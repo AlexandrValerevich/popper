@@ -10,9 +10,6 @@ public abstract class ErrorControllerBase : ControllerBase
     public IActionResult Error()
     {
         var (code, title) = HandleError();
-
-        
-
         return Problem(statusCode: code, title: title);
     }
 

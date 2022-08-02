@@ -3,7 +3,7 @@ using Poppers.Application.Gif.Commands;
 
 namespace Poppers.Application.Gif.Validators;
 
-public class GifCreateCommandValidator : AbstractValidator<GifCreateCommand>
+public class GifCreateCommandValidator : AbstractValidator<CreateGifCommand>
 {
     public GifCreateCommandValidator()
     {

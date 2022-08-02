@@ -6,5 +6,6 @@ namespace Shared.GifFile.Clients;
 public interface IHttpGifFileClient
 {
     Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifFileByIdRequest request, CancellationToken token);
-    Task<CreateGifResponse> CreateGifFileAsync(CreateGifFileRequest requestBody, CancellationToken token);
+    Task<CreateGifResponse> CreateGifFileAsync(CreateGifFileRequest request, CancellationToken token);
+    Task DeleteGifFileById(DeleteGifFileByIdRequest request, CancellationToken token);
 }

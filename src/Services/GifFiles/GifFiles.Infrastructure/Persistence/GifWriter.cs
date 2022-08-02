@@ -6,7 +6,7 @@ namespace GifFiles.Infrastructure.Persistence;
 
 public class GifWriter : IGifWriter
 {
-    public async Task<GifCreationResult> Write(IEnumerable<byte[]> images, int delay)
+    public async Task<GifCreationResult> Write(Guid id, IEnumerable<byte[]> images, int delay)
     {
         var magicImages = images.Select(i =>
           {
@@ -20,7 +20,6 @@ public class GifWriter : IGifWriter
         var imageCollection = new MagickImageCollection(magicImages);
         imageCollection.Optimize();
 
-        var id = Guid.NewGuid();
         string gifName = Path.Combine(
             Directory.GetCurrentDirectory(),
             "Assets",

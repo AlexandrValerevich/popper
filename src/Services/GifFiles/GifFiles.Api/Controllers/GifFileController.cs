@@ -32,7 +32,8 @@ public class GifFilesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateGifFileRequest request)
     {
         var gifCreationResult = await _mediator.Send(
-            new CreateGifCommand(
+            new CreateGifFileCommand(
+                request.Id,
                 request.Images,
                 request.Delay
             )
@@ -45,10 +46,10 @@ public class GifFilesController : ControllerBase
     }
 
     [HttpDelete(ApiRoutes.GifFile.DeleteGifFile)]
-    public async Task<IActionResult> Delete([FromBody] DeleteGifFileByIdRequest request)
+    public async Task<IActionResult> Delete([FromRoute] DeleteGifFileByIdRequest request)
     {
         await _mediator.Send(
-            new DeleteGifCommand(request.Id)
+            new DeleteGifFileCommand(request.Id)
         );
 
         return Ok();

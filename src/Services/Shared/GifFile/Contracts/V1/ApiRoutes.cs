@@ -8,8 +8,8 @@ public static class ApiRoutes
 
     public static class GifFile
     {
-        public const string GetGifFileById = Base + "/giffile/{id}";
+        public const string GetGifFileById = Base + "/giffile/{Id}";
         public const string CreateGifFile = Base + "/giffile";
-        public const string DeleteGifFile = Base + "/giffile/{id}";
+        public const string DeleteGifFile = Base + "/giffile/{Id}";
     }
 }

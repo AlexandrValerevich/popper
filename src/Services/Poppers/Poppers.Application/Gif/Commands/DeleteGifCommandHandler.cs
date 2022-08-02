@@ -1,7 +1,7 @@
-using GifFiles.Application.Interfaces;
 using MediatR;
+using Poppers.Application.Gif.Interfaces;
 
-namespace GifFiles.Application.Commands;
+namespace Poppers.Application.Gif.Commands;
 
 public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
 {
@@ -14,8 +14,7 @@ public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
 
     public async Task<Unit> Handle(DeleteGifCommand request, CancellationToken cancellationToken)
     {
-        await _gifRemover.RemoveById(request.Id);
+        await _gifRemover.RemoveAsync(request.Id);
         return Unit.Value;
     }
 }
-

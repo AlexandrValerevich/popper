@@ -12,8 +12,6 @@ public class PopperErrorController : ErrorControllerBase
     {
         Exception exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-
-        
         return exception switch
         {
             ValidationException e => (400, e.Message),

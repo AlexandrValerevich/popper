@@ -32,6 +32,11 @@ internal class Browser : IBrowser
         return _driver.TakeScreenshot().AsByteArray;
     }
 
+    public void Quit()
+    {
+        _driver.Quit();
+    }
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);

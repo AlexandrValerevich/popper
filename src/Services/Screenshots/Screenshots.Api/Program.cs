@@ -1,4 +1,3 @@
-using Screenshots.Browser;
 using Screenshots.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,12 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddServices();
-    builder.Services.AddBrowser((options) =>
-    {
-        options.MaxAmountBrowser = 1;
-        options.MaxBrowserIdleMinutes = 1;
-    });
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure();
 }
 
 var app = builder.Build();

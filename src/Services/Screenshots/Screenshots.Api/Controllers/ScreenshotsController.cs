@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Screenshots.Application.Interfaces;
 using Shared.Screenshots.Contracts.V1;
 using Shared.Screenshots.Contracts.V1.Requests;
 using Shared.Screenshots.Contracts.V1.Responses;
-using Screenshots.Services.Interfaces;
 
 namespace Screenshots.Api.Controllers;
 

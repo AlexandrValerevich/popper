@@ -14,8 +14,15 @@ internal class BrowserExecutor : IBrowserExecutor
     public T Execute<T>(Func<IBrowser, T> callback)
     {
         IBrowser browser = _browserPool.Get();
-        T result = callback.Invoke(browser);
-        _browserPool.Return(browser);
+        T result;
+        try
+        {
+            result = callback.Invoke(browser);
+        }
+        finally
+        {
+            _browserPool.Return(browser);
+        }
 
         return result;
     }

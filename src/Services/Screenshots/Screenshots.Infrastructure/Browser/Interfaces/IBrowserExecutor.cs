@@ -1,6 +1,6 @@
 namespace Screenshots.Browser.Interfaces;
 
-public interface IBrowserExecutor
+internal interface IBrowserExecutor
 {
     T Execute<T>(Func<IBrowser, T> callback);
 

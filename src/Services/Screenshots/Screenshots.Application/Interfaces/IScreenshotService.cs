@@ -1,6 +1,6 @@
-using Screenshots.Services.DTO;
+using Screenshots.Application.DTO;
 
-namespace Screenshots.Services.Interfaces;
+namespace Screenshots.Application.Interfaces;
 
 public interface IScreenshotService
 {

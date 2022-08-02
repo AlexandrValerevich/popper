@@ -1,6 +1,6 @@
 namespace Screenshots.Browser.Interfaces;
 
-public interface ITakeScreenshot
+internal interface ITakeScreenshot
 {
     byte[] TakeScreenshot();
 }

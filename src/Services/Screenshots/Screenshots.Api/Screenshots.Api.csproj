@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Screenshots.Services\Screenshots.Services.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Screenshots.Infrastructure\Screenshots.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

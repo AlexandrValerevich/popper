@@ -17,8 +17,8 @@ public class PopperController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get([FromQuery]GifCreateRequest request)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody]CreateGifRequest request)
     {
         GifFile response = await _mediator.Send(new GifCreateCommand()
         {

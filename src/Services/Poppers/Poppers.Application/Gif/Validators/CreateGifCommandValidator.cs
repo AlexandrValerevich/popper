@@ -3,9 +3,9 @@ using Poppers.Application.Gif.Commands;
 
 namespace Poppers.Application.Gif.Validators;
 
-public class GifCreateCommandValidator : AbstractValidator<CreateGifCommand>
+public class CreateGifCommandValidator : AbstractValidator<CreateGifCommand>
 {
-    public GifCreateCommandValidator()
+    public CreateGifCommandValidator()
     {
         RuleFor(x => x.Uri).NotEmpty();
         RuleFor(x => x.ElementSelector).NotEmpty();

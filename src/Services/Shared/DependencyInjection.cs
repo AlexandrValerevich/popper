@@ -2,7 +2,7 @@ using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Behaviors;
+using Shared.Common.Behaviors;
 
 namespace Shared;
 

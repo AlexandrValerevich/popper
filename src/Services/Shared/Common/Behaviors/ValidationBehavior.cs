@@ -2,7 +2,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 
-namespace Shared.Behaviors;
+namespace Shared.Common.Behaviors;
 
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : class, IRequest<TResponse>
@@ -14,8 +14,8 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, 
-        CancellationToken cancellationToken, 
+    public async Task<TResponse> Handle(TRequest request,
+        CancellationToken cancellationToken,
         RequestHandlerDelegate<TResponse> next)
     {
         if (!_validators.Any())
@@ -24,7 +24,7 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         }
 
         var context = new ValidationContext<TRequest>(request);
-        IEnumerable<Task<ValidationResult>> validationTasks = 
+        IEnumerable<Task<ValidationResult>> validationTasks =
             _validators.Select(async (x) => await x.ValidateAsync(context));
 
         ValidationResult[] results = await Task.WhenAll(validationTasks);

@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Poppers.Application.Gif.Interfaces;
 using Poppers.Infrastructure.Gif.Services;
+using Shared;
 using Shared.GifFile;
 using Shared.Screenshots;
 
@@ -27,6 +28,7 @@ public static class DependencyInjection
             options.MaxRetryAmount = config.GetValue<int>("Clients:GifFiles:MaxRetryAmount");
         });
 
+        services.AddValidationBehavior();
         return services;
     }
 }

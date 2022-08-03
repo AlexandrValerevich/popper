@@ -23,7 +23,7 @@ public static class DependencyInjection
         services.AddScreenshotClient(options =>
         {
             options.BaseUrl = config.GetValue<string>("Clients:Screenshots:BaseUrl");
-            options.MaxRetryAmount = config.GetValue<int>("Clients:Screenshots:MaxRetryAmount");
+            options.Retry = config.GetValue<int>("Clients:Screenshots:MaxRetryAmount");
         });
 
         services.AddGifFileClient(options =>

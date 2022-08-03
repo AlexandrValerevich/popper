@@ -1,3 +1,6 @@
+using Polly;
+using Polly.Extensions.Http;
+using System.Collections.Immutable;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.GifFiles.Clients;
 using Shared.GifFiles.Options;
@@ -11,6 +14,8 @@ public static class DependencyInjection
     {
         var clintOptions = new HttpGifFileClientOptions();
         options.Invoke(clintOptions);
+
+        
 
         services.AddHttpClient<IHttpGifFileClient, HttpGifFileClient>(client =>
         {

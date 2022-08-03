@@ -1,6 +1,7 @@
 using Serilog;
 using Serilog.Events;
 using Microsoft.Extensions.Hosting;
+using Serilog.Exceptions;
 
 namespace Shared.Common.Host;
 
@@ -10,6 +11,7 @@ public static class HostLogger
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.WithExceptionDetails()
             .Enrich.FromLogContext()
             .WriteTo.Console()
             .CreateLogger();

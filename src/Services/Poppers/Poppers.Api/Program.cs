@@ -4,6 +4,7 @@ using Poppers.Domain;
 using Poppers.Infrastructure;
 using Serilog;
 using Shared.Common.Host;
+using Shared.Common.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -23,12 +24,13 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseExceptionHandler("/error");
-
     app.UseSerilogRequestLogging();
 
+    app.UseHsts();
     app.UseHttpsRedirection();
     app.UseAuthorization();
+
+    app.UseExceptionHandler("/error");
     app.MapControllers();
 
     try

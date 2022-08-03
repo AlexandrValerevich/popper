@@ -32,6 +32,7 @@ public static class DependencyInjection
             options.MaxRetryAmount = config.GetValue<int>("Clients:GifFiles:MaxRetryAmount");
         });
 
+        services.AddLogErrorBehavior();
         services.AddValidationBehavior();
         return services;
     }

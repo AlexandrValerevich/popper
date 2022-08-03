@@ -1,7 +1,6 @@
 using GifFiles.Application.Interfaces;
 using GifFiles.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
-using Poppers.Application.Gif.Validators;
 using Shared.Common;
 
 namespace GifFiles.Infrastructure;
@@ -14,6 +13,7 @@ public static class DependencyInjections
         services.AddSingleton<IGifWriter, GifWriter>();
         services.AddSingleton<IGifRemover, GifRemover>();
 
+        services.AddLogErrorBehavior();
         services.AddValidationBehavior();
 
         return services;

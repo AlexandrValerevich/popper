@@ -1,12 +1,12 @@
 using Serilog;
-using Microsoft.AspNetCore.Builder;
 using Serilog.Events;
+using Microsoft.Extensions.Hosting;
 
 namespace Shared.Common.Host;
 
 public static class HostLogger
 {
-    public static ConfigureHostBuilder UseSerilogHostLogger(this ConfigureHostBuilder host)
+    public static IHostBuilder UseSerilogHostLogger(this IHostBuilder host)
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)

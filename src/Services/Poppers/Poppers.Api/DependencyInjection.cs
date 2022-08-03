@@ -1,3 +1,5 @@
+using Shared.Common;
+
 namespace Poppers.Api;
 
 public static class DependencyInjection

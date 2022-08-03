@@ -6,7 +6,7 @@ using Shared.Common.Controllers;
 namespace Poppers.Api.Controllers;
 
 [ApiController]
-public class PopperErrorController : ErrorControllerBase
+public class ScreenshotsErrorController : ErrorControllerBase
 {
     protected override (int statusCode, string title) HandleError()
     {

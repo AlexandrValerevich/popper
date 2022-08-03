@@ -1,4 +1,4 @@
-namespace Poppers.Contracts.V1.Requests;
+namespace Shared.Poppers.Contracts.V1.Requests;
 
 public record CreateGifRequest(
     string Uri,

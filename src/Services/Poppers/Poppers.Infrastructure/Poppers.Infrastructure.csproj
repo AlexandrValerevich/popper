@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Poppers.Application\Poppers.Application.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.GifFiles\Shared.GifFiles.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Screenshots\Shared.Screenshots.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Poppers\Shared.Poppers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

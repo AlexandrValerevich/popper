@@ -3,6 +3,7 @@ using Poppers.Application;
 using Poppers.Domain;
 using Poppers.Infrastructure;
 using Serilog;
+using Shared.Common.Host;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -11,13 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddApplication();
     builder.Services.AddDomain();
 
-    builder.Host.UseSerilog((context, services, configuration) => configuration
-        .ReadFrom.Configuration(context.Configuration)
-        .ReadFrom.Services(services)
-        .Enrich.WithMachineName()
-        .Enrich.FromLogContext()
-        .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
-        .WriteTo.Console());
+    builder.Host.UseSerilogHostLogger();
 }
 
 var app = builder.Build();

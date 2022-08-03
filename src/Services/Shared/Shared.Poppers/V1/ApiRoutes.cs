@@ -1,4 +1,4 @@
-namespace Poppers.Contracts.V1;
+namespace Shared.Poppers.Contracts.V1;
 
 public static class ApiRoutes
 {

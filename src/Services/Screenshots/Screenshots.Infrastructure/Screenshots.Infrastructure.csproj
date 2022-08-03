@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Screenshots.Application\Screenshots.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Screenshots\Shared.Screenshots.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj" />
   </ItemGroup>
 
 </Project>

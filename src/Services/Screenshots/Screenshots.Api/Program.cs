@@ -1,17 +1,12 @@
 using Screenshots.Api;
 using Screenshots.Services;
 using Serilog;
+using Shared.Common.Host;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Host.UseSerilog((context, services, configuration) => configuration
-        .ReadFrom.Configuration(context.Configuration)
-        .ReadFrom.Services(services)
-        .Enrich.WithMachineName()
-        .Enrich.FromLogContext()
-        .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
-        .WriteTo.Console());
-
+    builder.Host.UseSerilogHostLogger();
+    
     builder.Services.AddApi();
     builder.Services.AddInfrastructure();
     builder.Services.AddApplication();

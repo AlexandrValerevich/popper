@@ -1,6 +1,3 @@
-using Serilog;
-using Serilog.Events;
-
 namespace GifFiles.Api;
 
 public static class DependencyInjection
@@ -10,12 +7,6 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .Enrich.FromLogContext()
-            .WriteTo.Console()
-            .CreateLogger();
 
         return services;
     }

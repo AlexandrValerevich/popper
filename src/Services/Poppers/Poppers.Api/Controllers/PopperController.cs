@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Poppers.Application.Gif.Commands;
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Queries;
-using Poppers.Contracts.V1;
-using Poppers.Contracts.V1.Requests;
-using Poppers.Contracts.V1.Responses;
+using Shared.Poppers.Contracts.V1;
+using Shared.Poppers.Contracts.V1.Requests;
+using Shared.Poppers.Contracts.V1.Responses;
 
 namespace Poppers.Api.Controllers;
 

@@ -4,7 +4,6 @@ using Poppers.Domain;
 using Poppers.Infrastructure;
 using Serilog;
 using Shared.Common.Host;
-using Shared.Common.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -23,7 +22,7 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
+    
     app.UseSerilogRequestLogging();
 
     app.UseHsts();

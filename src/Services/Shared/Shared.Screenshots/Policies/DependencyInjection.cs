@@ -24,18 +24,48 @@ public static class DependencyInjection
         var bulkhead = CreateBulkHeadPolicy(options);
         var httpScreenshot = Policy.WrapAsync(retry, breaker, bulkhead, timeout);
 
-        var register = new PolicyRegistry
+        var pairs = new List<KeyValuePair<string, IsPolicy>>
         {
-            { PolicyKeys.RetriesAndWaits, retry },
-            { PolicyKeys.CircleBrackets, breaker },
-            { PolicyKeys.TimeOut, timeout },
-            { PolicyKeys.BulkHead, bulkhead },
-            { PolicyKeys.HttpScreenshotClient, httpScreenshot }
+            new(PolicyKeys.RetriesAndWaits, retry),
+            new(PolicyKeys.CircleBrackets, breaker),
+            new(PolicyKeys.TimeOut, timeout),
+            new(PolicyKeys.BulkHead, bulkhead),
+            new(PolicyKeys.HttpScreenshotClient, httpScreenshot)
         };
+        services.AddPolicies(pairs);
 
-        services.AddPolicyRegistry(register);
+        // var register = new PolicyRegistry
+        // {
+        //     { PolicyKeys.RetriesAndWaits, retry },
+        //     { PolicyKeys.CircleBrackets, breaker },
+        //     { PolicyKeys.TimeOut, timeout },
+        //     { PolicyKeys.BulkHead, bulkhead },
+        //     { PolicyKeys.HttpScreenshotClient, httpScreenshot }
+        // };
+
+        // services.AddPolicyRegistry(register);
         return services;
     }
+
+    private static void AddPolicies(this IServiceCollection services,
+        List<KeyValuePair<string, IsPolicy>> policies)
+    {
+        using var provider = services.BuildServiceProvider();
+        var register = provider.GetService<IPolicyRegistry<string>>();
+
+        if (register == null)
+        {
+            register = new PolicyRegistry();
+        }
+
+        foreach (KeyValuePair<string, IsPolicy> policy in policies)
+        {
+            register.Add(policy.Key, policy.Value);
+        }
+
+        services.AddPolicyRegistry(register);
+    }
+
 
     private static AsyncBulkheadPolicy<HttpResponseMessage> CreateBulkHeadPolicy(HttpScreenshotClientOptions options)
     {

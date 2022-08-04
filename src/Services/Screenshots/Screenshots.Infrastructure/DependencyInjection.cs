@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Screenshots.Application.Interfaces;
 using Screenshots.Browser;
 using Screenshots.Infrastructure.Helpers;
+using Shared.Common;
 
 namespace Screenshots.Services;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
             options.MaxAmountBrowser = 2;
             options.MaxBrowserIdleMinutes = 1;
         });
+
+        services.AddValidationBehavior();
         return services;
     }
 }

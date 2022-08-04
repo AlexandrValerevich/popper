@@ -14,8 +14,8 @@ public class HttpScreenshotClientOptions
     
     public int WaitAfterConsecutiveBrake { get; set; } = 60;
 
-    public int MaxParallel { get; set; } = 12;
+    public int MaxParallel { get; set; } = 6;
     
-    public int MaxQueue { get; set; } = 6;
+    public int MaxQueue { get; set; } = 50;
 
 }

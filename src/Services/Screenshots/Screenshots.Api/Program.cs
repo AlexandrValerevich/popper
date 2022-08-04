@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Host.UseSerilogHostLogger();
     
     builder.Services.AddApi();
-    builder.Services.AddInfrastructure();
     builder.Services.AddApplication();
+    builder.Services.AddInfrastructure();
 }
 
 var app = builder.Build();

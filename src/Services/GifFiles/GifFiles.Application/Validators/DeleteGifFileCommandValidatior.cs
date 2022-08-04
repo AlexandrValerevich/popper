@@ -3,9 +3,9 @@ using GifFiles.Application.Commands;
 
 namespace Poppers.Application.Gif.Validators;
 
-public class DeleteGifFileCommandValidatior : AbstractValidator<DeleteGifFileCommand>
+public class DeleteGifFileCommandValidator : AbstractValidator<DeleteGifFileCommand>
 {
-    public DeleteGifFileCommandValidatior()
+    public DeleteGifFileCommandValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
     }

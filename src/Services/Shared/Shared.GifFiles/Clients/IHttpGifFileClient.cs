@@ -7,5 +7,5 @@ public interface IHttpGifFileClient
 {
     Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifFileByIdRequest request, CancellationToken token);
     Task<CreateGifResponse> CreateGifFileAsync(CreateGifFileRequest request, CancellationToken token);
-    Task DeleteGifFileById(DeleteGifFileByIdRequest request, CancellationToken token);
+    Task DeleteGifFileByIdAsync(DeleteGifFileByIdRequest request, CancellationToken token);
 }

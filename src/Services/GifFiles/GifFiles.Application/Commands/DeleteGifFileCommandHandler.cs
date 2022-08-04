@@ -12,9 +12,9 @@ public class DeleteGifFileCommandHandler : IRequestHandler<DeleteGifFileCommand>
         _gifRemover = gifRemover;
     }
 
-    public async Task<Unit> Handle(DeleteGifFileCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteGifFileCommand request, CancellationToken token)
     {
-        await _gifRemover.RemoveById(request.Id);
+        await _gifRemover.RemoveByIdAsync(request.Id, token);
         return Unit.Value;
     }
 }

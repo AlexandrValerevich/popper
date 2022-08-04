@@ -13,12 +13,13 @@ public class CreateGifFileCommandHandler : IRequestHandler<CreateGifFileCommand,
         _gifWriter = gifWriter;
     }
 
-    public async Task<GifCreationResult> Handle(CreateGifFileCommand request, CancellationToken cancellationToken)
+    public async Task<GifCreationResult> Handle(CreateGifFileCommand request, CancellationToken token)
     {
-        GifCreationResult gifCreation = await _gifWriter.Write(
+        GifCreationResult gifCreation = await _gifWriter.WriteAsync(
             request.Id,
             request.Images,
-            request.Delay
+            request.Delay,
+            token
         );
 
         return gifCreation;

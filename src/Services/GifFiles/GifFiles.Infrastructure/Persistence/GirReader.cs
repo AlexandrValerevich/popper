@@ -5,14 +5,14 @@ namespace GifFiles.Infrastructure.Persistence;
 
 public class GifReader : IGifReader
 {
-    public Task<GifFile> ReadByIdAsync(Guid id)
+    public ValueTask<GifFile> ReadByIdAsync(Guid id, CancellationToken token)
     {
-        var gifFileName = Path.Combine(
+        string gifFileName = Path.Combine(
             Directory.GetCurrentDirectory(),
             "Assets",
             id + ".gif");
 
-        return Task.FromResult(new GifFile()
+        return ValueTask.FromResult(new GifFile()
         {
             Id = id,
             Stream = File.Open(gifFileName, FileMode.Open)

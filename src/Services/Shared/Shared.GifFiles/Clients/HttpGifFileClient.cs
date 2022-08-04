@@ -34,7 +34,7 @@ public class HttpGifFileClient : IHttpGifFileClient
         return response;
     }
 
-    public async Task DeleteGifFileById(DeleteGifFileByIdRequest request,
+    public async Task DeleteGifFileByIdAsync(DeleteGifFileByIdRequest request,
        CancellationToken token)
     {
 

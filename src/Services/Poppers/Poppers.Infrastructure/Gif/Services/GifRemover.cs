@@ -15,7 +15,7 @@ public class GifRemover : IGifRemover
 
     public async Task RemoveAsync(Guid id, CancellationToken token)
     {
-        await _client.DeleteGifFileById(
+        await _client.DeleteGifFileByIdAsync(
             new DeleteGifFileByIdRequest(id),
             token);
     }

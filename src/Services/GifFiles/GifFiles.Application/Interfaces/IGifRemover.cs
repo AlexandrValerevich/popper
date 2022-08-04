@@ -2,5 +2,5 @@ namespace GifFiles.Application.Interfaces;
 
 public interface IGifRemover
 {
-    Task RemoveById(Guid id);
+    ValueTask RemoveByIdAsync(Guid id, CancellationToken token);
 }

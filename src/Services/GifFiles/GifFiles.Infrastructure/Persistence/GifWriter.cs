@@ -6,7 +6,10 @@ namespace GifFiles.Infrastructure.Persistence;
 
 public class GifWriter : IGifWriter
 {
-    public async Task<GifCreationResult> Write(Guid id, IEnumerable<byte[]> images, int delay)
+    public async Task<GifCreationResult> WriteAsync(Guid id,
+        IEnumerable<byte[]> images,
+        int delay,
+        CancellationToken token)
     {
         IEnumerable<MagickImage> magicImages = MapMagicImage(images, delay);
 
@@ -18,8 +21,7 @@ public class GifWriter : IGifWriter
             "Assets",
             id + ".gif");
 
-        await imageCollection.WriteAsync(gifName);
-
+        await imageCollection.WriteAsync(gifName, token);
         return new GifCreationResult(id);
     }
 

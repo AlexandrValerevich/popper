@@ -4,7 +4,7 @@ namespace GifFiles.Infrastructure.Persistence;
 
 public class GifRemover : IGifRemover
 {
-    public Task RemoveById(Guid id)
+    public ValueTask RemoveByIdAsync(Guid id, CancellationToken token)
     {
         var gifFileName = Path.Combine(
             Directory.GetCurrentDirectory(),
@@ -13,6 +13,6 @@ public class GifRemover : IGifRemover
 
         File.Delete(gifFileName);
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

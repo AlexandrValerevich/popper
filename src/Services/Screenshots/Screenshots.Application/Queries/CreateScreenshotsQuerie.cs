@@ -1,9 +1,9 @@
 using MediatR;
-using Screenshots.Application.DTO;
+using Screenshots.Application.Common;
 
 namespace Screenshots.Application.Queries;
 
 public record CreateScreenshotsQuery(
     Uri Uri,
     string Selector,
-    int Duration) : IRequest<ScreenshotsListDTO>;
+    int Duration) : IRequest<ScreenshotsList>;

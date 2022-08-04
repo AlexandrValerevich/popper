@@ -1,8 +1,8 @@
-using Screenshots.Application.DTO;
+using Screenshots.Application.Common;
 
 namespace Screenshots.Application.Interfaces;
 
 public interface IScreenshotGenerator
 {
-    Task<ScreenshotsListDTO> Generate(Uri uri, string selector, int duration, CancellationToken token);
+    Task<ScreenshotsList> GenerateAsync(Uri uri, string selector, int duration, CancellationToken token);
 }

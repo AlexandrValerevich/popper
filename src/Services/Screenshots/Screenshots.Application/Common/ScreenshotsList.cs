@@ -1,6 +1,6 @@
-namespace Screenshots.Application.DTO;
+namespace Screenshots.Application.Common;
 
-public class ScreenshotsListDTO
+public class ScreenshotsList
 {
     public IEnumerable<byte[]> Screenshots { get; set; } = new List<byte[]>();
 }

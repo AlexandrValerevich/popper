@@ -1,10 +1,10 @@
 using MediatR;
-using Screenshots.Application.DTO;
+using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 
 namespace Screenshots.Application.Queries;
 
-public class CreateScreenshotsQueryHandler : IRequestHandler<CreateScreenshotsQuery, ScreenshotsListDTO>
+public class CreateScreenshotsQueryHandler : IRequestHandler<CreateScreenshotsQuery, ScreenshotsList>
 {
     private readonly IScreenshotGenerator _screenshotGenerator;
 
@@ -13,10 +13,10 @@ public class CreateScreenshotsQueryHandler : IRequestHandler<CreateScreenshotsQu
         _screenshotGenerator = browserExecutor;
     }
 
-    public async Task<ScreenshotsListDTO> Handle(CreateScreenshotsQuery request,
+    public async Task<ScreenshotsList> Handle(CreateScreenshotsQuery request,
         CancellationToken token)
     {
-        return await _screenshotGenerator.Generate(
+        return await _screenshotGenerator.GenerateAsync(
             request.Uri,
             request.Selector,
             request.Duration,

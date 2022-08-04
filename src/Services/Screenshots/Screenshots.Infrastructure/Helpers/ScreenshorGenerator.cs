@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Screenshots.Application.DTO;
+using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Browser.Interfaces;
 
@@ -14,7 +14,7 @@ namespace Screenshots.Infrastructure.Helpers
             _screenshotGenerator = browserExecutor;
         }
 
-        public Task<ScreenshotsListDTO> Generate(Uri uri, string selector, int duration, CancellationToken token)
+        public Task<ScreenshotsList> GenerateAsync(Uri uri, string selector, int duration, CancellationToken token)
             => _screenshotGenerator.Execute((browser) =>
             {
                 browser.NavigateTo(uri);
@@ -30,7 +30,7 @@ namespace Screenshots.Infrastructure.Helpers
                 }
                 stopwatch.Stop();
 
-                return Task.FromResult(new ScreenshotsListDTO()
+                return Task.FromResult(new ScreenshotsList()
                 {
                     Screenshots = screenshots
                 });

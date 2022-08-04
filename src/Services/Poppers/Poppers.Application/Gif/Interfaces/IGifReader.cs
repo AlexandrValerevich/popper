@@ -4,5 +4,5 @@ namespace Poppers.Application.Gif.Interfaces;
 
 public interface IGifReader
 {
-    Task<GifFile> ReadAsync(Guid id);
+    Task<GifFile> ReadAsync(Guid id, CancellationToken token);
 }

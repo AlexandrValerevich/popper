@@ -13,10 +13,10 @@ public class GifRemover : IGifRemover
         _client = client;
     }
 
-    public async Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id, CancellationToken token)
     {
         await _client.DeleteGifFileById(
             new DeleteGifFileByIdRequest(id),
-            CancellationToken.None);
+            token);
     }
 }

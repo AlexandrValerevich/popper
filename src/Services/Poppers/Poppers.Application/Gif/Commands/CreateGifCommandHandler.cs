@@ -23,7 +23,7 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
     }
 
     public async Task<GifCreationResult> Handle(CreateGifCommand command,
-        CancellationToken cancellationToken)
+        CancellationToken token)
     {
         GifDomain gif = _gifFactory.Create(
             Guid.NewGuid(),
@@ -32,18 +32,17 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
             command.ElementSelector
         );
 
-        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshots(gif);
+        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
         IEnumerable<Frame> frames = MapFrames(screenshots);
         gif.AddRangeFrames(frames);
 
-        await _gifFileCreator.Create(gif);
+        await _gifFileCreator.CreateAsync(gif, token);
 
         return new GifCreationResult(gif.Id);
     }
 
     private static IEnumerable<Frame> MapFrames(ScreenshotList screenshots)
     {
-        // Add mapster
         return screenshots.Screenshots.Select(s =>
         {
             return new Frame(s);

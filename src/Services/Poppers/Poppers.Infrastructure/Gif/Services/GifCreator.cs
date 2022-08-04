@@ -14,13 +14,13 @@ namespace Poppers.Infrastructure.Gif.Services
             _client = client;
         }
 
-        public async Task Create(GifDomain gif)
+        public async Task CreateAsync(GifDomain gif, CancellationToken token)
         {
             await _client.CreateGifFileAsync(new CreateGifFileRequest(
                 Id: gif.Id,
                 Images: gif.Frames.Select(f => f.Value),
                 Delay: 10
-            ), CancellationToken.None);
+            ), token);
         }
     }
 }

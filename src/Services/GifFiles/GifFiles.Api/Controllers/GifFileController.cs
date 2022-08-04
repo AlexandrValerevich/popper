@@ -19,25 +19,27 @@ public class GifFilesController : ControllerBase
     }
 
     [HttpGet(ApiRoutes.GifFile.GetGifFileById)]
-    public async Task<IActionResult> Get([FromRoute] GetGifFileByIdRequest request)
+    public async Task<IActionResult> Get([FromRoute] GetGifFileByIdRequest request,
+        CancellationToken token)
     {
         var gifFile = await _mediator.Send(
-            new GetGifFileByIdQuery(request.Id)
-        );
+            new GetGifFileByIdQuery(request.Id),
+            token);
 
         return File(gifFile.Stream, "image/gif");
     }
 
     [HttpPost(ApiRoutes.GifFile.CreateGifFile)]
-    public async Task<IActionResult> Create([FromBody] CreateGifFileRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateGifFileRequest request,
+        CancellationToken token)
     {
         var gifCreationResult = await _mediator.Send(
             new CreateGifFileCommand(
                 request.Id,
                 request.Images,
                 request.Delay
-            )
-        );
+            ),
+            token);
 
         return CreatedAtAction(
             nameof(GifFilesController.Get),
@@ -46,10 +48,12 @@ public class GifFilesController : ControllerBase
     }
 
     [HttpDelete(ApiRoutes.GifFile.DeleteGifFile)]
-    public async Task<IActionResult> Delete([FromRoute] DeleteGifFileByIdRequest request)
+    public async Task<IActionResult> Delete([FromRoute] DeleteGifFileByIdRequest request,
+        CancellationToken token)
     {
         await _mediator.Send(
-            new DeleteGifFileCommand(request.Id)
+            new DeleteGifFileCommand(request.Id),
+            token
         );
 
         return Ok();

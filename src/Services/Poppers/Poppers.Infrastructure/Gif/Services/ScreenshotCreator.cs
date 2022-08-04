@@ -15,10 +15,12 @@ public class ScreenshotCreator : IScreenshotCreator
         _client = client;
     }
 
-    public async Task<ScreenshotList> TakeScreenshots(GifDomain gif)
+    public async Task<ScreenshotList> TakeScreenshotsAsync(GifDomain gif, CancellationToken token)
     {
-        var response = await _client.GetScreenshotsAsync(new GetScreenshotsRequest(gif.Uri, gif.Selector, gif.Duration),
-            CancellationToken.None);
+        var response = await _client.GetScreenshotsAsync(
+            new GetScreenshotsRequest(gif.Uri, gif.Selector, gif.Duration),
+            token);
+
         return new ScreenshotList()
         {
             Screenshots = response.Screenshots

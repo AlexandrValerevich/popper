@@ -4,5 +4,5 @@ namespace Poppers.Application.Gif.Interfaces;
 
 public interface IGifCreator
 {
-    Task Create(GifDomain gif);
+    Task CreateAsync(GifDomain gif, CancellationToken token);
 }

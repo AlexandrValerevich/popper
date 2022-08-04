@@ -5,5 +5,5 @@ namespace Poppers.Application.Gif.Interfaces;
 
 public interface IScreenshotCreator
 {
-    Task<ScreenshotList> TakeScreenshots(GifDomain gif);
+    Task<ScreenshotList> TakeScreenshotsAsync(GifDomain gif, CancellationToken token);
 }

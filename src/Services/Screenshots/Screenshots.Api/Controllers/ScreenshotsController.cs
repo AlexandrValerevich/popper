@@ -1,5 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screenshots.Application.Interfaces;
+using Screenshots.Application.Queries;
 using Shared.Screenshots.Contracts.V1;
 using Shared.Screenshots.Contracts.V1.Requests;
 using Shared.Screenshots.Contracts.V1.Responses;
@@ -9,21 +11,21 @@ namespace Screenshots.Api.Controllers;
 [ApiController]
 public class ScreenshotsController : ControllerBase
 {
-    private readonly IScreenshotService _screenshotService;
+    public readonly IMediator _mediator;
 
-    public ScreenshotsController(IScreenshotService screenshotService)
+    public ScreenshotsController(IMediator mediator)
     {
-        _screenshotService = screenshotService;
+        _mediator = mediator;
     }
 
     [HttpGet(ApiRoutes.Screenshots.GetScreenshots)]
-    public async Task<IActionResult> Get([FromQuery] GetScreenshotsRequest request)
+    public async Task<IActionResult> Get([FromQuery] GetScreenshotsRequest request,
+        CancellationToken token)
     {
-        var screenshots = await _screenshotService.TakeScreenshots(
-            request.Uri,
-            request.Selector,
-            request.Duration);
+        var response = await _mediator.Send(
+            new CreateScreenshotsQuery(request.Uri, request.Selector, request.Duration),
+            token);
 
-        return Ok(new GetScreenshotsResponse(screenshots.Screenshots));
+        return Ok(new GetScreenshotsResponse(response.Screenshots));
     }
 }

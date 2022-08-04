@@ -14,7 +14,7 @@ namespace Screenshots.Infrastructure.Helpers
             _screenshotGenerator = browserExecutor;
         }
 
-        public Task<ScreenshotsListDTO> Generate(Uri uri, string selector, int duration)
+        public Task<ScreenshotsListDTO> Generate(Uri uri, string selector, int duration, CancellationToken token)
             => _screenshotGenerator.Execute((browser) =>
             {
                 browser.NavigateTo(uri);

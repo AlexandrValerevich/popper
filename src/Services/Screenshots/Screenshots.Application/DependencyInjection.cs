@@ -1,14 +1,16 @@
+using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Screenshots.Application.Interfaces;
-using Screenshots.Application.Services;
 
 namespace Screenshots.Services;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection service)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        service.AddSingleton<IScreenshotService, ScreenshotService>();
-        return service;
+        services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        return services;
     }
 }

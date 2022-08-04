@@ -12,7 +12,7 @@ public static class DependencyInjection
         services.AddSingleton<IScreenshotGenerator, ScreenshotGenerator>();
         services.AddBrowser((options) =>
         {
-            options.MaxAmountBrowser = 1;
+            options.MaxAmountBrowser = 2;
             options.MaxBrowserIdleMinutes = 1;
         });
         return services;

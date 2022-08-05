@@ -5,6 +5,7 @@ using Polly.Bulkhead;
 using Polly.Registry;
 using Polly.Retry;
 using Polly.Timeout;
+using Polly.Wrap;
 using Screenshots.Infrastructure.Options;
 
 namespace Shared.GifFiles.Policies;
@@ -20,9 +21,9 @@ public static class DependencyInjection
         builder?.Invoke(options);
 
         var retry = CreateWaitAndRetryPolicy(options);
-        var timeout = CreateTimeOutPolicy(options);
         var bulkhead = CreateBulkHeadPolicy(options);
-        var browserExecution = Policy.WrapAsync(retry, bulkhead, timeout);
+        var timeout = CreateTimeOutPolicy(options);
+        AsyncPolicyWrap browserExecution = Policy.WrapAsync(retry, bulkhead, timeout);
 
         var pairs = new List<KeyValuePair<string, IsPolicy>>
         {
@@ -35,6 +36,29 @@ public static class DependencyInjection
         services.AddPolicies(pairs);
 
         return services;
+    }
+
+    private static AsyncRetryPolicy CreateWaitAndRetryPolicy(BrowserPoolOptions options)
+    {
+        var jitterer = new Random();
+        return Policy.Handle<Exception>()
+            .WaitAndRetryAsync(options.Retry,
+                attempt => TimeSpan.FromSeconds(attempt * options.Wait)
+                        + TimeSpan.FromSeconds(jitterer.Next(0, 5)));
+    }
+
+    private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoolOptions options)
+    {
+        return Policy.BulkheadAsync(
+            options.MaxParallel,
+            options.MaxQueue
+        );
+    }
+
+
+    private static AsyncTimeoutPolicy CreateTimeOutPolicy(BrowserPoolOptions options)
+    {
+        return Policy.TimeoutAsync(options.TimeOut);
     }
 
     private static void AddPolicies(this IServiceCollection services,
@@ -56,25 +80,4 @@ public static class DependencyInjection
         services.AddPolicyRegistry(register);
     }
 
-    private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoolOptions options)
-    {
-        return Policy.BulkheadAsync(
-            options.MaxParallel,
-            options.MaxQueue
-        );
-    }
-
-    private static AsyncTimeoutPolicy CreateTimeOutPolicy(BrowserPoolOptions options)
-    {
-        return Policy.TimeoutAsync(options.TimeOut);
-    }
-
-    private static AsyncRetryPolicy CreateWaitAndRetryPolicy(BrowserPoolOptions options)
-    {
-        var jitterer = new Random();
-        return Policy.Handle<NoSuchElementException>()
-            .WaitAndRetryAsync(options.Retry,
-                attempt => TimeSpan.FromSeconds(attempt * options.Wait)
-                        + TimeSpan.FromMilliseconds(jitterer.Next(0, 1000)));
-    }
 }

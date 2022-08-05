@@ -6,7 +6,7 @@ public class HttpScreenshotClientOptions
     
     public int Retry { get; set; } = 3;
    
-    public int MinWait { get; set; } = 10;
+    public int MinWait { get; set; } = 15;
 
     public int TimeOut { get; set; } = 60;
 

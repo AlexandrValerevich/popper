@@ -1,10 +1,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Browser;
+using Screenshots.Infrastructure.Browser.Interfaces;
 using Serilog;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 internal class Browser : IBrowser
 {
@@ -35,10 +36,10 @@ internal class Browser : IBrowser
         _driver.Navigate().GoToUrl(uri);
     }
 
-    public byte[] TakeScreenshot()
+    public IScreenshot TakeScreenshot()
     {
         LastUsageDate = DateTime.Now;
-        return _driver.TakeScreenshot().AsByteArray;
+        return new Screenshot(_driver.TakeScreenshot());
     }
 
     public void Quit()

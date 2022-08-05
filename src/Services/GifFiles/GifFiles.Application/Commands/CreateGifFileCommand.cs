@@ -5,5 +5,5 @@ namespace GifFiles.Application.Commands;
 
 public record CreateGifFileCommand(
     Guid Id,
-    IEnumerable<byte[]> Images, 
+    IEnumerable<string> Images, 
     int Delay) : IRequest<GifCreationResult>;

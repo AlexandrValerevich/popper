@@ -1,4 +1,4 @@
-namespace Screenshots.Browser.Interfaces;
+namespace Screenshots.Infrastructure.Browser.Interfaces;
 
 internal interface IBrowserExecutor
 {

@@ -1,9 +1,9 @@
 using Polly;
 using Polly.Registry;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Infrastructure.Browser.Interfaces;
 using Shared.GifFiles.Policies;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 internal class BrowserExecutor : IBrowserExecutor
 {

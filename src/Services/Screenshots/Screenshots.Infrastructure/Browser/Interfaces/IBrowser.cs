@@ -1,4 +1,6 @@
-namespace Screenshots.Browser.Interfaces;
+using Screenshots.Browser.Interfaces;
+
+namespace Screenshots.Infrastructure.Browser.Interfaces;
 
 internal interface IBrowser : ITakeScreenshot, IDisposable
 {

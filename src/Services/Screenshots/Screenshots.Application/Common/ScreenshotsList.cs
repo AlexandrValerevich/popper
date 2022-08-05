@@ -2,5 +2,5 @@ namespace Screenshots.Application.Common;
 
 public class ScreenshotsList
 {
-    public IEnumerable<byte[]> Screenshots { get; set; } = new List<byte[]>();
+    public IEnumerable<string> Screenshots { get; set; }
 }

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Infrastructure.Browser.Interfaces;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 public static class DependencyInjection
 {

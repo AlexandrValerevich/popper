@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Infrastructure.Browser.Interfaces;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 internal class BrowserPool : IBrowserPool
 {

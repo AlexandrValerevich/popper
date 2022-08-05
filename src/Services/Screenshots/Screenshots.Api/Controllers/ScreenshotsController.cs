@@ -19,7 +19,7 @@ public class ScreenshotsController : ControllerBase
     }
 
     [HttpGet(ApiRoutes.Screenshots.GetScreenshots)]
-    public async Task<IActionResult> Get([FromQuery] GetScreenshotsRequest request,
+    public async Task<ActionResult<GetScreenshotsResponse>> Get([FromQuery] GetScreenshotsRequest request,
         CancellationToken token)
     {
         var response = await _mediator.Send(

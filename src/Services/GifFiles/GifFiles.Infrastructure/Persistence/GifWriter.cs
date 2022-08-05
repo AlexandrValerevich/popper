@@ -7,11 +7,11 @@ namespace GifFiles.Infrastructure.Persistence;
 public class GifWriter : IGifWriter
 {
     public async Task<GifCreationResult> WriteAsync(Guid id,
-        IEnumerable<byte[]> images,
+        IEnumerable<string> images,
         int delay,
         CancellationToken token)
     {
-        IEnumerable<MagickImage> magicImages = MapMagicImage(images, delay);
+        var magicImages = MapMagicImage(images, delay);
 
         var imageCollection = new MagickImageCollection(magicImages);
         imageCollection.Optimize();
@@ -25,14 +25,12 @@ public class GifWriter : IGifWriter
         return new GifCreationResult(id);
     }
 
-    private static IEnumerable<MagickImage> MapMagicImage(IEnumerable<byte[]> images, int delay)
+    private static IEnumerable<IMagickImage<ushort>> MapMagicImage(IEnumerable<string> images, int delay)
     {
         return images.Select(i =>
         {
-            var image = new MagickImage(new Span<byte>(i))
-            {
-                AnimationDelay = delay
-            };
+            IMagickImage<ushort> image = MagickImage.FromBase64(i);
+            image.AnimationDelay = delay;
             return image;
         });
     }

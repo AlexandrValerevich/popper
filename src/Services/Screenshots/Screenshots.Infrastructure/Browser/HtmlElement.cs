@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Infrastructure.Browser.Interfaces;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 internal class HtmlElement : IHtmlElement
 {
@@ -13,8 +13,10 @@ internal class HtmlElement : IHtmlElement
         _element = element;
     }
 
-    public byte[] TakeScreenshot()
+    public IScreenshot TakeScreenshot()
     {
-        return (_element as ITakesScreenshot)?.GetScreenshot().AsByteArray;
+        return new Screenshot(
+            (_element as ITakesScreenshot)?.GetScreenshot()
+        );
     }
 }

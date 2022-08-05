@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Screenshots.Application.Interfaces;
-using Screenshots.Browser;
+using Screenshots.Infrastructure.Browser;
 using Screenshots.Infrastructure.Helpers;
 using Shared.Common;
 using Shared.GifFiles.Policies;

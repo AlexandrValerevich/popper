@@ -2,9 +2,9 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
-using Screenshots.Browser.Interfaces;
+using Screenshots.Infrastructure.Browser.Interfaces;
 
-namespace Screenshots.Browser;
+namespace Screenshots.Infrastructure.Browser;
 
 internal class BrowserFactory : IBrowserFactory
 {

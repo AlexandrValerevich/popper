@@ -8,6 +8,11 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddResponseCompression(options =>
+        {
+            options.EnableForHttps = true;
+        });
+
         return services;
     }
 }

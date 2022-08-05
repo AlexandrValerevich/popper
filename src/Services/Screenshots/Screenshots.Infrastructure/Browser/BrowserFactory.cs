@@ -8,6 +8,13 @@ namespace Screenshots.Infrastructure.Browser;
 
 internal class BrowserFactory : IBrowserFactory
 {
+    private readonly EdgeDriverService _service;
+
+    public BrowserFactory()
+    {
+        _service = EdgeDriverService.CreateDefaultService();
+    }
+
     public IBrowser Create()
     {
         // var driver = new RemoteWebDriver(new Uri("http://127.0.0.1:4444/"), new FirefoxOptions());
@@ -17,7 +24,7 @@ internal class BrowserFactory : IBrowserFactory
         // });
         // var driver = new ChromeDriver();
 
-        var driver = new EdgeDriver();
+        var driver = new EdgeDriver(_service);
         driver.Manage().Window.Maximize();
 
         return new Browser(driver);

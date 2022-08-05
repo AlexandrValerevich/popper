@@ -6,7 +6,7 @@ using Shared.Common.Host;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Host.UseSerilogHostLogger();
-    
+
     builder.Services.AddApi();
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure();
@@ -20,11 +20,12 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseResponseCompression();
     app.UseSerilogRequestLogging();
 
     app.UseHttpsRedirection();
     app.UseAuthorization();
-    
+
     app.UseExceptionHandler("/error");
     app.MapControllers();
 

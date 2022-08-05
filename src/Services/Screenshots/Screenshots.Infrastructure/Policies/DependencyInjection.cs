@@ -41,7 +41,8 @@ public static class DependencyInjection
     private static AsyncRetryPolicy CreateWaitAndRetryPolicy(BrowserPoolOptions options)
     {
         var jitterer = new Random();
-        return Policy.Handle<Exception>()
+        return Policy.Handle<StaleElementReferenceException>()
+            .Or<TimeoutRejectedException>()
             .WaitAndRetryAsync(options.Retry,
                 attempt => TimeSpan.FromSeconds(attempt * options.Wait)
                         + TimeSpan.FromSeconds(jitterer.Next(0, 5)));

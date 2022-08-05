@@ -21,6 +21,8 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseResponseCompression();
+    
     app.UseExceptionHandler("/error");
 
     app.UseSerilogRequestLogging();

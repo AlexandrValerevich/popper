@@ -11,41 +11,29 @@ internal class BrowserExecutor : IBrowserExecutor
         _browserPool = browserPool;
     }
 
-    public T Execute<T>(Func<IBrowser, T> callback)
+    public void Execute(Action<IBrowser> callback)
     {
         IBrowser browser = _browserPool.Get();
-        T result;
         try
         {
-            result = callback.Invoke(browser);
+            callback.Invoke(browser);
         }
         finally
         {
             _browserPool.Return(browser);
         }
-
-        return result;
     }
 
-    public Task<T> ExecuteAsync<T>(Func<IBrowser, T> callback)
-    {
-        return Task.FromResult(Execute(callback));
-    }
-
-    public async Task<T> ExecuteAsync<T>(Func<IBrowser, Task<T>> callback)
+    public async Task ExecuteAsync(Func<IBrowser, Task> callback, CancellationToken token)
     {
         IBrowser browser = _browserPool.Get();
-        T result;
         try
         {
-            result = await callback.Invoke(browser);
+            await callback.Invoke(browser);
         }
         finally
         {
             _browserPool.Return(browser);
         }
-
-        return result;
     }
-
 }

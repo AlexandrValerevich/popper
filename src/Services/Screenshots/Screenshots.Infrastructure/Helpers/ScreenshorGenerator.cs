@@ -14,15 +14,15 @@ namespace Screenshots.Infrastructure.Helpers
             _screenshotGenerator = browserExecutor;
         }
 
-        public Task<ScreenshotsList> GenerateAsync(Uri uri, string selector, int duration, CancellationToken token)
-            => _screenshotGenerator.Execute((browser) =>
+        public async Task<ScreenshotsList> GenerateAsync(Uri uri, string selector, int duration, CancellationToken token)
+        {
+            var screenshots = new List<byte[]>();
+            await _screenshotGenerator.ExecuteAsync((browser) =>
             {
                 browser.NavigateTo(uri);
                 IHtmlElement htmlElement = browser.GetHtmlElementBySelector(selector);
 
-                var screenshots = new List<byte[]>();
                 var stopwatch = new Stopwatch();
-
                 stopwatch.Start();
                 while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
                 {
@@ -30,11 +30,15 @@ namespace Screenshots.Infrastructure.Helpers
                 }
                 stopwatch.Stop();
 
-                return Task.FromResult(new ScreenshotsList()
-                {
-                    Screenshots = screenshots
-                });
-            });
+                return Task.CompletedTask;
+            },
+             token);
+
+            return new ScreenshotsList()
+            {
+                Screenshots = screenshots
+            };
+        }
     }
 
 }

@@ -2,9 +2,7 @@ namespace Screenshots.Browser.Interfaces;
 
 internal interface IBrowserExecutor
 {
-    T Execute<T>(Func<IBrowser, T> callback);
+    void Execute(Action<IBrowser> callback);
 
-    Task<T> ExecuteAsync<T>(Func<IBrowser, T> callback);
-
-    Task<T> ExecuteAsync<T>(Func<IBrowser, Task<T>> callback);
+    Task ExecuteAsync(Func<IBrowser, Task> callback, CancellationToken token);
 }

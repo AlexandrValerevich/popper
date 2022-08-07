@@ -44,7 +44,7 @@ public static class DependencyInjection
         return Policy.Handle<StaleElementReferenceException>()
             .Or<TimeoutRejectedException>()
             .WaitAndRetryAsync(options.Retry,
-                attempt => TimeSpan.FromSeconds(attempt * options.Wait)
+                attempt => TimeSpan.FromSeconds(Math.Pow(options.Wait, attempt))
                         + TimeSpan.FromSeconds(jitterer.Next(0, 5)));
     }
 

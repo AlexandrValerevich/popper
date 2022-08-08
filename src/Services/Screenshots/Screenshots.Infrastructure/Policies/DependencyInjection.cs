@@ -7,6 +7,7 @@ using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
 using Screenshots.Infrastructure.Options;
+using Serilog;
 
 namespace Shared.GifFiles.Policies;
 
@@ -45,7 +46,8 @@ public static class DependencyInjection
             .Or<TimeoutRejectedException>()
             .WaitAndRetryAsync(options.Retry,
                 attempt => TimeSpan.FromSeconds(Math.Pow(options.Wait, attempt))
-                        + TimeSpan.FromSeconds(jitterer.Next(0, 5)));
+                        + TimeSpan.FromSeconds(jitterer.Next(0, 5)),
+                (ex, ts, attempt, _) => Log.Error("Exception {Exception} was thrown after {Time}, in attempt {Attempt}", ex.Message, ts, attempt));
     }
 
     private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoolOptions options)

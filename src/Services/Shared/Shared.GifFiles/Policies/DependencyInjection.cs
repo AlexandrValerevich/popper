@@ -83,7 +83,7 @@ public static class DependencyInjection
         return HttpPolicyExtensions.HandleTransientHttpError()
             .Or<TimeoutRejectedException>()
             .WaitAndRetryAsync(options.Retry,
-                attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt * options.MinWait))
+                attempt => TimeSpan.FromSeconds(Math.Pow(options.Wait, attempt))
                         + TimeSpan.FromMilliseconds(jitterer.Next(0, 1000)));
     }
 }

@@ -6,7 +6,7 @@ public class HttpGifFileClientOptions
 
     public int Retry { get; set; } = 3;
 
-    public int MinWait { get; set; } = 10;
+    public int Wait { get; set; } = 2;
 
     public int TimeOut { get; set; } = 60;
 

@@ -19,8 +19,4 @@
     <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <ServerGarbageCollection>false</ServerGarbageCollection>
-  </PropertyGroup>
-
 </Project>

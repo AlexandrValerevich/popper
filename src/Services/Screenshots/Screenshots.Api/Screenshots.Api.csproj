@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Screenshots.Infrastructure\Screenshots.Infrastructure.csproj" />
   </ItemGroup>
 
+  <!-- <PropertyGroup>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup> -->
+
 </Project>

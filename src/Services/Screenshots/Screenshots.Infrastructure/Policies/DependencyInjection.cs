@@ -47,7 +47,7 @@ public static class DependencyInjection
             .WaitAndRetryAsync(options.Retry,
                 attempt => TimeSpan.FromSeconds(Math.Pow(options.Wait, attempt))
                         + TimeSpan.FromSeconds(jitterer.Next(0, 5)),
-                (ex, ts, attempt, _) => Log.Error("Exception {Exception} was thrown after {Time}, in attempt {Attempt}", ex.Message, ts, attempt));
+                (ex, ts, attempt, _) => Log.Warning("Exception {Exception} was thrown after {Time}, in attempt {Attempt}", ex.Message, ts, attempt));
     }
 
     private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoolOptions options)

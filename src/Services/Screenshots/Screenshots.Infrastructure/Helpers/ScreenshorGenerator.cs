@@ -4,6 +4,9 @@ using System.Drawing.Imaging;
 using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Infrastructure.Browser.Interfaces;
+using Serilog;
+
+#pragma warning disable CA1416
 
 namespace Screenshots.Infrastructure.Helpers
 {
@@ -27,18 +30,37 @@ namespace Screenshots.Infrastructure.Helpers
                 Size size = element.Size;
                 Point position = element.Position;
 
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
+                Log.Information(
+                    "Browser{@BrowserSize} Element position{@Position} Element size {@size}",
+                    browser.Size,
+                    element.Position,
+                    element.Size);
 
+
+                var stopwatch = new Stopwatch();
                 var screenshots = new List<IScreenshot>();
+
+                stopwatch.Start();
                 while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
                 {
-
-                    // screenshots.Add(element.TakeScreenshot());
+                    screenshots.Add(browser.TakeScreenshot());
                 }
-
                 stopwatch.Stop();
-                screenshotCreationResult = screenshots.Select(s => s.AsBase64String());
+
+                screenshotCreationResult = screenshots.Select(s => Convert.ToBase64String(CropElement(s, position, size)));
+
+                // var stopwatch = new Stopwatch();
+                // stopwatch.Start();
+
+                // var screenshots = new List<IScreenshot>();
+                // while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
+                // {
+                //     screenshots.Add(element.TakeScreenshot());
+                //     // screenshots.Add(element.TakeScreenshot());
+                // }
+                // stopwatch.Stop();
+                // screenshotCreationResult = screenshots.Select(s => s.AsBase64String());
+
                 return Task.CompletedTask;
             },
             token);
@@ -49,12 +71,19 @@ namespace Screenshots.Infrastructure.Helpers
             };
         }
 
-        private Bitmap MakeElementScreenshot(IBrowser browser, Point position, Size size)
+        private static byte[] CropElement(IScreenshot screenshot, Point position, Size size)
         {
-            IScreenshot screenshot = browser.TakeScreenshot();
+            using var img = Image.FromStream(new MemoryStream(screenshot.AsBytes())) as Bitmap;
+            using var elementImg = img.Clone(new Rectangle(position, size), img.PixelFormat);
+            return ConvertToBytes(elementImg);
+            // return screenshot.AsBytes();
+        }
 
-            using var screenBmp = new Bitmap(new MemoryStream(screenshot.AsBytes()));
-            return screenBmp.Clone(new Rectangle(position, size), PixelFormat.DontCare);
+        private static byte[] ConvertToBytes(Bitmap img)
+        {
+            using var stream = new MemoryStream();
+            img.Save(stream, ImageFormat.Png);
+            return stream.ToArray();
         }
     }
 

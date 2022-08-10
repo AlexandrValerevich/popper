@@ -1,3 +1,4 @@
+using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
@@ -12,7 +13,10 @@ internal class Browser : IBrowser
     private readonly IWebDriver _driver;
 
     public DateTime StartUsageDate { get; }
+    
     public DateTime LastUsageDate { get; private set; }
+    
+    public Size Size => _driver.Manage().Window.Size;
 
     public Browser(IWebDriver driver)
     {

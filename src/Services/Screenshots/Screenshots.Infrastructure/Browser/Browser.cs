@@ -2,7 +2,6 @@ using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
-using Screenshots.Browser;
 using Screenshots.Infrastructure.Browser.Interfaces;
 using Serilog;
 

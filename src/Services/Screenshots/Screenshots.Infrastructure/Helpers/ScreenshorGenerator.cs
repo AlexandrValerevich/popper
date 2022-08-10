@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Infrastructure.Browser.Interfaces;
+using Screenshots.Infrastructure.Extensions;
 using Serilog;
 
 #pragma warning disable CA1416
@@ -47,19 +48,8 @@ namespace Screenshots.Infrastructure.Helpers
                 }
                 stopwatch.Stop();
 
-                screenshotCreationResult = screenshots.Select(s => Convert.ToBase64String(CropElement(s, position, size)));
-
-                // var stopwatch = new Stopwatch();
-                // stopwatch.Start();
-
-                // var screenshots = new List<IScreenshot>();
-                // while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
-                // {
-                //     screenshots.Add(element.TakeScreenshot());
-                //     // screenshots.Add(element.TakeScreenshot());
-                // }
-                // stopwatch.Stop();
-                // screenshotCreationResult = screenshots.Select(s => s.AsBase64String());
+                screenshotCreationResult = screenshots.Select(
+                    s => CropElement(s, position, size).ToBase64String());
 
                 return Task.CompletedTask;
             },
@@ -76,7 +66,6 @@ namespace Screenshots.Infrastructure.Helpers
             using var img = Image.FromStream(new MemoryStream(screenshot.AsBytes())) as Bitmap;
             using var elementImg = img.Clone(new Rectangle(position, size), img.PixelFormat);
             return ConvertToBytes(elementImg);
-            // return screenshot.AsBytes();
         }
 
         private static byte[] ConvertToBytes(Bitmap img)

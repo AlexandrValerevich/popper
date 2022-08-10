@@ -5,7 +5,6 @@ using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Infrastructure.Browser.Interfaces;
 using Screenshots.Infrastructure.Extensions;
-using Serilog;
 
 #pragma warning disable CA1416
 
@@ -26,30 +25,13 @@ namespace Screenshots.Infrastructure.Helpers
 
             await _browserExecutor.ExecuteAsync((browser) =>
             {
+                using var _ = new ExecutionTimeChecker(nameof(GenerateAsync));
                 browser.NavigateTo(uri);
+                List<IScreenshot> screenshots = CreateScreenshots(duration, browser);
+
                 IHtmlElement element = browser.GetHtmlElementBySelector(selector);
-                Size size = element.Size;
-                Point position = element.Position;
-
-                Log.Information(
-                    "Browser{@BrowserSize} Element position{@Position} Element size {@size}",
-                    browser.Size,
-                    element.Position,
-                    element.Size);
-
-
-                var stopwatch = new Stopwatch();
-                var screenshots = new List<IScreenshot>();
-
-                stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
-                {
-                    screenshots.Add(browser.TakeScreenshot());
-                }
-                stopwatch.Stop();
-
                 screenshotCreationResult = screenshots.Select(
-                    s => CropElement(s, position, size).ToBase64String());
+                    s => CropElement(s, element.Position, element.Size).ToBase64String());
 
                 return Task.CompletedTask;
             },
@@ -59,6 +41,19 @@ namespace Screenshots.Infrastructure.Helpers
             {
                 Screenshots = screenshotCreationResult
             };
+        }
+
+        private static List<IScreenshot> CreateScreenshots(int duration, IBrowser browser)
+        {
+            var stopwatch = new Stopwatch();
+            var screenshots = new List<IScreenshot>();
+            stopwatch.Start();
+            while (stopwatch.Elapsed < TimeSpan.FromSeconds(duration))
+            {
+                screenshots.Add(browser.TakeScreenshot());
+            }
+            stopwatch.Stop();
+            return screenshots;
         }
 
         private static byte[] CropElement(IScreenshot screenshot, Point position, Size size)

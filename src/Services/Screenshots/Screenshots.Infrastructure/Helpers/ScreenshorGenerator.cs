@@ -70,5 +70,4 @@ namespace Screenshots.Infrastructure.Helpers
             return stream.ToArray();
         }
     }
-
 }

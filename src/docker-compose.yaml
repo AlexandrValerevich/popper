@@ -9,6 +9,7 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      
   chrome-2:
     image: selenium/node-chrome:4.3.0-20220706
     shm_size: 2gb
@@ -18,6 +19,7 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
   chrome-3:
     image: selenium/node-chrome:4.3.0-20220706
     shm_size: 2gb

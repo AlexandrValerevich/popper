@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Poppers.Application.Common.Interfaces.Authentication;
 
-namespace Poppers.Infrastructure.Authentification;
+namespace Poppers.Infrastructure.Authentication;
 
 public class JwtTokenGenerator : IJwtTokenGenerator
 {

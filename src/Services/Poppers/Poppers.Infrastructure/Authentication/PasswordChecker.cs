@@ -1,6 +1,6 @@
 using Poppers.Application.Common.Interfaces.Authentication;
 
-namespace Poppers.Infrastructure.Authentification;
+namespace Poppers.Infrastructure.Authentication;
 
 public class PasswordChecker : IPasswordChecker
 {

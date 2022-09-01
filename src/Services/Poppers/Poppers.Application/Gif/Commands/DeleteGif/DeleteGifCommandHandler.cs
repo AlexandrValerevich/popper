@@ -1,7 +1,7 @@
 using MediatR;
 using Poppers.Application.Common.Interfaces.Persistence;
 
-namespace Poppers.Application.Gif.Commands;
+namespace Poppers.Application.Gif.Commands.DeleteGif;
 
 public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
 {

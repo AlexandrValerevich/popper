@@ -1,7 +1,7 @@
 using MediatR;
 using Poppers.Application.Gif.Common;
 
-namespace Poppers.Application.Gif.Commands;
+namespace Poppers.Application.Gif.Commands.CreateGif;
 
 public class CreateGifCommand : IRequest<GifCreationResult>
 {

@@ -1,5 +1,5 @@
 using MediatR;
 
-namespace Poppers.Application.Gif.Commands;
+namespace Poppers.Application.Gif.Commands.DeleteGif;
 
 public record DeleteGifCommand(Guid Id) : IRequest;

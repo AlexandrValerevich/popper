@@ -6,7 +6,7 @@ using Poppers.Domain.Factory;
 using Poppers.Domain.ValueObjects;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
-namespace Poppers.Application.Gif.Commands;
+namespace Poppers.Application.Gif.Commands.CreateGif;
 
 public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCreationResult>
 {

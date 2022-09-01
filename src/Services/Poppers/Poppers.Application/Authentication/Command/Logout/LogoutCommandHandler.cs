@@ -1,8 +1,8 @@
 using MediatR;
 
-namespace Poppers.Application.Authentification.Command;
+namespace Poppers.Application.Authentication.Command.Logout;
 
-public class LogoutCommandHandler 
+public class LogoutCommandHandler
     : IRequestHandler<LogoutCommand>
 {
     public Task<Unit> Handle(LogoutCommand request, CancellationToken cancellationToken)

@@ -1,7 +1,6 @@
 using FluentValidation;
-using Poppers.Application.Gif.Commands;
 
-namespace Poppers.Application.Gif.Validators;
+namespace Poppers.Application.Gif.Commands.CreateGif;
 
 public class CreateGifCommandValidator : AbstractValidator<CreateGifCommand>
 {

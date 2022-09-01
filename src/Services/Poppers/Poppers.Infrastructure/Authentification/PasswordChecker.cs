@@ -1,4 +1,4 @@
-using Poppers.Application.Common.Interfaces.Authentification;
+using Poppers.Application.Common.Interfaces.Authentication;
 
 namespace Poppers.Infrastructure.Authentification;
 

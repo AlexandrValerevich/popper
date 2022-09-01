@@ -1,4 +1,4 @@
-namespace Poppers.Application.Common.Interfaces.Authentification;
+namespace Poppers.Application.Common.Interfaces.Authentication;
 
 public interface IPasswordChecker
 {

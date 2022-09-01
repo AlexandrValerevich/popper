@@ -12,4 +12,9 @@ public static class ApiRoutes
         public const string CreateGif = Base + "/poppers";
         public const string DeleteGifById = Base + "/poppers/{Id}";
     }
+
+    public static class Authentication
+    {
+        public const string Login = Base + "/login";
+    }
 }

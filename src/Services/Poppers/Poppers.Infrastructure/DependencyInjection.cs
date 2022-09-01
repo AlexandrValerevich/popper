@@ -17,14 +17,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration config)
     {
-        services.AddScoped<IScreenshotCreator, ScreenshotCreator>();
-
-        services.AddScoped<IGifCreator, GifCreator>();
-        services.AddScoped<IGifReader, GifReader>();
-        services.AddScoped<IGifRemover, GifRemover>();
-
-        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddSingleton<IPasswordChecker, PasswordChecker>();
+        services.AddAuth();
+        services.AddGif();
+        services.AddPersistence();
 
         services.AddScreenshotClient(options =>
         {

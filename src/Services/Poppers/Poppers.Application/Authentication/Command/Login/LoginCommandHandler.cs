@@ -31,7 +31,7 @@ public class LoginCommandHandler
 
         // TODO Getting User by UserName
 
-        if (_passwordChecker.IsCorrectPassword("", ""))
+        if (!_passwordChecker.IsCorrectPassword("", ""))
         {
             throw new Exception("Invalid Password");
         }
@@ -39,4 +39,4 @@ public class LoginCommandHandler
         var token = _jwtGenerator.Generate(Guid.NewGuid(), "Sasha", "Nesterovich");
         return new AuthenticationResult(token);
     }
-}
+} 

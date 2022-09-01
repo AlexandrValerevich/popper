@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Poppers.Application.Gif.Commands;
+using Poppers.Application.Gif.Commands.CreateGif;
+using Poppers.Application.Gif.Commands.DeleteGif;
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Queries;
 using Shared.Poppers.Contracts.V1;

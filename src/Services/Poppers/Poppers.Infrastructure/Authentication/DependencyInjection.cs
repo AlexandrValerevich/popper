@@ -11,6 +11,7 @@ public static class DependencyInjection
     {
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddSingleton<IPasswordChecker, PasswordChecker>();
+        services.AddScoped<IUserService, UserService>();
 
         services.Configure<JwtSettings>(config.GetSection(JwtSettings.SectionName));
 

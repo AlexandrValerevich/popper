@@ -9,11 +9,11 @@ public class LoginQueryHandler
     : IRequestHandler<LoginQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtGenerator;
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userRepository;
     private readonly IPasswordChecker _passwordChecker;
 
     public LoginQueryHandler(IJwtTokenGenerator jwtGenerator,
-        IUserRepository userRepository,
+        IUserService userRepository,
         IPasswordChecker passwordChecker)
     {
         _jwtGenerator = jwtGenerator;

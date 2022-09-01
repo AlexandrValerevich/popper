@@ -2,5 +2,5 @@ using MediatR;
 
 namespace Poppers.Application.Authentication.Command.Logout;
 
-public record LogoutCommand(string RefreshToken)
+public record LogoutQuery(string RefreshToken)
     : IRequest;

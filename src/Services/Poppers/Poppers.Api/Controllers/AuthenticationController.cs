@@ -22,7 +22,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromForm]LoginRequest request)
     {
         var authResult = await _mediator.Send(
-            new LoginCommand(request.UserName, request.Password)
+            new LoginQuery(request.UserName, request.Password)
         );
 
         return Ok(new AuthenticationResponse(authResult.AccessToken));

@@ -5,14 +5,14 @@ using Poppers.Application.Common.Interfaces.Persistence;
 
 namespace Poppers.Application.Authentication.Command.Login;
 
-public class LoginCommandHandler
-    : IRequestHandler<LoginCommand, AuthenticationResult>
+public class LoginQueryHandler
+    : IRequestHandler<LoginQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtGenerator;
     private readonly IUserRepository _userRepository;
     private readonly IPasswordChecker _passwordChecker;
 
-    public LoginCommandHandler(IJwtTokenGenerator jwtGenerator,
+    public LoginQueryHandler(IJwtTokenGenerator jwtGenerator,
         IUserRepository userRepository,
         IPasswordChecker passwordChecker)
     {
@@ -21,7 +21,7 @@ public class LoginCommandHandler
         _passwordChecker = passwordChecker;
     }
 
-    public async Task<AuthenticationResult> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<AuthenticationResult> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
         bool isExistedUser = await _userRepository.IsExistedUser(request.UserName, cancellationToken);
         if (!isExistedUser)

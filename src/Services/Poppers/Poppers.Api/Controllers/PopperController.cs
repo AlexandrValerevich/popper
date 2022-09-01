@@ -6,7 +6,7 @@ using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Queries;
 using Shared.Poppers.Contracts.V1;
 using Shared.Poppers.Contracts.V1.Gif.Requests;
-using Shared.Poppers.Contracts.V1.Responses;
+using Shared.Poppers.Contracts.V1.Gif.Responses;
 
 namespace Poppers.Api.Controllers;
 

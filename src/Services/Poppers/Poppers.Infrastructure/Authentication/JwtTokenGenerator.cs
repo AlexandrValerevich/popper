@@ -26,7 +26,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
         var securityToken = new JwtSecurityToken(
             issuer: "MeetHead",
-            expires: DateTime.Now.AddMinutes(1),
+            expires: DateTime.Now.AddMinutes(15),
             claims: claims,
             signingCredentials: signingCredentials
         );

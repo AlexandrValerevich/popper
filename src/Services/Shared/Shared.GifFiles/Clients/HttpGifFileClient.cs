@@ -24,12 +24,12 @@ public class HttpGifFileClient : IHttpGifFileClient
         return new GetGifFileByIdResponse(response);
     }
 
-    public async Task<CreateGifResponse> CreateGifFileAsync(CreateGifFileRequest request,
+    public async Task<CreateGifFileResponse> CreateGifFileAsync(CreateGifFileRequest request,
        CancellationToken token)
     {
         var restRequest = new RestRequest(ApiRoutes.GifFile.CreateGifFile);
         restRequest.AddBody(request);
-        var response = await _client.PostAsync<CreateGifResponse>(restRequest, token);
+        var response = await _client.PostAsync<CreateGifFileResponse>(restRequest, token);
 
         return response;
     }
@@ -40,6 +40,6 @@ public class HttpGifFileClient : IHttpGifFileClient
 
         var restRequest = new RestRequest(ApiRoutes.GifFile.DeleteGifFile);
         restRequest.AddUrlSegment("Id", request.Id);
-        await _client.DeleteAsync<CreateGifResponse>(restRequest, token);
+        await _client.DeleteAsync<CreateGifFileResponse>(restRequest, token);
     }
 }

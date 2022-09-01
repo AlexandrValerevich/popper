@@ -44,7 +44,7 @@ public class GifFilesController : ControllerBase
         return CreatedAtAction(
             nameof(GifFilesController.Get),
             new { gifCreationResult.Id },
-            new CreateGifResponse(gifCreationResult.Id));
+            new CreateGifFileResponse(gifCreationResult.Id));
     }
 
     [HttpDelete(ApiRoutes.GifFile.DeleteGifFile)]

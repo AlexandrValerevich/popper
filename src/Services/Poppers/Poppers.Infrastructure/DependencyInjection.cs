@@ -1,7 +1,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Poppers.Application.Gif.Interfaces;
-using Poppers.Infrastructure.Gif.Services;
+using Poppers.Application.Common.Interfaces.Authentification;
+using Poppers.Application.Common.Interfaces.Gif;
+using Poppers.Application.Common.Interfaces.Persistence;
+using Poppers.Infrastructure.Authentification;
+using Poppers.Infrastructure.Gif;
+using Poppers.Infrastructure.Persistence;
 using Shared.Common;
 using Shared.GifFiles;
 using Shared.Screenshots;
@@ -14,9 +18,13 @@ public static class DependencyInjection
         IConfiguration config)
     {
         services.AddScoped<IScreenshotCreator, ScreenshotCreator>();
+
         services.AddScoped<IGifCreator, GifCreator>();
         services.AddScoped<IGifReader, GifReader>();
         services.AddScoped<IGifRemover, GifRemover>();
+
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IPasswordChecker, PasswordChecker>();
 
         services.AddScreenshotClient(options =>
         {

@@ -1,10 +1,10 @@
+using Poppers.Application.Common.Interfaces.Gif;
 using Poppers.Application.Gif.Common;
-using Poppers.Application.Gif.Interfaces;
 using Shared.Screenshots.Client;
 using Shared.Screenshots.Contracts.V1.Requests;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
-namespace Poppers.Infrastructure.Gif.Services;
+namespace Poppers.Infrastructure.Gif;
 
 public class ScreenshotCreator : IScreenshotCreator
 {

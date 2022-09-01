@@ -1,6 +1,6 @@
 using MediatR;
+using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
-using Poppers.Application.Gif.Interfaces;
 
 namespace Poppers.Application.Gif.Queries;
 

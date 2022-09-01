@@ -1,6 +1,6 @@
 using GifDomain = Poppers.Domain.Entities.Gif;
 
-namespace Poppers.Application.Gif.Interfaces;
+namespace Poppers.Application.Common.Interfaces.Persistence;
 
 public interface IGifCreator
 {

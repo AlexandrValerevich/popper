@@ -1,4 +1,4 @@
-namespace Poppers.Application.Gif.Interfaces;
+namespace Poppers.Application.Common.Interfaces.Persistence;
 
 public interface IGifRemover
 {

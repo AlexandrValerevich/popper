@@ -1,9 +1,9 @@
-using Poppers.Application.Gif.Interfaces;
 using Shared.GifFiles.Contracts.V1.Requests;
 using Shared.GifFiles.Clients;
 using GifDomain = Poppers.Domain.Entities.Gif;
+using Poppers.Application.Common.Interfaces.Persistence;
 
-namespace Poppers.Infrastructure.Gif.Services
+namespace Poppers.Infrastructure.Persistence
 {
     public class GifCreator : IGifCreator
     {

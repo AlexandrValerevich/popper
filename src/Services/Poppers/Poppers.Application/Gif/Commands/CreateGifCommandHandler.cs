@@ -1,6 +1,7 @@
 using MediatR;
+using Poppers.Application.Common.Interfaces.Gif;
+using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
-using Poppers.Application.Gif.Interfaces;
 using Poppers.Domain.Factory;
 using Poppers.Domain.ValueObjects;
 using GifDomain = Poppers.Domain.Entities.Gif;

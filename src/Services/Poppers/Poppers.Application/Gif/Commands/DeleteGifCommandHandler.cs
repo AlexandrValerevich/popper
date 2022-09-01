@@ -1,5 +1,5 @@
 using MediatR;
-using Poppers.Application.Gif.Interfaces;
+using Poppers.Application.Common.Interfaces.Persistence;
 
 namespace Poppers.Application.Gif.Commands;
 

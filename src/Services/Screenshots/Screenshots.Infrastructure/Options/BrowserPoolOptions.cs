@@ -6,7 +6,7 @@ public class BrowserPoolOptions
 
     public int MaxParallel { get; set; } = 2;
 
-    public int MaxQueue { get; set; } = 4;
+    public int MaxQueue { get; set; } = 2;
 
     public int TimeOut { get; set; } = 35;
     

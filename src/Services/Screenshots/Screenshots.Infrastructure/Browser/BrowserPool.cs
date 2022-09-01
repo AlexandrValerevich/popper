@@ -3,7 +3,7 @@ using Screenshots.Infrastructure.Browser.Interfaces;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class BrowserPool : IBrowserPool
+internal class BrowserPool : IBrowserPool, IDisposable
 {
     private readonly ConcurrentBag<IBrowser> _bag = new();
     private readonly IBrowserFactory _browserFactory;
@@ -21,5 +21,14 @@ internal class BrowserPool : IBrowserPool
     public void Return(IBrowser browser)
     {
         _bag.Add(browser);
+    }
+
+    public void Dispose()
+    {
+        foreach (IBrowser browser in _bag)
+        {
+            browser.Dispose();
+        }
+        GC.SuppressFinalize(this);
     }
 }

@@ -1,3 +1,4 @@
+using System.Drawing;
 using OpenQA.Selenium;
 using Screenshots.Infrastructure.Browser.Interfaces;
 
@@ -12,6 +13,10 @@ internal class HtmlElement : IHtmlElement
     {
         _element = element;
     }
+
+    public Size Size => _element.Size;
+
+    public Point Position => _element.Location;
 
     public IScreenshot TakeScreenshot()
     {

@@ -5,7 +5,7 @@ using Poppers.Application.Gif.Commands.DeleteGif;
 using Poppers.Application.Gif.Common;
 using Poppers.Application.Gif.Queries;
 using Shared.Poppers.Contracts.V1;
-using Shared.Poppers.Contracts.V1.Requests;
+using Shared.Poppers.Contracts.V1.Gif.Requests;
 using Shared.Poppers.Contracts.V1.Responses;
 
 namespace Poppers.Api.Controllers;

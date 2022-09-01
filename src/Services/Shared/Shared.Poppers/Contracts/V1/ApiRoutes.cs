@@ -1,20 +1,8 @@
 namespace Shared.Poppers.Contracts.V1;
 
-public static class ApiRoutes
+public static partial class ApiRoutes
 {
     public const string Root = "api";
     public const string Version = "v1";
     public const string Base = Root + "/" + Version;
-
-    public static class Poppers
-    {
-        public const string GetGifById = Base + "/poppers/{Id}";
-        public const string CreateGif = Base + "/poppers";
-        public const string DeleteGifById = Base + "/poppers/{Id}";
-    }
-
-    public static class Authentication
-    {
-        public const string Login = Base + "/login";
-    }
 }

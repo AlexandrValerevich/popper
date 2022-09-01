@@ -19,7 +19,7 @@ public static class DependencyInjection
     {
         services.AddAuth(config);
         services.AddGif();
-        services.AddPersistence();
+        services.AddPersistence(config);
 
         services.AddScreenshotClient(options =>
         {

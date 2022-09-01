@@ -19,6 +19,7 @@
 			"Hsts",
 			"jitterer",
 			"Magick",
+			"Npgsql",
 			"Serilog"
 		],
 		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles",

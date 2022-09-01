@@ -7,11 +7,8 @@ public class Gif
     public GifId Id;
 
     private readonly Duration _duration;
-
     private readonly GifUri _uri;
-
     private readonly ElementSelector _elementSelector;
-
     private readonly FrameList _frames = new();
 
     internal Gif(GifId id, Duration duration, GifUri uri, ElementSelector selector)

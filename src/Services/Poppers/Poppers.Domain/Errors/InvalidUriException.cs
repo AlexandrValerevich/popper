@@ -2,7 +2,7 @@ using Poppers.Domain.Abstraction;
 
 namespace Poppers.Domain.Errors;
 
-public class InvalidUriException : GifExceptionBase
+public class InvalidUriException : GifException
 {
     public InvalidUriException() : base("Invalid Uri")
     {

@@ -4,17 +4,12 @@
 			"path": "."
 		},
 		{
-			"path": "src/Services/Screenshots"
-		},
-		{
 			"path": "src/Services/Poppers"
 		},
 		{
 			"path": "src/Services/Shared"
 		},
-		{
-			"path": "src/Services/GifFiles"
-		}
+		
 	],
 	"settings": {
 		"cSpell.words": [

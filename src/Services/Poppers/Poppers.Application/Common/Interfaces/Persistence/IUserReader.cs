@@ -4,5 +4,6 @@ namespace Poppers.Application.Common.Interfaces;
 
 public interface IUserReader
 {
-    Task<UserReadOnlyModel> GetUserByEmail(string email, CancellationToken token);
+    Task<UserReadOnlyModel> ReadByEmail(string email, CancellationToken token);
+    Task<UserReadOnlyModel> ReadById(Guid userId, CancellationToken token);
 }

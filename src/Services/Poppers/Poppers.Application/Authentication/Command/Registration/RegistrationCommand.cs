@@ -8,5 +8,6 @@ public record RegistrationCommand(
     string SecondName,
     string Email,
     string Password,
-    string IpAddress
+    string IpAddress,
+    string DeviceId
 ) : IRequest<AuthenticationResult>;

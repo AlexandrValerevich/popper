@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Poppers.Api.Http;
+using Poppers.Application.Authentication.Command.Refresh;
 using Poppers.Application.Authentication.Command.Registration;
 using Poppers.Application.Authentication.Queries.Login;
 using Shared.Poppers.Contracts.V1;
@@ -23,11 +24,13 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromForm] LoginRequest request)
     {
         var authResult = await _mediator.Send(
-            new LoginQuery(request.Email, request.Password, IpAddress())
+            new LoginQuery(request.Email,
+            request.Password,
+            IpAddress(),
+            request.DeviceId)
         );
 
         AddRefreshTokenToCookie(authResult.RefreshToken);
-
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
@@ -39,13 +42,29 @@ public class AuthenticationController : ControllerBase
                 request.SecondName,
                 request.Email,
                 request.Password,
-                IpAddress())
+                IpAddress(),
+                request.DeviceId)
         );
 
         AddRefreshTokenToCookie(authResult.RefreshToken);
-
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
+
+    [HttpPost(ApiRoutes.Authentication.Refresh)]
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    {
+        var authResult = await _mediator.Send(
+            new RefreshCommand(
+                Guid.Parse(RefreshToken),
+                IpAddress(),
+                request.DeviceId)
+        );
+
+        AddRefreshTokenToCookie(authResult.RefreshToken);
+        return Ok(new AuthenticationResponse(authResult.AccessToken));
+    }    
+
+    private string RefreshToken => Request.Cookies[HttpCookiesKeys.RefreshToken];
 
     private void AddRefreshTokenToCookie(string refreshToken)
     {
@@ -54,7 +73,7 @@ public class AuthenticationController : ControllerBase
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(7)
         };
-        
+
         Response.Cookies.Append(HttpCookiesKeys.RefreshToken, refreshToken, cookieOptions);
     }
 

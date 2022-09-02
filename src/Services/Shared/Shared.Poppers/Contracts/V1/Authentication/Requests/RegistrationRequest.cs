@@ -4,5 +4,6 @@ public record RegistrationRequest(
     string FirstName,
     string SecondName,
     string Email,
-    string Password
+    string Password,
+    string DeviceId
 );

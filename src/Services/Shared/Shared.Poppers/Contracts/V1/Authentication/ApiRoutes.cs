@@ -6,5 +6,6 @@ public static partial class ApiRoutes
     {
         public const string Login = Base + "/login";
         public const string Registration = Base + "/registration";
+        public const string Refresh = Base + "/refresh";
     }
 }

@@ -7,4 +7,8 @@ public record RefreshToken
     public DateTime Created { get; set; }
     public DateTime Expire { get; set; }
     public string CreateByIp { get; set; }
+    public string DeviceId { get; set; }
+    public bool IsRevoked { get; set; }
+
+    public bool IsExpired => DateTime.Now > Expire;
 }

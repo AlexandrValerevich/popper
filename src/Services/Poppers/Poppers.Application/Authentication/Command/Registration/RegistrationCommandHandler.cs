@@ -42,7 +42,10 @@ public class RegistrationCommandHandler
         await _userRepository.Add(user);
 
         var accessToken = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
-        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, request.IpAddress);
+        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, 
+            request.IpAddress, 
+            request.DeviceId);
+            
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
     }
 }

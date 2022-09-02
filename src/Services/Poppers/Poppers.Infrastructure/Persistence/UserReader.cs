@@ -16,8 +16,13 @@ internal sealed class UserReader : IUserReader
         _context = context;
     }
 
-    public async Task<UserReadOnlyModel> GetUserByEmail(string email, CancellationToken token)
+    public async Task<UserReadOnlyModel> ReadByEmail(string email, CancellationToken token)
     {
         return await Users.FirstOrDefaultAsync(u => u.Email.Equals(email), token);
+    }
+
+    public async Task<UserReadOnlyModel> ReadById(Guid userId, CancellationToken token)
+    {
+        return await Users.FirstOrDefaultAsync(u => u.Id.Equals(userId), token);
     }
 }

@@ -27,7 +27,7 @@ public class LoginQueryHandler
 
     public async Task<AuthenticationResult> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        UserReadOnlyModel user = await _userReader.GetUserByEmail(request.Email, cancellationToken);
+        UserReadOnlyModel user = await _userReader.ReadByEmail(request.Email, cancellationToken);
         if (user is null)
         {
             throw new Exception($"User with email {request.Email} not exist");
@@ -39,7 +39,10 @@ public class LoginQueryHandler
         }
 
         string accessToken = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
-        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, request.IpAddress);
+        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, 
+            request.IpAddress, 
+            request.DeviceId);
+            
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
     }
 }

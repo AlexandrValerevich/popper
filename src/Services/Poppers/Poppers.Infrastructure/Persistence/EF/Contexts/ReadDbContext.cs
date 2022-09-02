@@ -7,6 +7,7 @@ namespace Poppers.Infrastructure.Persistence.EF.Contexts;
 internal sealed class ReadDbContext : DbContext
 {
     public DbSet<UserReadOnlyModel> Users { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)
     {
@@ -16,6 +17,7 @@ internal sealed class ReadDbContext : DbContext
     {
         modelBuilder.HasDefaultSchema("popper");
         var configuration = new ReadConfiguration();
-        modelBuilder.ApplyConfiguration(configuration);
+        modelBuilder.ApplyConfiguration<UserReadOnlyModel>(configuration);
+        modelBuilder.ApplyConfiguration<RefreshToken>(configuration);
     }
 }

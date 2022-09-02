@@ -4,7 +4,7 @@ namespace Poppers.Application.Common.Interfaces.Authentication;
 
 public interface IRefreshTokenService
 {
-    Task<RefreshToken> Create(Guid userId, string ipAddress);
-    Task<RefreshToken> Refresh(Guid id, string ipAddress);
+    Task<RefreshToken> CreateAsync(Guid userId, string ipAddress);
+    Task<RefreshToken> Refresh(Guid tokenId, string ipAddress);
     Task Revoke(Guid tokenId);
 }

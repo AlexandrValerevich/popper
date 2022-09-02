@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Poppers.Api.Http;
 using Poppers.Application.Authentication.Command.Registration;
 using Poppers.Application.Authentication.Queries.Login;
 using Shared.Poppers.Contracts.V1;
@@ -22,21 +23,26 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromForm] LoginRequest request)
     {
         var authResult = await _mediator.Send(
-            new LoginQuery(request.Email, request.Password)
+            new LoginQuery(request.Email, request.Password, IpAddress())
         );
+
+        AddRefreshTokenToCookie(authResult.RefreshToken);
 
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
     [HttpPost(ApiRoutes.Authentication.Registration)]
-    public async Task<IActionResult> Registration([FromForm] RegistrationRequest request)
+    public async Task<IActionResult> Registration([FromBody] RegistrationRequest request)
     {
         var authResult = await _mediator.Send(
             new RegistrationCommand(request.FirstName,
                 request.SecondName,
                 request.Email,
-                request.Password)
+                request.Password,
+                IpAddress())
         );
+
+        AddRefreshTokenToCookie(authResult.RefreshToken);
 
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
@@ -48,7 +54,8 @@ public class AuthenticationController : ControllerBase
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(7)
         };
-        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+        
+        Response.Cookies.Append(HttpCookiesKeys.RefreshToken, refreshToken, cookieOptions);
     }
 
     private string IpAddress()

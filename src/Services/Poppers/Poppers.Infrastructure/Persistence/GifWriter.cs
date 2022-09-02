@@ -5,11 +5,11 @@ using Poppers.Application.Common.Interfaces.Persistence;
 
 namespace Poppers.Infrastructure.Persistence
 {
-    public class GifCreator : IGifCreator
+    public class GifWriter : IGifWriter
     {
         private readonly IHttpGifFileClient _client;
 
-        public GifCreator(IHttpGifFileClient client)
+        public GifWriter(IHttpGifFileClient client)
         {
             _client = client;
         }
@@ -21,6 +21,12 @@ namespace Poppers.Infrastructure.Persistence
                 Images: gif.Frames.Select(f => f.Value),
                 Delay: 10
             ), token);
+        }
+
+        public async Task RemoveAsync(Guid id, CancellationToken token)
+        {
+            await _client.DeleteGifFileByIdAsync(new DeleteGifFileByIdRequest(id),
+                token);
         }
     }
 }

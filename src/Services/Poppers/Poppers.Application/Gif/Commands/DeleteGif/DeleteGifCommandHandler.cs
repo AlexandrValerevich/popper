@@ -5,17 +5,17 @@ namespace Poppers.Application.Gif.Commands.DeleteGif;
 
 public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
 {
-    private readonly IGifRemover _gifRemover;
+    private readonly IGifWriter _gifWriter;
 
-    public DeleteGifCommandHandler(IGifRemover gifRemover)
+    public DeleteGifCommandHandler(IGifWriter gifWriter)
     {
-        _gifRemover = gifRemover;
+        _gifWriter = gifWriter;
     }
 
     public async Task<Unit> Handle(DeleteGifCommand request,
         CancellationToken token)
     {
-        await _gifRemover.RemoveAsync(request.Id, token);
+        await _gifWriter.RemoveAsync(request.Id, token);
         return Unit.Value;
     }
 }

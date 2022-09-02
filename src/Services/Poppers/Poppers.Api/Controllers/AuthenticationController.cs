@@ -19,7 +19,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost(ApiRoutes.Authentication.Login)]
-    public async Task<IActionResult> Login([FromForm]LoginRequest request)
+    public async Task<IActionResult> Login([FromForm] LoginRequest request)
     {
         var authResult = await _mediator.Send(
             new LoginQuery(request.Email, request.Password)
@@ -29,7 +29,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost(ApiRoutes.Authentication.Registration)]
-    public async Task<IActionResult> Registration([FromForm]RegistrationRequest request)
+    public async Task<IActionResult> Registration([FromForm] RegistrationRequest request)
     {
         var authResult = await _mediator.Send(
             new RegistrationCommand(request.FirstName,
@@ -39,5 +39,22 @@ public class AuthenticationController : ControllerBase
         );
 
         return Ok(new AuthenticationResponse(authResult.AccessToken));
+    }
+
+    private void AddRefreshTokenToCookie(string refreshToken)
+    {
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddDays(7)
+        };
+        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+    }
+
+    private string IpAddress()
+    {
+        return Request.Headers.ContainsKey("X-Forwarded-For")
+            ? (string)Request.Headers["X-Forwarded-For"]
+            : HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
     }
 }

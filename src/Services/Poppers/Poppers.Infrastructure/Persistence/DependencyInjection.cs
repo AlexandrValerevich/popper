@@ -12,9 +12,8 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         IConfiguration config)
     {
-        services.AddScoped<IGifCreator, GifCreator>();
+        services.AddScoped<IGifWriter, GifWriter>();
         services.AddScoped<IGifReader, GifReader>();
-        services.AddScoped<IGifRemover, GifRemover>();
 
         services.AddScoped<IUserReader, UserReader>();
         services.AddScoped<IUserRepository, UserRepository>();

@@ -12,13 +12,13 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
 {
     private readonly IGifFactory _gifFactory;
     private readonly IScreenshotCreator _screenshotCreator;
-    private readonly IGifCreator _gifFileCreator;
+    private readonly IGifWriter _gifWriter;
 
-    public CreateGifCommandHandler(IGifCreator gifFileGenerator,
+    public CreateGifCommandHandler(IGifWriter gifWriter,
         IScreenshotCreator screenshotCreator,
         IGifFactory gifFactory)
     {
-        _gifFileCreator = gifFileGenerator;
+        _gifWriter = gifWriter;
         _screenshotCreator = screenshotCreator;
         _gifFactory = gifFactory;
     }
@@ -37,7 +37,7 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
         IEnumerable<Frame> frames = MapFrames(screenshots);
         gif.AddRangeFrames(frames);
 
-        await _gifFileCreator.CreateAsync(gif, token);
+        await _gifWriter.CreateAsync(gif, token);
 
         return new GifCreationResult(gif.Id);
     }

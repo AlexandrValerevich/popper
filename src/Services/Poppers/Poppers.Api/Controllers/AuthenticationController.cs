@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Poppers.Application.Authentication.Command.Login;
 using Poppers.Application.Authentication.Command.Registration;
+using Poppers.Application.Authentication.Queries.Login;
 using Shared.Poppers.Contracts.V1;
 using Shared.Poppers.Contracts.V1.Authentication.Requests;
 using Shared.Poppers.Contracts.V1.Authentication.Responses;

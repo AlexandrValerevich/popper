@@ -3,7 +3,7 @@ using Poppers.Application.Authentication.Common;
 using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Authentication;
 
-namespace Poppers.Application.Authentication.Command.Login;
+namespace Poppers.Application.Authentication.Queries.Login;
 
 public class LoginQueryHandler
     : IRequestHandler<LoginQuery, AuthenticationResult>

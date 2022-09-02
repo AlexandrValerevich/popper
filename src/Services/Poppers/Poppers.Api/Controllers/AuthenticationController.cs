@@ -8,7 +8,6 @@ using Shared.Poppers.Contracts.V1.Authentication.Responses;
 namespace Poppers.Api.Controllers;
 
 [ApiController]
-
 public class AuthenticationController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -22,7 +21,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromForm]LoginRequest request)
     {
         var authResult = await _mediator.Send(
-            new LoginQuery(request.UserName, request.Password)
+            new LoginQuery(request.Email, request.Password)
         );
 
         return Ok(new AuthenticationResponse(authResult.AccessToken));

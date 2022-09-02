@@ -8,7 +8,7 @@ internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadOnlyM
 {
     public void Configure(EntityTypeBuilder<UserReadOnlyModel> builder)
     {
-        builder.ToTable("User");
+        builder.ToTable("Users");
         builder.HasKey(u => u.Id);
     }
 }

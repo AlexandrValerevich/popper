@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Infrastructure.Persistence.EF;
 
@@ -14,8 +15,8 @@ public static class DependencyInjection
         services.AddScoped<IGifReader, GifReader>();
         services.AddScoped<IGifRemover, GifRemover>();
 
+        services.AddScoped<IUserReader, UserReader>();
         services.AddPostgresDbContext(config);
-        
         return services;
     }
 }

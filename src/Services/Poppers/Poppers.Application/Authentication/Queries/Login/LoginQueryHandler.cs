@@ -1,7 +1,7 @@
 using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Authentication;
-using Poppers.Application.Common.Interfaces.Persistence;
 
 namespace Poppers.Application.Authentication.Command.Login;
 
@@ -9,29 +9,29 @@ public class LoginQueryHandler
     : IRequestHandler<LoginQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtGenerator;
-    private readonly IUserService _userRepository;
-    private readonly IPasswordChecker _passwordChecker;
+    private readonly IUserReader _userReader;
+    private readonly IPasswordValidator _passwordChecker;
 
     public LoginQueryHandler(IJwtTokenGenerator jwtGenerator,
-        IUserService userRepository,
-        IPasswordChecker passwordChecker)
+        IUserReader userReader,
+        IPasswordValidator passwordChecker)
     {
         _jwtGenerator = jwtGenerator;
-        _userRepository = userRepository;
+        _userReader = userReader;
         _passwordChecker = passwordChecker;
     }
 
     public async Task<AuthenticationResult> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        bool isExistedUser = await _userRepository.IsExistedUser(request.UserName, cancellationToken);
-        if (!isExistedUser)
+        var user = await _userReader.GetUserByEmail(request.Email, cancellationToken);
+        if (user is null)
         {
-            throw new Exception("User Not Found");
+            throw new Exception($"User with email {request.Email} not exist");
         }
 
         // TODO Getting User by UserName
 
-        if (!_passwordChecker.IsCorrectPassword("", ""))
+        if (!_passwordChecker.IsValid(user.PasswordHash, request.Password))
         {
             throw new Exception("Invalid Password");
         }
@@ -39,4 +39,4 @@ public class LoginQueryHandler
         var token = _jwtGenerator.Generate(Guid.NewGuid(), "Sasha", "Nesterovich");
         return new AuthenticationResult(token);
     }
-} 
+}

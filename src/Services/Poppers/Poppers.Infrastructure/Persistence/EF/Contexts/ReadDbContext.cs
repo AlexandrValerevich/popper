@@ -6,7 +6,7 @@ namespace Poppers.Infrastructure.Persistence.EF.Contexts;
 
 internal sealed class ReadDbContext : DbContext
 {
-    public DbSet<UserReadOnlyModel> PackingLists { get; set; }
+    public DbSet<UserReadOnlyModel> Users { get; set; }
 
     public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)
     {

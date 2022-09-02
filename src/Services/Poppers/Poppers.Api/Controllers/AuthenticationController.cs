@@ -21,7 +21,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost(ApiRoutes.Authentication.Login)]
-    public async Task<IActionResult> Login([FromForm] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var authResult = await _mediator.Send(
             new LoginQuery(request.Email,

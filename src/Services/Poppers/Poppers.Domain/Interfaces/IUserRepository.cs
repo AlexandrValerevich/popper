@@ -7,6 +7,7 @@ public interface IUserRepository
 {
     Task<User> ReadById(UserId id);
     Task<IEnumerable<User>> ReadAll();
-    Task Update(UserId id, User newUser);
+    Task Update(User user);
     Task Delete(UserId id);
+    Task Add(User user);
 }

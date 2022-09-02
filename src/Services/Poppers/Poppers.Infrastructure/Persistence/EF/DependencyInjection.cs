@@ -10,7 +10,10 @@ public static class DependencyInjection
     public static IServiceCollection AddInMemoryDbContext(this IServiceCollection services)
     {
         services.AddDbContext<ReadDbContext>(
-            opt => opt.UseInMemoryDatabase("Popper"));
+            opt => opt.UseInMemoryDatabase("ReadPopper"));
+        
+        services.AddDbContext<WriteDbContext>(
+            opt => opt.UseInMemoryDatabase("WritePopper"));
         return services;
     }
 
@@ -19,6 +22,10 @@ public static class DependencyInjection
     {
         services.AddDbContext<ReadDbContext>(opt => 
             opt.UseNpgsql(config.GetConnectionString("Poppers")));
+
+        services.AddDbContext<WriteDbContext>(opt => 
+            opt.UseNpgsql(config.GetConnectionString("Poppers")));
+            
         return services;
     }
 }

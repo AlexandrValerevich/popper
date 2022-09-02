@@ -10,7 +10,9 @@ public static class DependencyInjection
         IConfiguration config)
     {
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddSingleton<IPasswordChecker, PasswordChecker>();
+        services.AddSingleton<IPasswordValidator, PasswordValidator>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
         services.AddScoped<IUserService, UserService>();
 
         services.Configure<JwtSettings>(config.GetSection(JwtSettings.SectionName));

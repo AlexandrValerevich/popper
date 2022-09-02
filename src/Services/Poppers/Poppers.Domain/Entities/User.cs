@@ -13,8 +13,8 @@ public class User
     internal User(UserId userId,
         string firstName,
         string secondName,
-        string passwordHash,
-        Email email)
+        Email email,
+        string passwordHash)
     {
         Id = userId;
         _firstName = firstName;

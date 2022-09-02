@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using Poppers.Domain.Errors;
 
 namespace Poppers.Domain.ValueObjects;
@@ -25,7 +26,7 @@ public record Email
         }
         try
         {
-            var addr = new System.Net.Mail.MailAddress(email);
+            var addr = new MailAddress(email);
             return addr.Address == trimmedEmail;
         }
         catch
@@ -33,4 +34,8 @@ public record Email
             return false;
         }
     }
+
+    public static implicit operator string(Email email) => email.Value;
+
+    public static implicit operator Email(string value) => new(value);
 }

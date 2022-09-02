@@ -29,14 +29,12 @@ public class LoginQueryHandler
             throw new Exception($"User with email {request.Email} not exist");
         }
 
-        // TODO Getting User by UserName
-
         if (!_passwordChecker.IsValid(user.PasswordHash, request.Password))
         {
             throw new Exception("Invalid Password");
         }
 
-        var token = _jwtGenerator.Generate(Guid.NewGuid(), "Sasha", "Nesterovich");
+        var token = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
         return new AuthenticationResult(token);
     }
 }

@@ -4,6 +4,7 @@ using Poppers.Api.Http;
 using Poppers.Application.Authentication.Command.Refresh;
 using Poppers.Application.Authentication.Command.Registration;
 using Poppers.Application.Authentication.Queries.Login;
+using Poppers.Application.Authentication.Queries.Revoke;
 using Shared.Poppers.Contracts.V1;
 using Shared.Poppers.Contracts.V1.Authentication.Requests;
 using Shared.Poppers.Contracts.V1.Authentication.Responses;
@@ -55,14 +56,25 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Refresh([FromBody] RefreshRequest request,
         CancellationToken token)
     {
-        var authResult = await _mediator.Send(new RefreshCommand(
-                Guid.Parse(RefreshToken),
-                IpAddress(),
-                request.DeviceId), token);
+        var authResult = await _mediator.Send(
+            new RefreshQuery(Guid.Parse(RefreshToken), IpAddress(), request.DeviceId),
+            token);
 
         AddRefreshTokenToCookie(authResult.RefreshToken);
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
+
+    [HttpPost(ApiRoutes.Authentication.Revoke)]
+    public async Task<IActionResult> Revoke([FromBody] RevokeRequest request,
+        CancellationToken token)
+    {
+        await _mediator.Send(
+            new RevokeQuery(Guid.Parse(RefreshToken), request.DeviceId),
+            token);
+            
+        return Ok();
+    }
+
 
     private string RefreshToken => Request.Cookies[HttpCookiesKeys.RefreshToken];
 

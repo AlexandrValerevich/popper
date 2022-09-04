@@ -11,4 +11,5 @@ public record RefreshToken
     public bool IsRevoked { get; set; }
 
     public bool IsExpired => DateTime.Now > Expire;
+    public bool IsActive => !(IsExpired || IsRevoked);
 }

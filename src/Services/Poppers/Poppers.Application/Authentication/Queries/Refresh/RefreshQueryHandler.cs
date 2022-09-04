@@ -7,7 +7,7 @@ using Poppers.Application.Common.Models;
 namespace Poppers.Application.Authentication.Command.Refresh;
 
 public class RefreshQueryHandler
-    : IRequestHandler<RefreshCommand, AuthenticationResult>
+    : IRequestHandler<RefreshQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtGenerator;
     private readonly IRefreshTokenService _refreshTokenService;
@@ -22,10 +22,10 @@ public class RefreshQueryHandler
         _userReader = userReader;
     }
 
-    public async Task<AuthenticationResult> Handle(RefreshCommand request, 
+    public async Task<AuthenticationResult> Handle(RefreshQuery request, 
         CancellationToken cancellationToken)
     {
-        RefreshToken refreshToken = await _refreshTokenService.Refresh(
+        RefreshToken refreshToken = await _refreshTokenService.RefreshAsync(
             request.RefreshToken,
             request.IpAddress,
             request.DeviceId,
@@ -33,7 +33,7 @@ public class RefreshQueryHandler
 
         if (refreshToken is null)
         {
-            throw new Exception("Try to use invalid refresh token");
+            throw new Exception("Try to refresh invalid refresh token");
         }
 
         var user = await _userReader.ReadById(refreshToken.UserId, cancellationToken);

@@ -13,7 +13,7 @@ public record Email
         {
             throw new InvalidEmailException();
         }
-        Value = email;
+        Value = email.ToLower();
     }
 
     private static bool IsValidEmail(string email)

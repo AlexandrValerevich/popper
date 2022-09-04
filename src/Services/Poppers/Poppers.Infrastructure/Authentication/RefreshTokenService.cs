@@ -1,4 +1,6 @@
+using System;
 using Microsoft.EntityFrameworkCore;
+using Poppers.Application.Authentication.Common;
 using Poppers.Application.Common.Interfaces.Authentication;
 using Poppers.Application.Common.Models;
 using Poppers.Infrastructure.Persistence.EF.Contexts;
@@ -46,7 +48,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         return token;
     }
 
-    public async Task<RefreshToken> Refresh(Guid tokenId,
+    public async Task<RefreshToken> RefreshAsync(Guid tokenId,
         string ipAddress,
         string deviceId,
         CancellationToken cancellationToken)
@@ -71,6 +73,14 @@ internal sealed class RefreshTokenService : IRefreshTokenService
             return null;
         }
 
+        if (oldRefreshToken.IsRevoked)
+        {
+            Log.Information("User with ip address: {IpAddress} and deviceId: {DeviceId} tried to use revoked refresh token",
+                ipAddress,
+                deviceId);
+            return null;
+        }
+
         var token = new RefreshToken()
         {
             Id = Guid.NewGuid(),
@@ -88,8 +98,34 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         return token;
     }
 
-    public Task Revoke(Guid tokenId, CancellationToken cancellationToken)
+    public async Task<RefreshTokenRevokeResult> RevokeAsync(Guid tokenId,
+        string deviceId,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        RefreshToken refreshToken = await RefreshTokens.SingleOrDefaultAsync(
+            rt => rt.Id.Equals(tokenId) && rt.DeviceId.Equals(deviceId),
+            cancellationToken);
+
+        if (refreshToken is null)
+        {
+            return new RefreshTokenRevokeResult(
+                false,
+                new[] { "Try to revoke unexcited refresh token" });
+        }
+
+        if (!refreshToken.IsActive)
+        {
+            return new RefreshTokenRevokeResult(
+                false,
+                new[] { "Try to revoke not active refresh token" });
+        }
+
+        refreshToken.IsRevoked = true;
+        RefreshTokens.Update(refreshToken);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new RefreshTokenRevokeResult(
+            false,
+            Array.Empty<string>());
     }
 }

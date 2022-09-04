@@ -22,12 +22,14 @@ public class RefreshQueryHandler
         _userReader = userReader;
     }
 
-    public async Task<AuthenticationResult> Handle(RefreshCommand request, CancellationToken cancellationToken)
+    public async Task<AuthenticationResult> Handle(RefreshCommand request, 
+        CancellationToken cancellationToken)
     {
         RefreshToken refreshToken = await _refreshTokenService.Refresh(
             request.RefreshToken,
             request.IpAddress,
-            request.DeviceId);
+            request.DeviceId,
+            cancellationToken);
 
         if (refreshToken is null)
         {

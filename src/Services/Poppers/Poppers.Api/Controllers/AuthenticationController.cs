@@ -35,7 +35,8 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost(ApiRoutes.Authentication.Registration)]
-    public async Task<IActionResult> Registration([FromBody] RegistrationRequest request)
+    public async Task<IActionResult> Registration([FromBody] RegistrationRequest request,
+        CancellationToken token)
     {
         var authResult = await _mediator.Send(
             new RegistrationCommand(request.FirstName,
@@ -43,7 +44,7 @@ public class AuthenticationController : ControllerBase
                 request.Email,
                 request.Password,
                 IpAddress(),
-                request.DeviceId)
+                request.DeviceId), token
         );
 
         AddRefreshTokenToCookie(authResult.RefreshToken);
@@ -51,18 +52,17 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost(ApiRoutes.Authentication.Refresh)]
-    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request,
+        CancellationToken token)
     {
-        var authResult = await _mediator.Send(
-            new RefreshCommand(
+        var authResult = await _mediator.Send(new RefreshCommand(
                 Guid.Parse(RefreshToken),
                 IpAddress(),
-                request.DeviceId)
-        );
+                request.DeviceId), token);
 
         AddRefreshTokenToCookie(authResult.RefreshToken);
         return Ok(new AuthenticationResponse(authResult.AccessToken));
-    }    
+    }
 
     private string RefreshToken => Request.Cookies[HttpCookiesKeys.RefreshToken];
 

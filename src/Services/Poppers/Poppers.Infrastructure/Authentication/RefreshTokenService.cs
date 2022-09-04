@@ -16,10 +16,14 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         _context = context;
     }
 
-    public async Task<RefreshToken> CreateAsync(Guid userId, string ipAddress, string deviceId)
+    public async Task<RefreshToken> CreateAsync(Guid userId,
+        string ipAddress,
+        string deviceId,
+        CancellationToken cancellationToken)
     {
         var oldRefreshToken = await RefreshTokens.SingleOrDefaultAsync(
-            rt => rt.UserId.Equals(userId) && rt.DeviceId.Equals(deviceId));
+            rt => rt.UserId.Equals(userId) && rt.DeviceId.Equals(deviceId),
+            cancellationToken);
 
         if (oldRefreshToken is not null)
         {
@@ -37,15 +41,19 @@ internal sealed class RefreshTokenService : IRefreshTokenService
             IsRevoked = false
         };
 
-        await _context.AddAsync(token);
-        await _context.SaveChangesAsync();
+        await _context.AddAsync(token, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
         return token;
     }
 
-    public async Task<RefreshToken> Refresh(Guid tokenId, string ipAddress, string deviceId)
+    public async Task<RefreshToken> Refresh(Guid tokenId,
+        string ipAddress,
+        string deviceId,
+        CancellationToken cancellationToken)
     {
         RefreshToken oldRefreshToken = await RefreshTokens.SingleOrDefaultAsync(
-            rt => rt.Id.Equals(tokenId) && rt.DeviceId.Equals(deviceId));
+            rt => rt.Id.Equals(tokenId) && rt.DeviceId.Equals(deviceId),
+            cancellationToken);
 
         if (oldRefreshToken is null)
         {
@@ -73,14 +81,14 @@ internal sealed class RefreshTokenService : IRefreshTokenService
             DeviceId = deviceId,
             IsRevoked = false
         };
-        
+
         _context.Remove(oldRefreshToken);
-        await _context.AddAsync(token);
-        await _context.SaveChangesAsync();
+        await _context.AddAsync(token, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
         return token;
     }
 
-    public Task Revoke(Guid tokenId)
+    public Task Revoke(Guid tokenId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

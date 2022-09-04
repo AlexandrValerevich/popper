@@ -5,9 +5,9 @@ namespace Poppers.Domain.Interfaces;
 
 public interface IUserRepository
 {
-    Task<User> ReadById(UserId id);
-    Task<IEnumerable<User>> ReadAll();
-    Task Update(User user);
-    Task Delete(UserId id);
-    Task Add(User user);
+    Task<User> ReadById(UserId id, CancellationToken token);
+    Task<IEnumerable<User>> ReadAll(CancellationToken token);
+    Task Update(User user, CancellationToken token);
+    Task Delete(UserId id, CancellationToken token);
+    Task Add(User user, CancellationToken token);
 }

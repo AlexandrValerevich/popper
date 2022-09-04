@@ -11,6 +11,7 @@ public class RegistrationCommandHandler
     : IRequestHandler<RegistrationCommand, AuthenticationResult>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtTokenGenerator _jwtGenerator;
     private readonly IUserFactory _userFactory;
@@ -20,18 +21,28 @@ public class RegistrationCommandHandler
         IUserRepository userRepository,
         IJwtTokenGenerator jwtGenerator,
         IUserFactory userFactory,
-        IRefreshTokenService refreshTokenService)
+        IRefreshTokenService refreshTokenService,
+        IUserService userService)
     {
         _passwordHasher = passwordHasher;
         _userRepository = userRepository;
         _jwtGenerator = jwtGenerator;
         _userFactory = userFactory;
         _refreshTokenService = refreshTokenService;
+        _userService = userService;
     }
 
     public async Task<AuthenticationResult> Handle(RegistrationCommand request,
         CancellationToken cancellationToken)
     {
+        bool isExistedUser = await _userService.IsExistedUser(request.Email,
+            cancellationToken);
+
+        if (isExistedUser)
+        {
+            throw new Exception($"User with email: {request.Email} already exist");
+        }
+
         var passwordHash = _passwordHasher.HashPassword(request.Password);
         var user = _userFactory.Create(Guid.NewGuid(),
             request.FirstName,
@@ -39,13 +50,14 @@ public class RegistrationCommandHandler
             request.Email,
             passwordHash);
 
-        await _userRepository.Add(user);
+        await _userRepository.Add(user, cancellationToken);
 
         var accessToken = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
-        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, 
-            request.IpAddress, 
-            request.DeviceId);
-            
+        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id,
+            request.IpAddress,
+            request.DeviceId,
+            cancellationToken);
+
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
     }
 }

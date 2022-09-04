@@ -25,7 +25,8 @@ public class LoginQueryHandler
         _refreshTokenService = refreshTokenService;
     }
 
-    public async Task<AuthenticationResult> Handle(LoginQuery request, CancellationToken cancellationToken)
+    public async Task<AuthenticationResult> Handle(LoginQuery request, 
+        CancellationToken cancellationToken)
     {
         UserReadOnlyModel user = await _userReader.ReadByEmail(request.Email, cancellationToken);
         if (user is null)
@@ -41,7 +42,8 @@ public class LoginQueryHandler
         string accessToken = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
         RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, 
             request.IpAddress, 
-            request.DeviceId);
+            request.DeviceId,
+            cancellationToken);
             
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
     }

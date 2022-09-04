@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Poppers.Application.Gif.Commands.CreateGif;
 using Poppers.Application.Gif.Commands.DeleteGif;
@@ -10,6 +11,7 @@ using Shared.Poppers.Contracts.V1.Gif.Responses;
 
 namespace Poppers.Api.Controllers;
 
+[Authorize]
 [ApiController]
 public class PoppersController : ControllerBase
 {

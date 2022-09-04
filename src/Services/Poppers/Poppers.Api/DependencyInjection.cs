@@ -1,5 +1,3 @@
-using Shared.Common;
-
 namespace Poppers.Api;
 
 public static class DependencyInjection
@@ -9,7 +7,7 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        
+
         return services;
     }
 }

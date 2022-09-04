@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Poppers.Api.Http;
 using Poppers.Application.Authentication.Command.Refresh;
@@ -52,6 +53,7 @@ public class AuthenticationController : ControllerBase
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
+    [Authorize]
     [HttpPost(ApiRoutes.Authentication.Refresh)]
     public async Task<IActionResult> Refresh([FromBody] RefreshRequest request,
         CancellationToken token)
@@ -64,17 +66,17 @@ public class AuthenticationController : ControllerBase
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
+    [Authorize]
     [HttpPost(ApiRoutes.Authentication.Revoke)]
     public async Task<IActionResult> Revoke([FromBody] RevokeRequest request,
-        CancellationToken token)
+       CancellationToken token)
     {
         await _mediator.Send(
             new RevokeQuery(Guid.Parse(RefreshToken), request.DeviceId),
             token);
-            
+
         return Ok();
     }
-
 
     private string RefreshToken => Request.Cookies[HttpCookiesKeys.RefreshToken];
 

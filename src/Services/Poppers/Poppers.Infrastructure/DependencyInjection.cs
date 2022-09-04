@@ -1,8 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Poppers.Application.Common.Interfaces.Authentication;
-using Poppers.Application.Common.Interfaces.Gif;
-using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Infrastructure.Authentication;
 using Poppers.Infrastructure.Gif;
 using Poppers.Infrastructure.Persistence;

@@ -16,7 +16,7 @@ public sealed class LogErrorBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         }
         catch (Exception e)
         {
-            Log.Error(e.Message);
+            Log.Warning(e.Message);
             throw;
         }
     }

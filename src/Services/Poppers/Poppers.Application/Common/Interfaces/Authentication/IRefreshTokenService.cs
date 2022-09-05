@@ -7,5 +7,5 @@ public interface IRefreshTokenService
 {
     Task<RefreshToken> CreateAsync(Guid userId, string ipAddress, string deviceId, CancellationToken token);
     Task<RefreshToken> RefreshAsync(Guid tokenId, string ipAddress, string deviceId, CancellationToken token);
-    Task<RevokeTokenResult> RevokeAsync(Guid tokenId, string deviceId, CancellationToken token);
+    Task<RevokeResult> RevokeAsync(Guid tokenId, string deviceId, CancellationToken token);
 }

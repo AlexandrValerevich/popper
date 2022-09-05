@@ -1,9 +1,9 @@
 using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Exceptions.Authentication;
 using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Authentication;
 using Poppers.Application.Common.Models;
-
 namespace Poppers.Application.Authentication.Queries.Login;
 
 public class LoginQueryHandler
@@ -25,26 +25,38 @@ public class LoginQueryHandler
         _refreshTokenService = refreshTokenService;
     }
 
-    public async Task<AuthenticationResult> Handle(LoginQuery request, 
+    public async Task<AuthenticationResult> Handle(LoginQuery request,
         CancellationToken cancellationToken)
     {
-        UserReadOnlyModel user = await _userReader.ReadByEmail(request.Email, cancellationToken);
-        if (user is null)
-        {
-            throw new Exception($"User with email {request.Email} not exist");
-        }
-
-        if (!_passwordChecker.IsValid(user.PasswordHash, request.Password))
-        {
-            throw new Exception("Invalid Password");
-        }
+        UserReadOnlyModel user = await TryReadUser(request.Email, cancellationToken);
+        ValidatePassword(user.PasswordHash, request.Password);
 
         string accessToken = _jwtGenerator.Generate(user.Id, user.FirstName, user.SecondName);
-        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id, 
-            request.IpAddress, 
+        RefreshToken refreshToken = await _refreshTokenService.CreateAsync(user.Id,
+            request.IpAddress,
             request.DeviceId,
             cancellationToken);
-            
+
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
+    }
+
+
+    private async Task<UserReadOnlyModel> TryReadUser(string email, CancellationToken cancellationToken)
+    {
+        UserReadOnlyModel user = await _userReader.ReadByEmail(email, cancellationToken);
+        if (user is null)
+        {
+            throw new NotFoundUserException(email);
+        }
+
+        return user;
+    }
+
+    private void ValidatePassword(string passwordHash, string password)
+    {
+        if (!_passwordChecker.IsValid(passwordHash, password))
+        {
+            throw new IncorrectPasswordException();
+        }
     }
 }

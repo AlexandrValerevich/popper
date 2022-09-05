@@ -1,6 +1,6 @@
 namespace Poppers.Application.Authentication.Common;
 
-public record RevokeTokenResult(
+public record RevokeResult(
     bool IsSuccess,
     IReadOnlyCollection<string> Errors
 );

@@ -1,5 +1,6 @@
 using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Exceptions.Authentication;
 using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Authentication;
 using Poppers.Application.Common.Models;
@@ -33,7 +34,7 @@ public class RefreshQueryHandler
 
         if (refreshToken is null)
         {
-            throw new Exception("Try to refresh invalid refresh token");
+            throw new InvalidRefreshException();
         }
 
         var user = await _userReader.ReadById(refreshToken.UserId, cancellationToken);

@@ -1,6 +1,7 @@
 using System.Text;
 using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Exceptions.Authentication;
 using Poppers.Application.Common.Interfaces.Authentication;
 
 namespace Poppers.Application.Authentication.Queries.Revoke;
@@ -17,7 +18,7 @@ public class RevokeQueryHandler
 
     public async Task<Unit> Handle(RevokeQuery request, CancellationToken cancellationToken)
     {
-        RevokeTokenResult revokeResult = await _refreshTokenService.RevokeAsync(request.RefreshToken,
+        RevokeResult revokeResult = await _refreshTokenService.RevokeAsync(request.RefreshToken,
             request.DeviceId,
             cancellationToken);
 
@@ -25,9 +26,9 @@ public class RevokeQueryHandler
         {
             var errors = new StringBuilder();
             errors.AppendJoin("; ", revokeResult.Errors);
-            throw new Exception(errors.ToString());
+            throw new InvalidRevokeException(errors.ToString());
         }
-        
+
         return Unit.Value;
     }
 }

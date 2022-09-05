@@ -1,5 +1,7 @@
+using System.Net;
 using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Exceptions.Authentication;
 using Poppers.Application.Common.Interfaces.Authentication;
 using Poppers.Application.Common.Models;
 using Poppers.Domain.Factory;
@@ -35,13 +37,7 @@ public class RegistrationCommandHandler
     public async Task<AuthenticationResult> Handle(RegistrationCommand request,
         CancellationToken cancellationToken)
     {
-        bool isExistedUser = await _userService.IsExistedUser(request.Email,
-            cancellationToken);
-
-        if (isExistedUser)
-        {
-            throw new Exception($"User with email: {request.Email} already exist");
-        }
+        await CheckEmailDuplicating(request.Email, cancellationToken);
 
         var passwordHash = _passwordHasher.HashPassword(request.Password);
         var user = _userFactory.Create(Guid.NewGuid(),
@@ -59,5 +55,15 @@ public class RegistrationCommandHandler
             cancellationToken);
 
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());
+    }
+
+    private async Task CheckEmailDuplicating(string email, CancellationToken cancellationToken)
+    {
+        bool isExistedUser = await _userService.IsExistedUser(email, cancellationToken);
+
+        if (isExistedUser)
+        {
+            throw new DuplicateEmailException(email);
+        }
     }
 }

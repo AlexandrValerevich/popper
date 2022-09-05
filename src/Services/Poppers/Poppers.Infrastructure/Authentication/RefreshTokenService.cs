@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Poppers.Application.Authentication.Common;
 using Poppers.Application.Common.Interfaces.Authentication;
@@ -98,7 +97,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         return token;
     }
 
-    public async Task<RevokeTokenResult> RevokeAsync(Guid tokenId,
+    public async Task<RevokeResult> RevokeAsync(Guid tokenId,
         string deviceId,
         CancellationToken cancellationToken)
     {
@@ -108,14 +107,14 @@ internal sealed class RefreshTokenService : IRefreshTokenService
 
         if (refreshToken is null)
         {
-            return new RevokeTokenResult(
+            return new RevokeResult(
                 false,
                 new[] { "Try to revoke unexcited refresh token" });
         }
 
         if (!refreshToken.IsActive)
         {
-            return new RevokeTokenResult(
+            return new RevokeResult(
                 false,
                 new[] { "Try to revoke not active refresh token" });
         }
@@ -124,7 +123,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         RefreshTokens.Update(refreshToken);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new RevokeTokenResult(
+        return new RevokeResult(
             false,
             Array.Empty<string>());
     }

@@ -12,8 +12,8 @@ using Poppers.Infrastructure.Persistence.EF.Contexts;
 namespace Poppers.Infrastructure.Migrations
 {
     [DbContext(typeof(ReadDbContext))]
-    [Migration("20220902193055_Add DeviceId to RefreshTokens")]
-    partial class AddDeviceIdtoRefreshTokens
+    [Migration("20220905160216_First Migration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,11 +37,14 @@ namespace Poppers.Infrastructure.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("DeviceID")
+                    b.Property<string>("DeviceId")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Expire")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");

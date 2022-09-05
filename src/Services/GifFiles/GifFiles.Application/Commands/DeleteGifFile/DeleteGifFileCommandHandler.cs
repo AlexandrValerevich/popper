@@ -1,7 +1,7 @@
 using GifFiles.Application.Interfaces;
 using MediatR;
 
-namespace GifFiles.Application.Commands;
+namespace GifFiles.Application.Commands.DeleteGifFile;
 
 public class DeleteGifFileCommandHandler : IRequestHandler<DeleteGifFileCommand>
 {

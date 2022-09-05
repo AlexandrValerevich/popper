@@ -25,7 +25,6 @@ var app = builder.Build();
     }
     
     app.UseSerilogRequestLogging();
-
     app.UseErrorHandler();
 
     app.UseHsts();

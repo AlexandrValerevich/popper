@@ -1,4 +1,5 @@
 using GifFiles.Api;
+using GifFiles.Api.Middleware;
 using GifFiles.Application;
 using GifFiles.Infrastructure;
 using Serilog;
@@ -20,12 +21,8 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
-    app.UseResponseCompression();
-    
-    app.UseExceptionHandler("/error");
-
     app.UseSerilogRequestLogging();
+    app.UseErrorHandler();
 
     app.UseHttpsRedirection();
     app.UseAuthorization();

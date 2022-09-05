@@ -1,7 +1,6 @@
 using FluentValidation;
-using GifFiles.Application.Commands;
 
-namespace Poppers.Application.Gif.Validators;
+namespace GifFiles.Application.Commands.DeleteGifFile;
 
 public class DeleteGifFileCommandValidator : AbstractValidator<DeleteGifFileCommand>
 {

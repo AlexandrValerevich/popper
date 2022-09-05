@@ -1,3 +1,5 @@
+using GifFiles.Api.Middleware;
+
 namespace GifFiles.Api;
 
 public static class DependencyInjection
@@ -7,11 +9,8 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        services.AddResponseCompression(options =>
-        {
-            options.EnableForHttps = true;
-        });
+    
+        services.AddMiddleware();
 
         return services;
     }

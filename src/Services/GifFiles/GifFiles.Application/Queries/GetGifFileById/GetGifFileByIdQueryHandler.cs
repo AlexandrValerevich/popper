@@ -2,7 +2,7 @@ using GifFiles.Application.Common;
 using GifFiles.Application.Interfaces;
 using MediatR;
 
-namespace GifFiles.Application.Queries;
+namespace GifFiles.Application.Queries.GetGifFileById;
 
 public class GetGifFileByIdQueryHandler : IRequestHandler<GetGifFileByIdQuery, GifFile>
 {

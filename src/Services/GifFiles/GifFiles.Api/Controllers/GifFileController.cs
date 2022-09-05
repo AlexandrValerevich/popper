@@ -1,10 +1,11 @@
-using GifFiles.Application.Commands;
-using GifFiles.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.GifFiles.Contracts.V1.Responses;
 using Shared.GifFiles.Contracts.V1;
 using Shared.GifFiles.Contracts.V1.Requests;
+using GifFiles.Application.Commands.DeleteGifFile;
+using GifFiles.Application.Commands.CreateGifFile;
+using GifFiles.Application.Queries.GetGifFileById;
 
 namespace GifFiles.Api.Controllers;
 

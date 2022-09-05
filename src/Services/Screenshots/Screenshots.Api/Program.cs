@@ -1,4 +1,5 @@
 using Screenshots.Api;
+using Screenshots.Api.Middleware;
 using Screenshots.Services;
 using Serilog;
 using Shared.Common.Host;
@@ -20,13 +21,12 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseResponseCompression();
     app.UseSerilogRequestLogging();
 
     app.UseHttpsRedirection();
     app.UseAuthorization();
 
-    app.UseExceptionHandler("/error");
+    app.UseErrorHandler();
     app.MapControllers();
 
     try

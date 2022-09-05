@@ -1,7 +1,6 @@
 using FluentValidation;
-using Screenshots.Application.Queries;
 
-namespace Poppers.Application.Gif.Validators;
+namespace Screenshots.Application.Queries;
 
 public class CreateScreenshotsQueryValidator : AbstractValidator<CreateScreenshotsQuery>
 {

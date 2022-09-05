@@ -1,7 +1,6 @@
 using FluentValidation;
-using GifFiles.Application.Queries;
 
-namespace Poppers.Application.Gif.Validators;
+namespace GifFiles.Application.Queries.GetGifFileById;
 
 public class GetGifByIdQueryValidator : AbstractValidator<GetGifFileByIdQuery>
 {

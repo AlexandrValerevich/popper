@@ -7,6 +7,12 @@
 			"path": "src/Services/Poppers"
 		},
 		{
+			"path": "src/Services/GifFiles"
+		},
+		{
+			"path": "src/Services/Screenshots"
+		},
+		{
 			"path": "src/Services/Shared"
 		},
 		

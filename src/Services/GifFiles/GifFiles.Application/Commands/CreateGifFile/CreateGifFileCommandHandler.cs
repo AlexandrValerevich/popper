@@ -2,7 +2,7 @@ using GifFiles.Application.Common;
 using GifFiles.Application.Interfaces;
 using MediatR;
 
-namespace GifFiles.Application.Commands;
+namespace GifFiles.Application.Commands.CreateGifFile;
 
 public class CreateGifFileCommandHandler : IRequestHandler<CreateGifFileCommand, GifCreationResult>
 {

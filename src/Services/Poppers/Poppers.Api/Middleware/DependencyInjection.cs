@@ -1,4 +1,4 @@
-namespace Poppers.Api.Middlware;
+namespace Poppers.Api.Middleware;
 
 public static class DependencyInjection
 {

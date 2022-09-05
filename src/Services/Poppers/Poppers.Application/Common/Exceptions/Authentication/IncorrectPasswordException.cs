@@ -6,6 +6,9 @@ public class IncorrectPasswordException : AuthenticationException
 {
     public IncorrectPasswordException() : base("Incorrect password")
     {
-        Code = (int)HttpStatusCode.BadRequest;
     }
+
+    public override int Code => (int)HttpStatusCode.BadRequest;
+
+    public override string Title => "Wrong password";
 }

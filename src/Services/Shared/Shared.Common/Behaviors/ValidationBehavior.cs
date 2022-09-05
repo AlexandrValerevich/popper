@@ -35,7 +35,7 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         {
             throw new ValidationException(errorsDictionary);
         }
-
+        
         return await next();
     }
 }

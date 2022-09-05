@@ -7,6 +7,9 @@ public class NotFoundUserException : AuthenticationException
     public NotFoundUserException(string email) 
         : base($"User with email {email} not exist")
     {
-        Code = (int)HttpStatusCode.NotFound;
     }
+
+    public override int Code => (int)HttpStatusCode.NotFound;
+
+    public override string Title => "User not found";
 }

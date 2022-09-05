@@ -7,6 +7,9 @@ public class DuplicateEmailException : AuthenticationException
     public DuplicateEmailException(string email) 
         : base($"User with email: {email} already exist")
     {
-        Code = (int)HttpStatusCode.Conflict;
     }
+
+    public override int Code => (int)HttpStatusCode.Conflict;
+
+    public override string Title => "Duplicate email";
 }

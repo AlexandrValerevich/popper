@@ -1,4 +1,4 @@
-using Poppers.Api.Middlware;
+using Poppers.Api.Middleware;
 
 namespace Poppers.Api;
 

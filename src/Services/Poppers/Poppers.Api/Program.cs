@@ -1,5 +1,5 @@
 using Poppers.Api;
-using Poppers.Api.Middlware;
+using Poppers.Api.Middleware;
 using Poppers.Application;
 using Poppers.Domain;
 using Poppers.Infrastructure;

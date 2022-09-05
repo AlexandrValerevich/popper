@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Poppers.Application.Common.Exceptions;
@@ -26,25 +27,28 @@ public class ErrorHandlerMiddleware : IMiddleware
             _ = error switch
             {
                 AppException e => Problem(context, e.Code, e.Message),
-                ValidationException e => ValidationProblem(context, (int)HttpStatusCode.BadRequest, e.Message),
+                ValidationException e => Problem(context, (int)HttpStatusCode.BadRequest, e.Message),
                 _ => Problem(context, (int)HttpStatusCode.InternalServerError, "Internal error")
             };
         }
     }
 
-    private static async Task Problem(HttpContext context, int statusCode, string massage)
+    private async Task Problem(HttpContext context, int statusCode, string title)
     {
+        var problem = _problemDetailsFactory.CreateProblemDetails(context, statusCode, title);
         var response = context.Response;
         response.StatusCode = statusCode;
         response.ContentType = "application/json";
-        await response.WriteAsync(massage);
+
+        await response.WriteAsync(JsonSerializer.Serialize(problem));
     }
 
-    private static async Task ValidationProblem(HttpContext context, int statusCode, string massage)
-    {
-        var response = context.Response;
-        response.StatusCode = statusCode;
-        response.ContentType = "application/json";
-        await response.WriteAsync(massage);
-    }
+    // private  async Task ValidationProblem(HttpContext context, int statusCode, string title)
+    // {
+    //     var problem = _problemDetailsFactory.CreateValidationProblemDetails(context, );
+    //     var response = context.Response;
+    //     response.StatusCode = statusCode;
+    //     response.ContentType = "application/json";
+    //     await response.WriteAsync(title);
+    // }
 }

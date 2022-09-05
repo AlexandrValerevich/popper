@@ -16,7 +16,7 @@ public sealed class LogErrorBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         }
         catch (Exception e)
         {
-            Log.Error("Unexpected exception occur with massage: {Message}", e.Message);
+            Log.Error(e.Message);
             throw;
         }
     }

@@ -98,7 +98,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         return token;
     }
 
-    public async Task<RefreshTokenRevokeResult> RevokeAsync(Guid tokenId,
+    public async Task<RevokeTokenResult> RevokeAsync(Guid tokenId,
         string deviceId,
         CancellationToken cancellationToken)
     {
@@ -108,14 +108,14 @@ internal sealed class RefreshTokenService : IRefreshTokenService
 
         if (refreshToken is null)
         {
-            return new RefreshTokenRevokeResult(
+            return new RevokeTokenResult(
                 false,
                 new[] { "Try to revoke unexcited refresh token" });
         }
 
         if (!refreshToken.IsActive)
         {
-            return new RefreshTokenRevokeResult(
+            return new RevokeTokenResult(
                 false,
                 new[] { "Try to revoke not active refresh token" });
         }
@@ -124,7 +124,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
         RefreshTokens.Update(refreshToken);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new RefreshTokenRevokeResult(
+        return new RevokeTokenResult(
             false,
             Array.Empty<string>());
     }

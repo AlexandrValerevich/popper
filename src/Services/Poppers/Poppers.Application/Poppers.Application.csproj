@@ -1,12 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Poppers.Domain\Poppers.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-   
- <PackageReference Include="FluentValidation" Version="11.1.0" />
+    <PackageReference Include="ErrorOr" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.1.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.1.0" />
   </ItemGroup>
 
@@ -14,10 +23,5 @@
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
 
 </Project>

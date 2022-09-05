@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poppers.Domain.Entities;
-using Poppers.Domain.ValueObjects;
+using Poppers.Domain.ValueObjects.User;
 
 namespace Poppers.Infrastructure.Persistence.EF.Config;
 

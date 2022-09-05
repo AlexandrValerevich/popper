@@ -1,6 +1,6 @@
 using ValueOf;
 
-namespace Poppers.Domain.ValueObjects;
+namespace Poppers.Domain.ValueObjects.User;
 
 public class UserId : ValueOf<Guid, UserId>
 {

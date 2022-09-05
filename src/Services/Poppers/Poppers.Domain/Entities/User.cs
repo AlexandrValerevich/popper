@@ -1,4 +1,4 @@
-using Poppers.Domain.ValueObjects;
+using Poppers.Domain.ValueObjects.User;
 
 namespace Poppers.Domain.Entities;
 

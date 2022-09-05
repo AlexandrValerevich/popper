@@ -1,6 +1,6 @@
-using Poppers.Domain.Errors;
+using Poppers.Domain.Exceptions.Gif;
 
-namespace Poppers.Domain.ValueObjects;
+namespace Poppers.Domain.ValueObjects.Gif;
 
 public record Frame
 {

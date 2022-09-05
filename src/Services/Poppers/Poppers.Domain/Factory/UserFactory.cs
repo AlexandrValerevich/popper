@@ -1,5 +1,5 @@
 using Poppers.Domain.Entities;
-using Poppers.Domain.ValueObjects;
+using Poppers.Domain.ValueObjects.User;
 
 namespace Poppers.Domain.Factory;
 

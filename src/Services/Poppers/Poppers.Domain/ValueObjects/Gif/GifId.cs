@@ -1,6 +1,6 @@
 using ValueOf;
 
-namespace Poppers.Domain.ValueObjects;
+namespace Poppers.Domain.ValueObjects.Gif;
 
 public class GifId : ValueOf<Guid, GifId>
 {

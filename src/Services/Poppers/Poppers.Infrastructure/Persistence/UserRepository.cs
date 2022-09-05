@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Poppers.Domain.Entities;
 using Poppers.Domain.Interfaces;
-using Poppers.Domain.ValueObjects;
+using Poppers.Domain.ValueObjects.User;
 using Poppers.Infrastructure.Persistence.EF.Contexts;
 
 namespace Poppers.Infrastructure.Persistence;

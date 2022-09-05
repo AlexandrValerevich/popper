@@ -1,7 +1,7 @@
 using System.Net.Mail;
-using Poppers.Domain.Errors;
+using Poppers.Domain.Exceptions.User;
 
-namespace Poppers.Domain.ValueObjects;
+namespace Poppers.Domain.ValueObjects.User;
 
 public record Email
 {
@@ -11,7 +11,7 @@ public record Email
     {
         if (!IsValidEmail(email))
         {
-            throw new InvalidEmailException();
+            throw new InvalidEmailException(email);
         }
         Value = email.ToLower();
     }

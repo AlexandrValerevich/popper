@@ -1,4 +1,5 @@
 using Poppers.Api;
+using Poppers.Api.Middlware;
 using Poppers.Application;
 using Poppers.Domain;
 using Poppers.Infrastructure;
@@ -25,13 +26,15 @@ var app = builder.Build();
     
     app.UseSerilogRequestLogging();
 
+    app.UseErrorHandler();
+
     app.UseHsts();
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseExceptionHandler("/error");
+    // app.UseExceptionHandler("/error");
     app.MapControllers();
 
     try

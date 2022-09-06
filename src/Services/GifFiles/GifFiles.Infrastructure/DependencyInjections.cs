@@ -9,9 +9,8 @@ public static class DependencyInjections
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.AddSingleton<IGifReader, GifReader>();
-        services.AddSingleton<IGifWriter, GifWriter>();
-        services.AddSingleton<IGifRemover, GifRemover>();
+        services.AddSingleton<IGifFileReader, GifFileReader>();
+        services.AddSingleton<IGifFileWriter, GifFileWriter>();
 
         services.AddLogErrorBehavior();
         services.AddValidationBehavior();

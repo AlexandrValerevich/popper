@@ -4,13 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "src/Services/Poppers"
-		},
-		{
 			"path": "src/Services/GifFiles"
-		},
-		{
-			"path": "src/Services/Screenshots"
 		},
 		{
 			"path": "src/Services/Shared"
@@ -21,6 +15,7 @@
 		"cSpell.words": [
 			"giffile",
 			"Giffiles",
+			"Gifs",
 			"Hmac",
 			"Hsts",
 			"jitterer",

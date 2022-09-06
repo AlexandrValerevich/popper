@@ -4,7 +4,7 @@ using ImageMagick;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifWriter : IGifWriter
+public class GifFileWriter : IGifFileWriter
 {
     public async Task<GifCreationResult> WriteAsync(Guid id,
         IEnumerable<string> images,
@@ -23,6 +23,18 @@ public class GifWriter : IGifWriter
 
         await imageCollection.WriteAsync(gifName, token);
         return new GifCreationResult(id);
+    }
+
+    public ValueTask RemoveByIdAsync(Guid id, CancellationToken token)
+    {
+        var gifFileName = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "Assets",
+            id + ".gif");
+
+        File.Delete(gifFileName);
+
+        return ValueTask.CompletedTask;
     }
 
     private static IEnumerable<IMagickImage<ushort>> MapMagicImage(IEnumerable<string> images, int delay)

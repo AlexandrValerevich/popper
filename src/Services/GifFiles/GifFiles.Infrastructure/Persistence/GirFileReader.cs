@@ -3,7 +3,7 @@ using GifFiles.Application.Interfaces;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifReader : IGifReader
+public class GifFileReader : IGifFileReader
 {
     public ValueTask<GifFile> ReadByIdAsync(Guid id, CancellationToken token)
     {

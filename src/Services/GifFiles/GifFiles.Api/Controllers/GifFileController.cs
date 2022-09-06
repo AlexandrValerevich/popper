@@ -53,7 +53,7 @@ public class GifFilesController : ControllerBase
         CancellationToken token)
     {
         await _mediator.Send(
-            new DeleteGifFileCommand(request.Id),
+            new DeleteGifByIdCommand(request.Id),
             token
         );
 

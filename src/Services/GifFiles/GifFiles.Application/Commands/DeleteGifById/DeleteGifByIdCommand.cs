@@ -2,4 +2,4 @@ using MediatR;
 
 namespace GifFiles.Application.Commands.DeleteGifFile;
 
-public record DeleteGifFileCommand(Guid Id) : IRequest;
+public record DeleteGifByIdCommand(Guid GifId, Guid UserId) : IRequest;

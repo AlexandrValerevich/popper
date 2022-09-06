@@ -6,16 +6,16 @@ namespace GifFiles.Application.Queries.GetGifFileById;
 
 public class GetGifFileByIdQueryHandler : IRequestHandler<GetGifFileByIdQuery, GifFile>
 {
-    private readonly IGifReader _gifReader;
+    private readonly IGifFileReader _gifReader;
 
-    public GetGifFileByIdQueryHandler(IGifReader gifReader)
+    public GetGifFileByIdQueryHandler(IGifFileReader gifReader)
     {
         _gifReader = gifReader;
     }
 
     public async Task<GifFile> Handle(GetGifFileByIdQuery request, CancellationToken token)
     {
-        GifFile gif = await _gifReader.ReadByIdAsync(request.Id, token);
-        return gif;
+        GifFile gifFile = await _gifReader.ReadByIdAsync(request.GifId, request.UserId, token);
+        return gifFile;
     }
 }

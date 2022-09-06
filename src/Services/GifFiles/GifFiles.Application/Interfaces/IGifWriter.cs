@@ -4,5 +4,8 @@ namespace GifFiles.Application.Interfaces;
 
 public interface IGifWriter
 {
-    Task<GifCreationResult> WriteAsync(Guid id, IEnumerable<string> images, int delay, CancellationToken token);
+    Task CreateAsync(Gif gif, CancellationToken token);
+    Task DeleteByIdAsync(Guid gifId, Guid userId, CancellationToken token);
+    Task DeleteAllByUserIdAsync(Guid userId, CancellationToken token);
+    Task RenameAsync(Guid gifId, Guid userId, string name, CancellationToken token);
 }

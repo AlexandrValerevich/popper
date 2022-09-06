@@ -1,10 +1,10 @@
 using MediatR;
 using Poppers.Application.Authentication.Common;
 
-namespace Poppers.Application.Authentication.Command.Refresh;
+namespace Poppers.Application.Authentication.Queries.Refresh;
 
 public record RefreshQuery(
     Guid RefreshToken,
-    string IpAddress, 
+    string IpAddress,
     string DeviceId)
     : IRequest<AuthenticationResult>;

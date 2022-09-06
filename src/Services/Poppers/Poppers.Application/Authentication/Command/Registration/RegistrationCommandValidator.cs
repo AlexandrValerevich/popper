@@ -10,5 +10,7 @@ public class RegistrationCommandValidator : AbstractValidator<RegistrationComman
         RuleFor(x => x.SecondName).NotEmpty();
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().Length(4, 20);
+        RuleFor(x => x.DeviceId).NotEmpty();
+        RuleFor(x => x.IpAddress).NotEmpty();
     }
 }

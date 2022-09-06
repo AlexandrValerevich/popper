@@ -5,7 +5,7 @@ using Poppers.Application.Common.Interfaces;
 using Poppers.Application.Common.Interfaces.Authentication;
 using Poppers.Application.Common.Models;
 
-namespace Poppers.Application.Authentication.Command.Refresh;
+namespace Poppers.Application.Authentication.Queries.Refresh;
 
 public class RefreshQueryHandler
     : IRequestHandler<RefreshQuery, AuthenticationResult>
@@ -23,7 +23,7 @@ public class RefreshQueryHandler
         _userReader = userReader;
     }
 
-    public async Task<AuthenticationResult> Handle(RefreshQuery request, 
+    public async Task<AuthenticationResult> Handle(RefreshQuery request,
         CancellationToken cancellationToken)
     {
         RefreshToken refreshToken = await _refreshTokenService.RefreshAsync(
@@ -38,8 +38,8 @@ public class RefreshQueryHandler
         }
 
         var user = await _userReader.ReadById(refreshToken.UserId, cancellationToken);
-        var accessToken = _jwtGenerator.Generate(user.Id, 
-            user.FirstName, 
+        var accessToken = _jwtGenerator.Generate(user.Id,
+            user.FirstName,
             user.SecondName);
 
         return new AuthenticationResult(accessToken, refreshToken.Id.ToString());

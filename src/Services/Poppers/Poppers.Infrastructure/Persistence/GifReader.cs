@@ -14,10 +14,10 @@ public class GifReader : IGifReader
         _client = client;
     }
 
-    public async Task<GifFile> ReadAsync(Guid id, CancellationToken token)
+    public async Task<GifFile> ReadAsync(Guid gifId, Guid userId, CancellationToken token)
     {
         var response = await _client.GetGifFileAsync(
-            new GetGifFileByIdRequest(id),
+            new GetGifByIdRequest(gifId, userId),
             token);
 
         return new GifFile()

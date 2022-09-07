@@ -21,6 +21,7 @@
 			"jitterer",
 			"Magick",
 			"Npgsql",
+			"poppersdb",
 			"Serilog"
 		],
 		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles",

@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Host.UseSerilogHostLogger();
 
     builder.Services.AddApi();
-    builder.Services.AddInfrastructure();
+    builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddApplication();
 }
 

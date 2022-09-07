@@ -4,6 +4,6 @@ namespace Poppers.Application.Common.Interfaces.Persistence;
 
 public interface IGifWriter
 {
-    Task RemoveAsync(Guid Id, CancellationToken token);
-    Task CreateAsync(GifDomain gif, CancellationToken token);
+    Task DeleteAsync(Guid gifId, Guid userId, CancellationToken token);
+    Task CreateAsync(GifDomain gif, Guid userId, CancellationToken token);
 }

@@ -1,20 +1,19 @@
-using GifFiles.Application.Interfaces;
-using GifFiles.Infrastructure.Persistence;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Poppers.Infrastructure.Persistence;
 using Shared.Common;
 
 namespace GifFiles.Infrastructure;
 
 public static class DependencyInjections
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        IConfiguration config)
     {
-        services.AddSingleton<IGifFileReader, GifFileReader>();
-        services.AddSingleton<IGifFileWriter, GifFileWriter>();
+        services.AddPersistance(config);
 
         services.AddLogErrorBehavior();
         services.AddValidationBehavior();
-
         return services;
     }
 }

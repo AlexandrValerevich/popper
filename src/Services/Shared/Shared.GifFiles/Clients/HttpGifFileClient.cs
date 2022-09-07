@@ -14,17 +14,18 @@ public class HttpGifFileClient : IHttpGifFileClient
         _client = new RestClient(client);
     }
 
-    public async Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifFileByIdRequest request,
+    public async Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifByIdRequest request,
         CancellationToken token)
     {
         var restRequest = new RestRequest(ApiRoutes.GifFile.GetGifFileById);
-        restRequest.AddUrlSegment("Id", request.Id);
+        restRequest.AddUrlSegment("UserId", request.UserId);
+        restRequest.AddUrlSegment("GifId", request.GifId);
 
         Stream response = await _client.DownloadStreamAsync(restRequest, token);
         return new GetGifFileByIdResponse(response);
     }
 
-    public async Task<CreateGifFileResponse> CreateGifFileAsync(CreateGifFileRequest request,
+    public async Task<CreateGifFileResponse> CreateGifFileAsync(CreateGifRequest request,
        CancellationToken token)
     {
         var restRequest = new RestRequest(ApiRoutes.GifFile.CreateGifFile);
@@ -34,12 +35,13 @@ public class HttpGifFileClient : IHttpGifFileClient
         return response;
     }
 
-    public async Task DeleteGifFileByIdAsync(DeleteGifFileByIdRequest request,
+    public async Task DeleteGifFileByIdAsync(DeleteGifByIdRequest request,
        CancellationToken token)
     {
-
         var restRequest = new RestRequest(ApiRoutes.GifFile.DeleteGifFile);
-        restRequest.AddUrlSegment("Id", request.Id);
-        await _client.DeleteAsync<CreateGifFileResponse>(restRequest, token);
+        restRequest.AddUrlSegment("UserId", request.GifId);
+        restRequest.AddUrlSegment("GifId", request.GifId);
+        
+        await _client.DeleteAsync(restRequest, token);
     }
 }

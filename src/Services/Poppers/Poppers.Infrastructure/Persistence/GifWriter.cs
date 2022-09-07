@@ -14,18 +14,21 @@ namespace Poppers.Infrastructure.Persistence
             _client = client;
         }
 
-        public async Task CreateAsync(GifDomain gif, CancellationToken token)
+        public async Task CreateAsync(GifDomain gif, Guid userId, CancellationToken token)
         {
-            await _client.CreateGifFileAsync(new CreateGifFileRequest(
-                Id: gif.Id,
+            await _client.CreateGifFileAsync(new CreateGifRequest(
+                GifId: gif.Id,
+                UserId: userId,
+                Name: gif.Id.ToString(), // TODO add gif name to domain
                 Images: gif.Frames.Select(f => f.Value),
                 Delay: 10
             ), token);
         }
 
-        public async Task RemoveAsync(Guid id, CancellationToken token)
+        public async Task DeleteAsync(Guid gifId, Guid userId, CancellationToken token)
         {
-            await _client.DeleteGifFileByIdAsync(new DeleteGifFileByIdRequest(id),
+            await _client.DeleteGifFileByIdAsync(
+                new DeleteGifByIdRequest(gifId, userId),
                 token);
         }
     }

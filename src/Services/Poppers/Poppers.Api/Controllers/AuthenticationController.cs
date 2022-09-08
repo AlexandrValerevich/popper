@@ -53,7 +53,6 @@ public class AuthenticationController : ControllerBase
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
-    [Authorize]
     [HttpPost(ApiRoutes.Authentication.Refresh)]
     public async Task<IActionResult> Refresh([FromBody] RefreshRequest request,
         CancellationToken token)
@@ -66,7 +65,6 @@ public class AuthenticationController : ControllerBase
         return Ok(new AuthenticationResponse(authResult.AccessToken));
     }
 
-    [Authorize]
     [HttpPost(ApiRoutes.Authentication.Revoke)]
     public async Task<IActionResult> Revoke([FromBody] RevokeRequest request,
        CancellationToken token)

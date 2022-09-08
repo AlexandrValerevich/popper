@@ -1,4 +1,7 @@
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Poppers.Application.Gif.Commands.CreateGif;
@@ -26,7 +29,10 @@ public class PoppersController : ControllerBase
     public async Task<IActionResult> Get([FromRoute] GetGifByIdRequest request,
         CancellationToken token)
     {
-        GifFile response = await _mediator.Send(new GetGifByIdQuery(request.Id), token);
+        GifFile response = await _mediator.Send(
+            new GetGifByIdQuery(request.Id, UserId),
+            token);
+
         return File(response.FileStream, "image/gif");
     }
 
@@ -34,12 +40,14 @@ public class PoppersController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateGifRequest request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(new CreateGifCommand()
-        {
-            Duration = request.Duration,
-            ElementSelector = request.Selector,
-            Uri = request.Uri
-        }, token);
+        var response = await _mediator.Send(
+            new CreateGifCommand(
+                UserId,
+                request.Duration,
+                request.Selector,
+                request.Uri,
+                request.Name),
+            token);
 
         return CreatedAtAction(nameof(Get),
             new { response.Id },
@@ -50,7 +58,13 @@ public class PoppersController : ControllerBase
     public async Task<IActionResult> Delete([FromRoute] DeleteGifRequest request,
         CancellationToken token)
     {
-        await _mediator.Send(new DeleteGifCommand(request.Id), token);
+        await _mediator.Send(
+            new DeleteGifCommand(request.Id, UserId),
+            token);
+
         return Ok();
     }
+
+    private Guid UserId => Guid.Parse(
+        HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 }

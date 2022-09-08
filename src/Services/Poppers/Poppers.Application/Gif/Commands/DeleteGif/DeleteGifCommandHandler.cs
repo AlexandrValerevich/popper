@@ -15,7 +15,7 @@ public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
     public async Task<Unit> Handle(DeleteGifCommand request,
         CancellationToken token)
     {
-        await _gifWriter.DeleteAsync(request.Id, token);
+        await _gifWriter.DeleteAsync(request.GifId, request.UserId, token);
         return Unit.Value;
     }
 }

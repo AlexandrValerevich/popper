@@ -16,6 +16,6 @@ public class GetGifByIdQueryHandler : IRequestHandler<GetGifByIdQuery, GifFile>
     public async Task<GifFile> Handle(GetGifByIdQuery request,
         CancellationToken token)
     {
-        return await _gifFileReader.ReadAsync(request.Id, token);
+        return await _gifFileReader.ReadAsync(request.GifId, request.UserId, token);
     }
 }

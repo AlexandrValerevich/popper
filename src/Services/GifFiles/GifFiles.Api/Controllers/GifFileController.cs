@@ -6,6 +6,7 @@ using Shared.GifFiles.Contracts.V1.Requests;
 using GifFiles.Application.Commands.DeleteGifFile;
 using GifFiles.Application.Queries.GetGifFileById;
 using GifFiles.Application.Commands.CreateGif;
+using GifFiles.Application.Common;
 
 namespace GifFiles.Api.Controllers;
 
@@ -34,7 +35,7 @@ public class GifFilesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateGifRequest request,
         CancellationToken token)
     {
-        var gifCreationResult = await _mediator.Send(
+        GifCreationResult gifCreationResult = await _mediator.Send(
             new CreateGifCommand(
                 request.UserId,
                 request.Name,
@@ -45,7 +46,7 @@ public class GifFilesController : ControllerBase
 
         return CreatedAtAction(
             nameof(GifFilesController.Get),
-            new { gifCreationResult.GifId },
+            new { request.UserId, gifCreationResult.GifId },
             new CreateGifFileResponse(gifCreationResult.GifId));
     }
 

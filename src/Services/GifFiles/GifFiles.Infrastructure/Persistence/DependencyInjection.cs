@@ -14,8 +14,8 @@ public static class DependencyInjection
         services.AddSingleton<IGifFileReader, GifFileReader>();
         services.AddSingleton<IGifFileWriter, GifFileWriter>();
 
-        services.AddSingleton<IGifReader, GifReader>();
-        services.AddSingleton<IGifWriter, GifWriter>();
+        services.AddScoped<IGifReader, GifReader>();
+        services.AddScoped<IGifWriter, GifWriter>();
         
         services.AddPostgresDbContext(config);
 

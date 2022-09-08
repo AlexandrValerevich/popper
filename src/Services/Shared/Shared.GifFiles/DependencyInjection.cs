@@ -17,6 +17,7 @@ public static class DependencyInjection
         services.AddHttpClient<IHttpGifFileClient, HttpGifFileClient>(client =>
         {
             client.BaseAddress = new Uri(clintOptions.BaseUrl);
+            client.Timeout = TimeSpan.FromMinutes(3);
         })
         .AddPolicyHandlerFromRegistry(PolicyKeys.HttpGiffilesClient);
 

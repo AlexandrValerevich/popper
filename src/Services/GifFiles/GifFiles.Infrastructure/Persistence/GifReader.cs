@@ -1,12 +1,25 @@
 using GifFiles.Application.Common;
 using GifFiles.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Poppers.Infrastructure.Persistence.EF.Contexts;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifReader : IGifReader
+internal sealed class GifReader : IGifReader
 {
-    public Task<IEnumerable<Gif>> ReadAllAsync(Guid userId, CancellationToken token)
+    private readonly GifDbContext _context;
+
+    public GifReader(GifDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+
+    private DbSet<Gif> Gifs => _context.Gifs;
+
+    public async Task<IEnumerable<Gif>> ReadAllAsync(Guid userId, CancellationToken token)
+    {
+        return await Gifs.Where(gif => gif.UserId.Equals(userId))
+            .AsNoTracking()
+            .ToArrayAsync(token);
     }
 }

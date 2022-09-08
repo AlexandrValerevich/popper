@@ -14,11 +14,13 @@ public class RenameGifCommandHandler : IRequestHandler<RenameGifCommand>
 
     public async Task<Unit> Handle(RenameGifCommand request, CancellationToken cancellationToken)
     {
-        await _gifWriter.RenameAsync(
-            request.GifId, 
-            request.UserId, 
-            request.Name, 
-            cancellationToken);
+
+
+        // await _gifWriter.UpdateAsync(
+        //     request.GifId, 
+        //     request.UserId, 
+        //     request.Name, 
+        //     cancellationToken);
             
         return Unit.Value;
     }

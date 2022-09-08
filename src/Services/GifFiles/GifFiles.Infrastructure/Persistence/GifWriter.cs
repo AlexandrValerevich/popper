@@ -1,27 +1,46 @@
 using GifFiles.Application.Common;
 using GifFiles.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Poppers.Infrastructure.Persistence.EF.Contexts;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifWriter : IGifWriter
+internal sealed class GifWriter : IGifWriter
 {
-    public Task CreateAsync(Gif gif, CancellationToken token)
+    private readonly GifDbContext _context;
+
+    public GifWriter(GifDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    private DbSet<Gif> Gifs => _context.Gifs;
+
+
+    public async Task CreateAsync(Gif gif, CancellationToken token)
+    {
+        await Gifs.AddAsync(gif, token);
+        await _context.SaveChangesAsync(token);
     }
 
-    public Task DeleteAllByUserIdAsync(Guid userId, CancellationToken token)
+    public async Task DeleteAllByUserIdAsync(Guid userId, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var gifs = await Gifs.Where(gif => gif.UserId.Equals(userId)).ToArrayAsync(token);
+        Gifs.RemoveRange(gifs);
+        await _context.SaveChangesAsync(token);
     }
 
-    public Task DeleteByIdAsync(Guid gifId, Guid userId, CancellationToken token)
+    public async Task DeleteByIdAsync(Guid gifId, Guid userId, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var gif = await Gifs.SingleOrDefaultAsync(
+            g => g.UserId.Equals(userId) && g.Id.Equals(gifId),
+            token);
+        Gifs.Remove(gif);
+        await _context.SaveChangesAsync(token);
     }
 
-    public Task RenameAsync(Guid gifId, Guid userId, string name, CancellationToken token)
+    public async Task UpdateAsync(Gif gif, CancellationToken token)
     {
-        throw new NotImplementedException();
+        Gifs.Update(gif);
+        await _context.SaveChangesAsync(token);
     }
 }

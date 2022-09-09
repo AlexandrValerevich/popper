@@ -19,7 +19,7 @@ public class CreateGifFileCommandHandler : IRequestHandler<CreateGifCommand, Gif
     public async Task<GifCreationResult> Handle(CreateGifCommand request, CancellationToken token)
     {
         var gif = new Gif(
-            Guid.NewGuid(),
+            request.GifId,
             request.Name,
             DateTime.UtcNow,
             request.UserId

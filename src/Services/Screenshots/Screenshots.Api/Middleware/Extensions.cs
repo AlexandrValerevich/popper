@@ -6,4 +6,9 @@ public static class Extensions
     {
         return app.UseMiddleware<ErrorHandlerMiddleware>();
     }
+
+    public static IApplicationBuilder UseErrorLog(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<ErrorLogMiddleware>();
+    }
 }

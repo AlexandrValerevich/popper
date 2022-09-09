@@ -37,6 +37,7 @@ public class GifFilesController : ControllerBase
     {
         GifCreationResult gifCreationResult = await _mediator.Send(
             new CreateGifCommand(
+                request.GifId,
                 request.UserId,
                 request.Name,
                 request.Delay,

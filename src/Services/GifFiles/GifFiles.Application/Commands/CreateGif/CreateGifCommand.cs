@@ -4,6 +4,7 @@ using MediatR;
 namespace GifFiles.Application.Commands.CreateGif;
 
 public record CreateGifCommand(
+    Guid GifId,
     Guid UserId,
     string Name,
     int Delay,

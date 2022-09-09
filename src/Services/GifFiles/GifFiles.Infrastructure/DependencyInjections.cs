@@ -11,9 +11,8 @@ public static class DependencyInjections
         IConfiguration config)
     {
         services.AddPersistance(config);
-
-        services.AddLogErrorBehavior();
         services.AddValidationBehavior();
+        
         return services;
     }
 }

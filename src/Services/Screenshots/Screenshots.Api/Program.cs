@@ -22,11 +22,12 @@ var app = builder.Build();
     }
 
     app.UseSerilogRequestLogging();
+    app.UseErrorHandler();
+    app.UseErrorLog();
 
     app.UseHttpsRedirection();
     app.UseAuthorization();
 
-    app.UseErrorHandler();
     app.MapControllers();
 
     try

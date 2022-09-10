@@ -1,5 +1,5 @@
-using MediatR;
 using Poppers.Application.Authentication.Common;
+using Poppers.Application.Common.Cqrs;
 
 namespace Poppers.Application.Authentication.Command.Registration;
 
@@ -10,4 +10,4 @@ public record RegistrationCommand(
     string Password,
     string IpAddress,
     string DeviceId
-) : IRequest<AuthenticationResult>;
+) : ICommand<AuthenticationResult>;

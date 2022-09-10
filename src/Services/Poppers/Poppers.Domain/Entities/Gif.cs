@@ -9,17 +9,26 @@ public class Gif
     private readonly Duration _duration;
     private readonly GifUri _uri;
     private readonly ElementSelector _elementSelector;
-    private readonly FrameList _frames = new();
+    private readonly GifName _name;
+    private readonly DateTime _created;
 
-    internal Gif(GifId id, Duration duration, GifUri uri, ElementSelector selector)
+    internal Gif(
+        GifId id,
+        GifName name,
+        Duration duration,
+        GifUri uri,
+        ElementSelector selector,
+        DateTime created)
     {
         Id = id;
         _duration = duration;
         _uri = uri;
         _elementSelector = selector;
+        _name = name;
+        _created = created;
     }
 
-    public IEnumerable<Frame> Frames => _frames.Value;
+    private Gif() { }
 
     public int Duration => _duration.Value;
 
@@ -27,16 +36,7 @@ public class Gif
 
     public string Selector => _elementSelector.Value;
 
-    public void AddFrame(Frame frame)
-    {
-        _frames.Add(frame);
-    }
+    public string Name => _name.Value;
 
-    public void AddRangeFrames(IEnumerable<Frame> frames)
-    {
-        foreach (Frame frame in frames)
-        {
-            _frames.Add(frame);
-        }
-    }
+    public DateTime Created => _created;
 }

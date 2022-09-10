@@ -4,8 +4,10 @@ using Shared.GifFiles.Contracts.V1.Responses;
 using Shared.GifFiles.Contracts.V1;
 using Shared.GifFiles.Contracts.V1.Requests;
 using GifFiles.Application.Commands.DeleteGifFile;
-using GifFiles.Application.Commands.CreateGifFile;
 using GifFiles.Application.Queries.GetGifFileById;
+using GifFiles.Application.Commands.CreateGif;
+using GifFiles.Application.Common;
+using GifFiles.Application.Commands.DeleteAllUserGifs;
 
 namespace GifFiles.Api.Controllers;
 
@@ -20,40 +22,57 @@ public class GifFilesController : ControllerBase
     }
 
     [HttpGet(ApiRoutes.GifFile.GetGifFileById)]
-    public async Task<IActionResult> Get([FromRoute] GetGifFileByIdRequest request,
+    public async Task<IActionResult> Get([FromRoute] Guid gifId,
+        [FromQuery] GetGifByIdRequest request,
         CancellationToken token)
     {
         var gifFile = await _mediator.Send(
-            new GetGifFileByIdQuery(request.Id),
+            new GetGifFileByIdQuery(gifId, request.UserId),
             token);
 
         return File(gifFile.Stream, "image/gif");
     }
 
     [HttpPost(ApiRoutes.GifFile.CreateGifFile)]
-    public async Task<IActionResult> Create([FromBody] CreateGifFileRequest request,
+    public async Task<IActionResult> Create([FromBody] CreateGifRequest request,
         CancellationToken token)
     {
-        var gifCreationResult = await _mediator.Send(
-            new CreateGifFileCommand(
-                request.Id,
-                request.Images,
-                request.Delay
+        GifCreationResult gifCreationResult = await _mediator.Send(
+            new CreateGifCommand(
+                request.GifId,
+                request.UserId,
+                request.Name,
+                request.Delay,
+                request.Images
             ),
             token);
 
         return CreatedAtAction(
             nameof(GifFilesController.Get),
-            new { gifCreationResult.Id },
-            new CreateGifFileResponse(gifCreationResult.Id));
+            new { request.UserId, gifCreationResult.GifId },
+            new CreateGifFileResponse(gifCreationResult.GifId));
     }
 
     [HttpDelete(ApiRoutes.GifFile.DeleteGifFile)]
-    public async Task<IActionResult> Delete([FromRoute] DeleteGifFileByIdRequest request,
+    public async Task<IActionResult> Delete([FromRoute] Guid gifId,
+        [FromBody] DeleteGifByIdRequest request,
         CancellationToken token)
     {
         await _mediator.Send(
-            new DeleteGifFileCommand(request.Id),
+            new DeleteGifByIdCommand(gifId, request.UserId),
+            token
+        );
+
+        return Ok();
+    }
+
+    [HttpDelete(ApiRoutes.GifFile.DeleteAllUserGifs)]
+    public async Task<IActionResult> DeleteAllUsersGif(
+        [FromBody] DeleteAllUserGifsRequest request,
+        CancellationToken token)
+    {
+        await _mediator.Send(
+            new DeleteAllUserGifsCommand(request.UserId),
             token
         );
 

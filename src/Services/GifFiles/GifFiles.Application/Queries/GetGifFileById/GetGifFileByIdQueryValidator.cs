@@ -6,6 +6,7 @@ public class GetGifByIdQueryValidator : AbstractValidator<GetGifFileByIdQuery>
 {
     public GetGifByIdQueryValidator()
     {
-        RuleFor(x => x.Id).NotEmpty();
+        RuleFor(x => x.GifId).NotEmpty();
+        RuleFor(x => x.UserId).NotEmpty();
     }
 }

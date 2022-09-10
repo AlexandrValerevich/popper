@@ -32,6 +32,6 @@ public record GifUri
     }
 
     public static implicit operator Uri(GifUri uri) => uri.Value;
-
     public static implicit operator GifUri(string value) => new(value);
+    public static implicit operator GifUri(Uri value) => new(value);
 }

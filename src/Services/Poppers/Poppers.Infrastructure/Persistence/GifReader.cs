@@ -1,28 +1,24 @@
 using Poppers.Application.Gif.Common;
-using Shared.GifFiles.Contracts.V1.Requests;
-using Shared.GifFiles.Clients;
 using Poppers.Application.Common.Interfaces.Persistence;
+using Poppers.Infrastructure.Persistence.EF.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Poppers.Infrastructure.Persistence;
 
-public class GifReader : IGifReader
+internal sealed class GifReader : IGifReader
 {
-    private readonly IHttpGifFileClient _client;
+    private readonly ReadDbContext _context;
+    private DbSet<GifReadOnlyModel> Gifs => _context.Gifs;
 
-    public GifReader(IHttpGifFileClient client)
+    public GifReader(ReadDbContext context)
     {
-        _client = client;
+        _context = context;
     }
 
-    public async Task<GifFile> ReadAsync(Guid id, CancellationToken token)
+    public async Task<IEnumerable<GifReadOnlyModel>> ReadAllUserGifsAsync(Guid userId, CancellationToken token)
     {
-        var response = await _client.GetGifFileAsync(
-            new GetGifFileByIdRequest(id),
-            token);
-
-        return new GifFile()
-        {
-            FileStream = response.StreamGif
-        };
+        return await Gifs.Where(g => g.UserId.Equals(userId))
+            .AsNoTracking()
+            .ToArrayAsync(token);
     }
 }

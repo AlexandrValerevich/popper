@@ -1,3 +1,3 @@
 namespace GifFiles.Application.Common;
 
-public record GifCreationResult(Guid Id);
+public record GifCreationResult(Guid GifId);

@@ -4,5 +4,5 @@ namespace Poppers.Application.Common.Interfaces.Persistence;
 
 public interface IGifReader
 {
-    Task<GifFile> ReadAsync(Guid id, CancellationToken token);
+    Task<IEnumerable<GifReadOnlyModel>> ReadAllUserGifsAsync(Guid userId, CancellationToken token);
 }

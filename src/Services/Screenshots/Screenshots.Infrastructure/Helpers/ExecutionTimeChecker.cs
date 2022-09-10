@@ -19,7 +19,7 @@ public class ExecutionTimeChecker : IDisposable
     public void Dispose()
     {
         _timer.Stop();
-        Log.Information(
+        Log.Debug(
             "Execution time {Time} ms of {Name} method",
             _timer.ElapsedMilliseconds,
             _name);

@@ -3,4 +3,4 @@ using MediatR;
 
 namespace GifFiles.Application.Queries.GetGifFileById;
 
-public record GetGifFileByIdQuery(Guid Id) : IRequest<GifFile>;
+public record GetGifFileByIdQuery(Guid GifId, Guid UserId) : IRequest<GifFile>;

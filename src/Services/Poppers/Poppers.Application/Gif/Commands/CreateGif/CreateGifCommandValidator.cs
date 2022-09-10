@@ -9,5 +9,6 @@ public class CreateGifCommandValidator : AbstractValidator<CreateGifCommand>
         RuleFor(x => x.Uri).NotEmpty();
         RuleFor(x => x.ElementSelector).NotEmpty();
         RuleFor(x => x.Duration).InclusiveBetween(3, 30);
+        RuleFor(x => x.UserId).NotEmpty();
     }
 }

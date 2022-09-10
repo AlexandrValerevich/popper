@@ -1,52 +1,57 @@
 using MediatR;
+using Poppers.Application.Common.Cqrs;
 using Poppers.Application.Common.Interfaces.Gif;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
+using Poppers.Domain.Entities;
 using Poppers.Domain.Factory;
-using Poppers.Domain.ValueObjects.Gif;
+using Poppers.Domain.Interfaces;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Application.Gif.Commands.CreateGif;
 
-public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCreationResult>
+public class CreateGifCommandHandler 
+    : IRequestHandler<CreateGifCommand, GifCreationResult>
 {
     private readonly IGifFactory _gifFactory;
     private readonly IScreenshotCreator _screenshotCreator;
-    private readonly IGifWriter _gifWriter;
+    private readonly IGifFileWriter _gifFileWriter;
+    private readonly IUserRepository _userRepository;
 
-    public CreateGifCommandHandler(IGifWriter gifWriter,
-        IScreenshotCreator screenshotCreator,
-        IGifFactory gifFactory)
+    public CreateGifCommandHandler(IScreenshotCreator screenshotCreator,
+        IGifFactory gifFactory,
+        IGifFileWriter gifFileWriter,
+        IUserRepository userRepository)
     {
-        _gifWriter = gifWriter;
         _screenshotCreator = screenshotCreator;
         _gifFactory = gifFactory;
+        _gifFileWriter = gifFileWriter;
+        _userRepository = userRepository;
     }
 
-    public async Task<GifCreationResult> Handle(CreateGifCommand command,
+    public async Task<GifCreationResult> Handle(CreateGifCommand request,
         CancellationToken token)
     {
         GifDomain gif = _gifFactory.Create(
             Guid.NewGuid(),
-            command.Duration,
-            command.Uri,
-            command.ElementSelector
+            request.Duration,
+            request.Uri,
+            request.ElementSelector,
+            request.Name,
+            DateTime.UtcNow
         );
 
-        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
-        IEnumerable<Frame> frames = MapFrames(screenshots);
-        gif.AddRangeFrames(frames);
+        User user = await _userRepository.ReadById(request.UserId, token);
+        user.AddGif(gif);
+        await _userRepository.Update(user, token);
 
-        await _gifWriter.CreateAsync(gif, token);
+        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
+        await _gifFileWriter.CreateAsync(
+            gif,
+            request.UserId,
+            screenshots,
+            token);
 
         return new GifCreationResult(gif.Id);
-    }
-
-    private static IEnumerable<Frame> MapFrames(ScreenshotList screenshots)
-    {
-        return screenshots.Screenshots.Select(s =>
-        {
-            return new Frame(s);
-        });
     }
 }

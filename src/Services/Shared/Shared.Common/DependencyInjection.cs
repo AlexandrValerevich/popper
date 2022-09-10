@@ -11,10 +11,4 @@ public static class DependencyInjection
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         return services;
     }
-
-    public static IServiceCollection AddLogErrorBehavior(this IServiceCollection services)
-    {
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LogErrorBehavior<,>));
-        return services;
-    }
 }

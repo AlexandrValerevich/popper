@@ -4,10 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "src/Services/Poppers"
+			"path": "src/Services/GifFiles"
 		},
 		{
-			"path": "src/Services/GifFiles"
+			"path": "src/Services/Poppers"
 		},
 		{
 			"path": "src/Services/Screenshots"
@@ -21,11 +21,13 @@
 		"cSpell.words": [
 			"giffile",
 			"Giffiles",
+			"Gifs",
 			"Hmac",
 			"Hsts",
 			"jitterer",
 			"Magick",
 			"Npgsql",
+			"poppersdb",
 			"Serilog"
 		],
 		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles",

@@ -2,13 +2,13 @@ using MediatR;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
 
-namespace Poppers.Application.Gif.Queries;
+namespace Poppers.Application.Gif.Queries.GetGifById;
 
 public class GetGifByIdQueryHandler : IRequestHandler<GetGifByIdQuery, GifFile>
 {
-    private readonly IGifReader _gifFileReader;
+    private readonly IGifFileReader _gifFileReader;
 
-    public GetGifByIdQueryHandler(IGifReader gifFileReader)
+    public GetGifByIdQueryHandler(IGifFileReader gifFileReader)
     {
         _gifFileReader = gifFileReader;
     }

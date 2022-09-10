@@ -9,19 +9,17 @@ public class GifFileReader : IGifFileReader
 
     public ValueTask<GifFile> ReadByIdAsync(Guid gifId, Guid userId, CancellationToken token)
     {
-        string folderName = Path.Combine(_gifFolderBase, userId.ToString());
-        if (!Directory.Exists(folderName))
+        string gifFileName = Path.Combine(_gifFolderBase, userId.ToString(), gifId + ".gif");
+        if (!File.Exists(gifFileName))
         {
             return ValueTask.FromResult<GifFile>(null);
         }
 
-        string gifFileName = Path.Combine(folderName, gifId + ".gif");
         var gifFile = new GifFile()
         {
-            Id = gifId,
             Stream = File.OpenRead(gifFileName)
         };
-        
+
         return ValueTask.FromResult(gifFile);
     }
 }

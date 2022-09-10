@@ -7,10 +7,9 @@ namespace GifFiles.Infrastructure;
 
 public static class DependencyInjections
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-        IConfiguration config)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.AddPersistance(config);
+        services.AddPersistance();
         services.AddValidationBehavior();
         
         return services;

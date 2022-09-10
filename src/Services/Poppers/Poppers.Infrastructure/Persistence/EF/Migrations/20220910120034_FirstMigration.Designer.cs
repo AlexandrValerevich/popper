@@ -12,7 +12,7 @@ using Poppers.Infrastructure.Persistence.EF.Contexts;
 namespace Poppers.Infrastructure.Migrations
 {
     [DbContext(typeof(ReadDbContext))]
-    [Migration("20220905160216_First Migration")]
+    [Migration("20220910120034_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,7 +79,38 @@ namespace Poppers.Infrastructure.Migrations
                     b.ToTable("Users", "popper");
                 });
 
+            modelBuilder.Entity("Poppers.Application.Gif.Common.GifReadOnlyModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Gifs", "popper");
+                });
+
             modelBuilder.Entity("Poppers.Application.Common.Models.RefreshToken", b =>
+                {
+                    b.HasOne("Poppers.Application.Common.Models.UserReadOnlyModel", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Poppers.Application.Gif.Common.GifReadOnlyModel", b =>
                 {
                     b.HasOne("Poppers.Application.Common.Models.UserReadOnlyModel", null)
                         .WithMany()

@@ -12,11 +12,14 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         IConfiguration config)
     {
-        services.AddScoped<IGifWriter, GifWriter>();
         services.AddScoped<IGifReader, GifReader>();
+
+        services.AddScoped<IGifFileWriter, GifFileWriter>();
+        services.AddScoped<IGifFileReader, GifFileReader>();
 
         services.AddScoped<IUserReader, UserReader>();
         services.AddScoped<IUserRepository, UserRepository>();
+        
         services.AddPostgresDbContext(config);
         return services;
     }

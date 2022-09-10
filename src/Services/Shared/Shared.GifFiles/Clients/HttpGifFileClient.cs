@@ -2,6 +2,7 @@ using RestSharp;
 using Shared.GifFiles.Contracts.V1;
 using Shared.GifFiles.Contracts.V1.Requests;
 using Shared.GifFiles.Contracts.V1.Responses;
+using Shared.GifFiles.Models;
 
 namespace Shared.GifFiles.Clients;
 
@@ -14,12 +15,12 @@ public class HttpGifFileClient : IHttpGifFileClient
         _client = new RestClient(client);
     }
 
-    public async Task<GetGifFileByIdResponse> GetGifFileAsync(GetGifByIdRequest request,
+    public async Task<GetGifFileByIdResponse> GetGifFileAsync(Guid gifId, GetGifByIdRequest request,
         CancellationToken token)
     {
         var restRequest = new RestRequest(ApiRoutes.GifFile.GetGifFileById);
-        restRequest.AddUrlSegment("UserId", request.UserId);
-        restRequest.AddUrlSegment("GifId", request.GifId);
+        restRequest.AddUrlSegment("GifId", gifId);
+        restRequest.AddQueryParameter("UserId", request.UserId);
 
         Stream response = await _client.DownloadStreamAsync(restRequest, token);
         return new GetGifFileByIdResponse(response);
@@ -35,13 +36,21 @@ public class HttpGifFileClient : IHttpGifFileClient
         return response;
     }
 
-    public async Task DeleteGifFileByIdAsync(DeleteGifByIdRequest request,
+    public async Task DeleteGifFileByIdAsync(Guid gifId, DeleteGifByIdRequest request,
        CancellationToken token)
     {
         var restRequest = new RestRequest(ApiRoutes.GifFile.DeleteGifFile);
-        restRequest.AddUrlSegment("UserId", request.GifId);
-        restRequest.AddUrlSegment("GifId", request.GifId);
-        
+        restRequest.AddBody(request);
+        restRequest.AddUrlSegment("GifId", gifId);
+
+        await _client.DeleteAsync(restRequest, token);
+    }
+
+    public async Task DeleteAllUserGifsAsync(DeleteAllUserGifsRequest request, CancellationToken token)
+    {
+        var restRequest = new RestRequest(ApiRoutes.GifFile.DeleteAllUserGifs);
+        restRequest.AddBody(request);
+
         await _client.DeleteAsync(restRequest, token);
     }
 }

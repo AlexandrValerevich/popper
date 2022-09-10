@@ -1,6 +1,6 @@
-namespace GifFiles.Application.Common;
+namespace Shared.GifFiles.Models;
 
-public record Gif(
+public record GifModel(
     Guid Id,
     string Name,
     DateTime Created,

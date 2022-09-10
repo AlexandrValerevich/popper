@@ -5,5 +5,10 @@ namespace Poppers.Domain.Factory;
 
 public interface IGifFactory
 {
-    Gif Create(GifId id, Duration duration, GifUri uri, ElementSelector selector);
+    Gif Create(GifId id,
+        Duration duration,
+        GifUri uri,
+        ElementSelector selector,
+        GifName name,
+        DateTime creationDate);
 }

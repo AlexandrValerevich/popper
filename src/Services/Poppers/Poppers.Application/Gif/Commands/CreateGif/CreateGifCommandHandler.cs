@@ -2,8 +2,9 @@ using MediatR;
 using Poppers.Application.Common.Interfaces.Gif;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
+using Poppers.Domain.Entities;
 using Poppers.Domain.Factory;
-using Poppers.Domain.ValueObjects.Gif;
+using Poppers.Domain.Interfaces;
 using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Application.Gif.Commands.CreateGif;
@@ -12,15 +13,18 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
 {
     private readonly IGifFactory _gifFactory;
     private readonly IScreenshotCreator _screenshotCreator;
-    private readonly IGifWriter _gifWriter;
+    private readonly IGifFileWriter _gifFileWriter;
+    private readonly IUserRepository _userRepository;
 
-    public CreateGifCommandHandler(IGifWriter gifWriter,
-        IScreenshotCreator screenshotCreator,
-        IGifFactory gifFactory)
+    public CreateGifCommandHandler(IScreenshotCreator screenshotCreator,
+        IGifFactory gifFactory,
+        IGifFileWriter gifFileWriter,
+        IUserRepository userRepository)
     {
-        _gifWriter = gifWriter;
         _screenshotCreator = screenshotCreator;
         _gifFactory = gifFactory;
+        _gifFileWriter = gifFileWriter;
+        _userRepository = userRepository;
     }
 
     public async Task<GifCreationResult> Handle(CreateGifCommand request,
@@ -30,22 +34,22 @@ public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCrea
             Guid.NewGuid(),
             request.Duration,
             request.Uri,
-            request.ElementSelector
+            request.ElementSelector,
+            request.Name,
+            DateTime.UtcNow
         );
 
+        User user = await _userRepository.ReadById(request.UserId, token);
+        user.AddGif(gif);
+        await _userRepository.Update(user, token);
+
         ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
-        IEnumerable<Frame> frames = MapFrames(screenshots);
-        gif.AddRangeFrames(frames);
+        await _gifFileWriter.CreateAsync(
+            gif,
+            request.UserId,
+            screenshots,
+            token);
 
-        await _gifWriter.CreateAsync(gif, request.UserId, token);
         return new GifCreationResult(gif.Id);
-    }
-
-    private static IEnumerable<Frame> MapFrames(ScreenshotList screenshots)
-    {
-        return screenshots.Screenshots.Select(s =>
-        {
-            return new Frame(s);
-        });
     }
 }

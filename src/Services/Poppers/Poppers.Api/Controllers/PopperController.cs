@@ -1,10 +1,12 @@
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Poppers.Application.Gif.Commands.CreateGif;
+using Poppers.Application.Gif.Commands.DeleteAllUserGifs;
 using Poppers.Application.Gif.Commands.DeleteGif;
 using Poppers.Application.Gif.Common;
-using Poppers.Application.Gif.Queries;
+using Poppers.Application.Gif.Queries.GetGifById;
 using Shared.Poppers.Contracts.V1;
 using Shared.Poppers.Contracts.V1.Gif.Requests;
 using Shared.Poppers.Contracts.V1.Gif.Responses;
@@ -23,23 +25,38 @@ public class PoppersController : ControllerBase
     }
 
     [HttpGet(ApiRoutes.Poppers.GetGifById)]
-    public async Task<IActionResult> Get([FromRoute] GetGifByIdRequest request,
+    public async Task<IActionResult> Get([FromRoute] Guid gifId,
         CancellationToken token)
     {
-        GifFile response = await _mediator.Send(new GetGifByIdQuery(request.Id), token);
+        GifFile response = await _mediator.Send(
+            new GetGifByIdQuery(gifId, UserId),
+            token);
+
         return File(response.FileStream, "image/gif");
+    }
+
+    [HttpGet(ApiRoutes.Poppers.GetAllUserPoppersById)]
+    public async Task<IActionResult> GetAllUserPoppers(CancellationToken token)
+    {
+        IEnumerable<GifReadOnlyModel> gifs = await _mediator.Send(
+            new GetAllUserGifsQuery(UserId),
+            token);
+
+        return Ok(gifs);
     }
 
     [HttpPost(ApiRoutes.Poppers.CreateGif)]
     public async Task<IActionResult> Create([FromBody] CreateGifRequest request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(new CreateGifCommand()
-        {
-            Duration = request.Duration,
-            ElementSelector = request.Selector,
-            Uri = request.Uri
-        }, token);
+        var response = await _mediator.Send(
+            new CreateGifCommand(
+                UserId,
+                request.Duration,
+                request.Selector,
+                request.Uri,
+                request.Name),
+            token);
 
         return CreatedAtAction(nameof(Get),
             new { response.Id },
@@ -47,10 +64,26 @@ public class PoppersController : ControllerBase
     }
 
     [HttpDelete(ApiRoutes.Poppers.DeleteGifById)]
-    public async Task<IActionResult> Delete([FromRoute] DeleteGifRequest request,
+    public async Task<IActionResult> Delete([FromRoute] Guid gifId,
         CancellationToken token)
     {
-        await _mediator.Send(new DeleteGifCommand(request.Id), token);
+        await _mediator.Send(
+            new DeleteGifCommand(gifId, UserId),
+            token);
+
         return Ok();
     }
+
+    [HttpDelete(ApiRoutes.Poppers.DeleteAllUserGifs)]
+    public async Task<IActionResult> DeleteAllUserGifs(CancellationToken token)
+    {
+        await _mediator.Send(
+            new DeleteAllUserGifsCommand(UserId),
+            token);
+
+        return Ok();
+    }
+
+    private Guid UserId => Guid.Parse(
+        HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 }

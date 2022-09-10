@@ -23,7 +23,7 @@ public class ScreenshotCreator : IScreenshotCreator
 
         return new ScreenshotList()
         {
-            Screenshots = response.Screenshots
+            Value = response.Screenshots
         };
     }
 }

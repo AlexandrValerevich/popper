@@ -1,3 +1,4 @@
+using Poppers.Domain.ValueObjects.Gif;
 using Poppers.Domain.ValueObjects.User;
 
 namespace Poppers.Domain.Entities;
@@ -9,6 +10,7 @@ public class User
     private readonly string _secondName;
     private readonly Email _email;
     private readonly string _passwordHash;
+    private readonly List<Gif> _gifs = new();
 
     internal User(UserId userId,
         string firstName,
@@ -32,4 +34,32 @@ public class User
     public string PasswordHash => _passwordHash;
 
     public string Email => _email.Value;
+
+    public IReadOnlyCollection<Gif> Gifs => _gifs.AsReadOnly();
+
+    public void AddGif(Gif gif)
+    {
+        _gifs.Add(gif);
+    }
+
+    public void RemoveGif(GifId gifId)
+    {
+        var gif = GetGif(gifId);
+        _gifs.Remove(gif);
+    }
+
+    public void RemoveAllGif()
+    {
+        _gifs.Clear();
+    }
+
+    public Gif GetGif(GifId id)
+    {
+        var gif = _gifs.SingleOrDefault(g => g.Id.Equals(id));
+        if (gif is null)
+        {
+            throw new Exception("Gif Not Found");
+        }
+        return gif;
+    }
 }

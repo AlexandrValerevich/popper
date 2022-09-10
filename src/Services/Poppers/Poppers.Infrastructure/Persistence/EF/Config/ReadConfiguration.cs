@@ -1,12 +1,12 @@
-using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Poppers.Application.Common.Models;
+using Poppers.Application.Gif.Common;
 
 namespace Poppers.Infrastructure.Persistence.EF.Config;
 
 internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadOnlyModel>,
-        IEntityTypeConfiguration<RefreshToken>
+    IEntityTypeConfiguration<RefreshToken>, IEntityTypeConfiguration<GifReadOnlyModel> 
 {
     public void Configure(EntityTypeBuilder<UserReadOnlyModel> builder)
     {
@@ -22,5 +22,15 @@ internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadOnlyM
         builder.HasOne<UserReadOnlyModel>()
             .WithMany()
             .HasForeignKey(rt => rt.UserId);
+    }
+
+    public void Configure(EntityTypeBuilder<GifReadOnlyModel> builder)
+    {
+        builder.ToTable("Gifs");
+        builder.HasKey(gif => gif.Id);
+
+        builder.HasOne<UserReadOnlyModel>()
+            .WithMany()
+            .HasForeignKey(gif => gif.UserId);
     }
 }

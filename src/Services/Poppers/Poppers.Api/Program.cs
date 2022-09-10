@@ -26,6 +26,7 @@ var app = builder.Build();
     
     app.UseSerilogRequestLogging();
     app.UseErrorHandler();
+    app.UseErrorLog();
 
     app.UseHsts();
     app.UseHttpsRedirection();

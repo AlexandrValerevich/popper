@@ -4,7 +4,8 @@ using Poppers.Domain.Interfaces;
 
 namespace Poppers.Application.Gif.Commands.DeleteAllUserGifs;
 
-public class DeleteAllUserGifsCommandHandler : IRequestHandler<DeleteAllUserGifsCommand>
+public class DeleteAllUserGifsCommandHandler 
+    : IRequestHandler<DeleteAllUserGifsCommand>
 {
     private readonly IGifFileWriter _gifFileWriter;
     private readonly IUserRepository _userRepository;

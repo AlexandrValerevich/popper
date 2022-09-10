@@ -1,11 +1,12 @@
 using MediatR;
-using Poppers.Application.Common.Interfaces.Persistence;
+using Poppers.Application.Common.Cqrs;
 using Poppers.Domain.Factory;
 using Poppers.Domain.Interfaces;
 
 namespace Poppers.Application.Gif.Commands.RenameGif;
 
-public class RenameGifCommandHandler : IRequestHandler<RenameGifCommand>
+public class RenameGifCommandHandler 
+    : IRequestHandler<RenameGifCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly IGifFactory _gifFactory;

@@ -1,10 +1,12 @@
 using MediatR;
+using Poppers.Application.Common.Cqrs;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Domain.Interfaces;
 
 namespace Poppers.Application.Gif.Commands.DeleteGif;
 
-public class DeleteGifCommandHandler : IRequestHandler<DeleteGifCommand>
+public class DeleteGifCommandHandler 
+    : IRequestHandler<DeleteGifCommand>
 {
     private readonly IGifFileWriter _gifFileWriter;
     private readonly IUserRepository _userRepository;

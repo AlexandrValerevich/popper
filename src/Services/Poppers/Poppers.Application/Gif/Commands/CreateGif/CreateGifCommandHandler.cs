@@ -1,4 +1,5 @@
 using MediatR;
+using Poppers.Application.Common.Cqrs;
 using Poppers.Application.Common.Interfaces.Gif;
 using Poppers.Application.Common.Interfaces.Persistence;
 using Poppers.Application.Gif.Common;
@@ -9,7 +10,8 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Application.Gif.Commands.CreateGif;
 
-public class CreateGifCommandHandler : IRequestHandler<CreateGifCommand, GifCreationResult>
+public class CreateGifCommandHandler 
+    : IRequestHandler<CreateGifCommand, GifCreationResult>
 {
     private readonly IGifFactory _gifFactory;
     private readonly IScreenshotCreator _screenshotCreator;

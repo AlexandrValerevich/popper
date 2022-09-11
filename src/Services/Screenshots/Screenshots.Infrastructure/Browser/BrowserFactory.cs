@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -8,11 +9,10 @@ namespace Screenshots.Infrastructure.Browser;
 
 internal class BrowserFactory : IBrowserFactory
 {
-    // private readonly ChromeDriverService _service;
-
-    public BrowserFactory()
+    private readonly BrowserSettings _settings;
+    public BrowserFactory(IOptions<BrowserSettings> settings)
     {
-        // _service = ChromeDriverService.CreateDefaultService();
+        _settings = settings.Value;
     }
 
     public IBrowser Create()
@@ -24,8 +24,8 @@ internal class BrowserFactory : IBrowserFactory
         // var driver = new ChromeDriver();
 
         // var driver = new EdgeDriver(_service);
-        
-        var driver = new RemoteWebDriver(new Uri("http://127.0.0.1:4444/"), new ChromeOptions());
+
+        var driver = new RemoteWebDriver(new Uri(_settings.BrowserUrl), new ChromeOptions());
         driver.Manage().Window.FullScreen();
 
         return new Browser(driver);

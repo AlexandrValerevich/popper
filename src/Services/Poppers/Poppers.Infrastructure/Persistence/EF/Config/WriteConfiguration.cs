@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poppers.Application.Common.Models;
@@ -15,12 +16,13 @@ public class WriteConfiguration : IEntityTypeConfiguration<User>,
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users");
-
         builder.HasKey(u => u.Id);
+
         builder.Property(u => u.Id)
             .HasConversion(
                 id => id.Value,
-                id => UserId.From(id));
+                id => UserId.From(id)
+            );
 
         builder.Property("_firstName")
             .HasColumnName("FirstName");

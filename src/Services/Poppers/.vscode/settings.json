@@ -1,11 +1,13 @@
 {
     "cSpell.words": [
+        "gifs",
         "Hasher",
         "Hmac",
         "Hsts",
         "Nesterovich",
         "Npgsql",
         "poppersdb",
+        "postgresdb",
         "Serilog"
     ]
 }

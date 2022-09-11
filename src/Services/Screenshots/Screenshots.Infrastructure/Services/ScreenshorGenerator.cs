@@ -5,10 +5,11 @@ using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Infrastructure.Browser.Interfaces;
 using Screenshots.Infrastructure.Extensions;
+using Screenshots.Infrastructure.Helpers;
 
 #pragma warning disable CA1416
 
-namespace Screenshots.Infrastructure.Helpers
+namespace Screenshots.Infrastructure.Services
 {
     internal class ScreenshotGenerator : IScreenshotGenerator
     {

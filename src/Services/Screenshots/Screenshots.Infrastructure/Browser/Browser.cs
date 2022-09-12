@@ -7,7 +7,7 @@ using Serilog;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class Browser : IBrowser
+internal sealed class Browser : IBrowser
 {
     private readonly IWebDriver _driver;
 

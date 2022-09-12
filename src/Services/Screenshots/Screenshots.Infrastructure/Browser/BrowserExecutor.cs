@@ -5,7 +5,7 @@ using Shared.GifFiles.Policies;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class BrowserExecutor : IBrowserExecutor
+internal sealed class BrowserExecutor : IBrowserExecutor
 {
     private readonly IBrowserPool _browserPool;
 

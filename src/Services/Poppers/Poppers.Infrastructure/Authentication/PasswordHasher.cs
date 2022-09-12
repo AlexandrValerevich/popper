@@ -3,7 +3,7 @@ using PasswordCrypt = BCrypt.Net.BCrypt;
 
 namespace Poppers.Infrastructure.Authentication;
 
-public class PasswordHasher : IPasswordHasher
+internal sealed class PasswordHasher : IPasswordHasher
 {
     public string HashPassword(string password)
     {

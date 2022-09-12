@@ -10,7 +10,7 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Persistence.EF.Config;
 
-public class WriteConfiguration : IEntityTypeConfiguration<User>,
+internal sealed class WriteConfiguration : IEntityTypeConfiguration<User>,
     IEntityTypeConfiguration<GifDomain>, IEntityTypeConfiguration<RefreshToken>
 {
     public void Configure(EntityTypeBuilder<User> builder)

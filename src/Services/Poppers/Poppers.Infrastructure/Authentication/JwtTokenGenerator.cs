@@ -7,7 +7,7 @@ using Poppers.Application.Common.Interfaces.Authentication;
 
 namespace Poppers.Infrastructure.Authentication;
 
-public class JwtTokenGenerator : IJwtTokenGenerator
+internal sealed class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly JwtSettings _jwtSettings;
 

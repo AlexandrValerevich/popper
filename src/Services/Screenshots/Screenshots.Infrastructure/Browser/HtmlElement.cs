@@ -4,7 +4,7 @@ using Screenshots.Infrastructure.Browser.Interfaces;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class HtmlElement : IHtmlElement
+internal sealed class HtmlElement : IHtmlElement
 {
     private readonly IWebElement _element;
 

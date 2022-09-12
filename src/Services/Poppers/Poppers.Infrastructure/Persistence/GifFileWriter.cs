@@ -6,7 +6,7 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Persistence;
 
-public class GifFileWriter : IGifFileWriter
+internal sealed class GifFileWriter : IGifFileWriter
 {
     private readonly IHttpGifFileClient _client;
 

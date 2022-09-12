@@ -5,7 +5,7 @@ using Shared.Screenshots.Contracts.V1.Responses;
 
 namespace Shared.Screenshots.Client;
 
-public class HttpScreenshotClient : IHttpScreenshotClient
+internal sealed class HttpScreenshotClient : IHttpScreenshotClient
 {
     private readonly RestClient _client;
 

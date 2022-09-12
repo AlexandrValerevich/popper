@@ -3,7 +3,7 @@ using GifFiles.Application.Interfaces;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifFileReader : IGifFileReader
+internal sealed class GifFileReader : IGifFileReader
 {
     private readonly string _gifFolderBase = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
 

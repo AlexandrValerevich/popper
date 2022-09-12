@@ -1,6 +1,6 @@
 namespace Screenshots.Infrastructure.Browser;
 
-public class BrowserSettings
+internal sealed class BrowserSettings
 {
     public const string SectionName = nameof(BrowserSettings);
 

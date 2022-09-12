@@ -3,7 +3,7 @@ using PasswordCrypt = BCrypt.Net.BCrypt;
 
 namespace Poppers.Infrastructure.Authentication;
 
-public class PasswordValidator : IPasswordValidator
+internal sealed class PasswordValidator : IPasswordValidator
 {
     public bool IsValid(string passwordHash, string password)
     {

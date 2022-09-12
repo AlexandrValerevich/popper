@@ -5,7 +5,7 @@ using Shared.GifFiles.Contracts.V1.Requests;
 
 namespace Poppers.Infrastructure.Persistence;
 
-public class GifFileReader : IGifFileReader
+internal sealed class GifFileReader : IGifFileReader
 {
     private readonly IHttpGifFileClient _client;
 

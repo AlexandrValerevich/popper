@@ -3,7 +3,7 @@ using Serilog;
 
 namespace Screenshots.Infrastructure.Helpers;
 
-public class ExecutionTimeChecker : IDisposable
+internal sealed class ExecutionTimeChecker : IDisposable
 {
     private readonly Stopwatch _timer;
 

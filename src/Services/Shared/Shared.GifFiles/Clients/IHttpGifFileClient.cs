@@ -1,6 +1,5 @@
 using Shared.GifFiles.Contracts.V1.Requests;
 using Shared.GifFiles.Contracts.V1.Responses;
-using Shared.GifFiles.Models;
 
 namespace Shared.GifFiles.Clients;
 

@@ -3,7 +3,7 @@ using SeleniumScreenshot = OpenQA.Selenium.Screenshot;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class Screenshot : IScreenshot
+internal sealed class Screenshot : IScreenshot
 {
     private readonly SeleniumScreenshot _screenshot;
 

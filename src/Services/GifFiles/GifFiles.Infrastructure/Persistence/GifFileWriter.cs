@@ -3,7 +3,7 @@ using ImageMagick;
 
 namespace GifFiles.Infrastructure.Persistence;
 
-public class GifFileWriter : IGifFileWriter
+internal sealed class GifFileWriter : IGifFileWriter
 {
     private readonly string _gifFolderBase = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
 

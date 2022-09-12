@@ -3,7 +3,7 @@ using Screenshots.Infrastructure.Browser.Interfaces;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class BrowserPool : IBrowserPool, IDisposable
+internal sealed class BrowserPool : IBrowserPool, IDisposable
 {
     private readonly ConcurrentBag<IBrowser> _bag = new();
     private readonly IBrowserFactory _browserFactory;

@@ -6,7 +6,7 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Infrastructure.Gif;
 
-public class ScreenshotCreator : IScreenshotCreator
+internal sealed class ScreenshotCreator : IScreenshotCreator
 {
     private readonly IHttpScreenshotClient _client;
 

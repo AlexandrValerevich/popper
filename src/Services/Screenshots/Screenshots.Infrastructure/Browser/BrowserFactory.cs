@@ -8,7 +8,7 @@ using Serilog;
 
 namespace Screenshots.Infrastructure.Browser;
 
-internal class BrowserFactory : IBrowserFactory
+internal sealed class BrowserFactory : IBrowserFactory
 {
     private readonly BrowserSettings _settings;
     public BrowserFactory(IOptions<BrowserSettings> settings)

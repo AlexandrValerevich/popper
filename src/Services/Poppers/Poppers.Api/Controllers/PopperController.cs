@@ -49,7 +49,7 @@ public class PoppersController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateGifRequest request,
         CancellationToken token)
     {
-        var response = await _mediator.Send(
+        GifCreationResult response = await _mediator.Send(
             new CreateGifCommand(
                 UserId,
                 request.Duration,
@@ -59,8 +59,8 @@ public class PoppersController : ControllerBase
             token);
 
         return CreatedAtAction(nameof(Get),
-            new { response.Id },
-            new CreateGifResponse(response.Id));
+            new { response.GifId },
+            new CreateGifResponse(response.GifId));
     }
 
     [HttpDelete(ApiRoutes.Poppers.DeleteGifById)]

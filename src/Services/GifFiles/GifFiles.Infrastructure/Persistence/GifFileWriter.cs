@@ -14,7 +14,6 @@ public class GifFileWriter : IGifFileWriter
     {
         var magicImages = MapMagicImage(images, delay);
         var imageCollection = new MagickImageCollection(magicImages);
-        imageCollection.Optimize();
 
         string folderName = Path.Combine(_gifFolderBase, userId.ToString());
 

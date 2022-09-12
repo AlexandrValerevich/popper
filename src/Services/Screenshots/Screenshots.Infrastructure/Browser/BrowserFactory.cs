@@ -4,6 +4,7 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using Screenshots.Infrastructure.Browser.Interfaces;
+using Serilog;
 
 namespace Screenshots.Infrastructure.Browser;
 

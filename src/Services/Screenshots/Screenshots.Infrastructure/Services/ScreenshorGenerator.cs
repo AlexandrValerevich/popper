@@ -1,13 +1,14 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using ImageMagick;
 using Screenshots.Application.Common;
 using Screenshots.Application.Interfaces;
 using Screenshots.Infrastructure.Browser.Interfaces;
 using Screenshots.Infrastructure.Extensions;
 using Screenshots.Infrastructure.Helpers;
 
-#pragma warning disable CA1416
+// #pragma warning disable CA1416
 
 namespace Screenshots.Infrastructure.Services
 {
@@ -27,12 +28,12 @@ namespace Screenshots.Infrastructure.Services
             await _browserExecutor.ExecuteAsync((browser) =>
             {
                 using var _ = new ExecutionTimeChecker(nameof(GenerateAsync));
+
                 browser.NavigateTo(uri);
                 List<IScreenshot> screenshots = CreateScreenshots(duration, browser);
 
                 IHtmlElement element = browser.GetHtmlElementBySelector(selector);
-                screenshotCreationResult = screenshots.Select(
-                    s => CropElement(s, element.Position, element.Size).ToBase64String());
+                screenshotCreationResult = screenshots.Select(s => CropElement(s, element.Position, element.Size));
 
                 return Task.CompletedTask;
             },
@@ -57,18 +58,27 @@ namespace Screenshots.Infrastructure.Services
             return screenshots;
         }
 
-        private static byte[] CropElement(IScreenshot screenshot, Point position, Size size)
+        private static string CropElement(IScreenshot screenshot, Point position, Size size)
         {
-            using var img = Image.FromStream(new MemoryStream(screenshot.AsBytes())) as Bitmap;
-            using var elementImg = img.Clone(new Rectangle(position, size), img.PixelFormat);
-            return ConvertToBytes(elementImg);
+            var magickImage = new MagickImage(screenshot.AsBytes());
+            var magickGeomitry = new MagickGeometry(position.X, position.Y, size.Width, size.Height)
+            {
+                IgnoreAspectRatio = true
+            };
+
+            magickImage.Crop(magickGeomitry);
+            magickImage.Resize(magickGeomitry);
+
+            magickImage.Format = MagickFormat.Jpeg;
+
+            return magickImage.ToBase64();
         }
 
-        private static byte[] ConvertToBytes(Bitmap img)
-        {
-            using var stream = new MemoryStream();
-            img.Save(stream, ImageFormat.Png);
-            return stream.ToArray();
-        }
+        // private static byte[] ConvertToBytes(Bitmap img)
+        // {
+        //     using var stream = new MemoryStream();
+        //     img.Save(stream, ImageFormat.Png);
+        //     return stream.ToArray();
+        // }
     }
 }

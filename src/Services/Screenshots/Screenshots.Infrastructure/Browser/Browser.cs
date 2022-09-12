@@ -12,9 +12,7 @@ internal class Browser : IBrowser
     private readonly IWebDriver _driver;
 
     public DateTime StartUsageDate { get; }
-
     public DateTime LastUsageDate { get; private set; }
-
     public Size Size => _driver.Manage().Window.Size;
 
     public Browser(IWebDriver driver)

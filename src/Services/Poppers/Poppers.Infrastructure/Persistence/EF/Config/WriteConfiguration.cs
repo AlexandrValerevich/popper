@@ -11,7 +11,7 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 namespace Poppers.Infrastructure.Persistence.EF.Config;
 
 public class WriteConfiguration : IEntityTypeConfiguration<User>,
-    IEntityTypeConfiguration<GifDomain>
+    IEntityTypeConfiguration<GifDomain>, IEntityTypeConfiguration<RefreshToken>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -64,5 +64,14 @@ public class WriteConfiguration : IEntityTypeConfiguration<User>,
 
         builder.Property<DateTime>("_created")
             .HasColumnName("Created");
+    }
+
+    public void Configure(EntityTypeBuilder<RefreshToken> builder)
+    {
+        builder.ToTable("RefreshTokens");
+        builder.HasKey(rt => rt.Id);
+
+        builder.Property(rt => rt.UserId)
+            .IsRequired();        
     }
 }

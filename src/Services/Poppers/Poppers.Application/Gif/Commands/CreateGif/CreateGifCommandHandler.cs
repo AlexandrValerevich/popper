@@ -10,7 +10,7 @@ using GifDomain = Poppers.Domain.Entities.Gif;
 
 namespace Poppers.Application.Gif.Commands.CreateGif;
 
-public class CreateGifCommandHandler 
+public class CreateGifCommandHandler
     : IRequestHandler<CreateGifCommand, GifCreationResult>
 {
     private readonly IGifFactory _gifFactory;
@@ -41,16 +41,19 @@ public class CreateGifCommandHandler
             DateTime.UtcNow
         );
 
+        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
+
         User user = await _userRepository.ReadById(request.UserId, token);
         user.AddGif(gif);
-        await _userRepository.Update(user, token);
 
-        ScreenshotList screenshots = await _screenshotCreator.TakeScreenshotsAsync(gif, token);
-        await _gifFileWriter.CreateAsync(
+        var updateUserTask = _userRepository.Update(user, token);
+        var createGifTask = _gifFileWriter.CreateAsync(
             gif,
             request.UserId,
             screenshots,
             token);
+
+        await Task.WhenAll(new[] { updateUserTask, createGifTask });
 
         return new GifCreationResult(gif.Id);
     }

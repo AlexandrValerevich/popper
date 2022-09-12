@@ -1,3 +1,3 @@
 namespace Poppers.Application.Gif.Common;
 
-public record GifCreationResult(Guid Id);
+public record GifCreationResult(Guid GifId);

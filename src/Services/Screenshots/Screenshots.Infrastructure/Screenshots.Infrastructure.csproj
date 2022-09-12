@@ -21,9 +21,10 @@
   </ItemGroup>
 
 
-  <!-- <ItemGroup>
-    <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />
-  </ItemGroup> -->
+  <ItemGroup>
+    <!-- <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" /> -->
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="11.3.0" />
+  </ItemGroup>
 
   <PropertyGroup>
     <ServerGarbageCollection>false</ServerGarbageCollection>

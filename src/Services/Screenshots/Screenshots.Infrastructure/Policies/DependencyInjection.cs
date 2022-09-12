@@ -6,7 +6,7 @@ using Polly.Registry;
 using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
-using Screenshots.Infrastructure.Options;
+using Screenshots.Infrastructure.Policies;
 using Serilog;
 
 namespace Shared.GifFiles.Policies;
@@ -16,9 +16,9 @@ namespace Shared.GifFiles.Policies;
 public static class DependencyInjection
 {
     public static IServiceCollection AddPolicies(this IServiceCollection services,
-        Action<BrowserPoolOptions>? builder = null)
+        Action<BrowserPoliciesSettings>? builder = null)
     {
-        var options = new BrowserPoolOptions();
+        var options = new BrowserPoliciesSettings();
         builder?.Invoke(options);
 
         var retry = CreateWaitAndRetryPolicy(options);
@@ -39,7 +39,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static AsyncRetryPolicy CreateWaitAndRetryPolicy(BrowserPoolOptions options)
+    private static AsyncRetryPolicy CreateWaitAndRetryPolicy(BrowserPoliciesSettings options)
     {
         var jitterer = new Random();
         return Policy.Handle<StaleElementReferenceException>()
@@ -50,7 +50,7 @@ public static class DependencyInjection
                 (ex, ts, attempt, _) => Log.Warning("Exception {Exception} was thrown after {Time}, in attempt {Attempt}", ex.Message, ts, attempt));
     }
 
-    private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoolOptions options)
+    private static AsyncBulkheadPolicy CreateBulkHeadPolicy(BrowserPoliciesSettings options)
     {
         return Policy.BulkheadAsync(
             options.MaxParallel,
@@ -59,7 +59,7 @@ public static class DependencyInjection
     }
 
 
-    private static AsyncTimeoutPolicy CreateTimeOutPolicy(BrowserPoolOptions options)
+    private static AsyncTimeoutPolicy CreateTimeOutPolicy(BrowserPoliciesSettings options)
     {
         return Policy.TimeoutAsync(options.TimeOut);
     }

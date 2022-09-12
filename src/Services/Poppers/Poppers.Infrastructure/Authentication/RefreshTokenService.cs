@@ -9,10 +9,10 @@ namespace Poppers.Infrastructure.Authentication;
 
 internal sealed class RefreshTokenService : IRefreshTokenService
 {
-    private readonly ReadDbContext _context;
+    private readonly WriteDbContext _context;
     private DbSet<RefreshToken> RefreshTokens => _context.RefreshTokens;
 
-    public RefreshTokenService(ReadDbContext context)
+    public RefreshTokenService(WriteDbContext context)
     {
         _context = context;
     }

@@ -22,5 +22,6 @@ internal sealed class WriteDbContext : DbContext
         var configuration = new WriteConfiguration();
         modelBuilder.ApplyConfiguration<User>(configuration);
         modelBuilder.ApplyConfiguration<GifDomain>(configuration);
+        modelBuilder.ApplyConfiguration<RefreshToken>(configuration);
     }
 }

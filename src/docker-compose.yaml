@@ -1,5 +1,29 @@
 version: "3"
 services:
+
+  poppers:
+    build: 
+      context: '.\Services'
+      dockerfile:  '.\Poppers\Dockerfile'     
+    ports:
+      - '8080:80'
+    depends_on:
+      - postgresdb
+      - giffiles
+      - screenshots
+  
+  giffiles:
+    build: 
+      context: '.\Services'
+      dockerfile:  '.\GifFiles\Dockerfile'
+    volumes:
+      - ./Services/GifFiles/GifFiles.Api/Assets:/app/Assets/.     
+
+  screenshots:
+    build: 
+      context: '.\Services'
+      dockerfile:  '.\Screenshots\Dockerfile'     
+
   chrome-1:
     image: selenium/node-chrome:4.3.0-20220706
     shm_size: 2gb
@@ -58,7 +82,7 @@ services:
       - "4443:4443"
       - "4444:4444"
       
-  postgres:
+  postgresdb:
     image: postgres
     environment:
       POSTGRES_USER: "postgres"

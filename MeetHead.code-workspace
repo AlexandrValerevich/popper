@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "src"
 		},
 		{
 			"path": "src/Services/GifFiles"
@@ -28,6 +28,7 @@
 			"Magick",
 			"Npgsql",
 			"poppersdb",
+			"postgresdb",
 			"Serilog"
 		],
 		"powershell.cwd": "c:\\Users\\User\\projects\\MeetHead\\src\\Services\\GifFiles",

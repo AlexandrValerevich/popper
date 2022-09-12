@@ -1,6 +1,6 @@
-namespace Screenshots.Infrastructure.Options;
+namespace Screenshots.Infrastructure.Policies;
 
-public class BrowserPoolOptions
+public class BrowserPoliciesSettings
 {
     public int Retry { get; set; } = 3;
 
@@ -9,6 +9,6 @@ public class BrowserPoolOptions
     public int MaxQueue { get; set; } = 2;
 
     public int TimeOut { get; set; } = 35;
-    
+
     public int Wait { get; set; } = 2;
 }
